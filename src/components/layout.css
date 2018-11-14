@@ -633,9 +633,15 @@ pre tt:after {
   max-width: 100%;
 }
 .dirka {
-  fill: white;
-  stroke: black;
+  fill: #e8e8e8;
+  stroke: #272727;
 }
 .crna {
-  fill: black;
+  fill: #272727;
+}
+.dirka:hover {
+    fill: white;
+}
+.crna:hover {
+    fill: black;
 }
