@@ -4,11 +4,11 @@ import Strelica from '../components/Strelica';
 class Tabla extends Component {
     constructor(props) {
         super(props);
-        this.promeniBrojOktava = this.promeniBrojOktava.bind(this);
+        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
     }
     
-    promeniBrojOktava(akcija){
-        this.props.promeniBrojOktava(akcija);
+    promeniSvojstvo(akcija){
+        this.props.promeniSvojstvo(akcija);
     }
     
     render() {        
@@ -22,7 +22,7 @@ class Tabla extends Component {
                         akcija="smanji"
                         brojOktava={ this.props.brojOktava }
                         limit={ this.props.limit.donji }
-                        promeniBrojOktava={ this.promeniBrojOktava }
+                        promeniSvojstvo={ this.promeniSvojstvo }
                     />
 
                     <span className="cifra">
@@ -33,7 +33,7 @@ class Tabla extends Component {
                         akcija="povecaj"
                         brojOktava={ this.props.brojOktava }
                         limit={ this.props.limit.gornji }
-                        promeniBrojOktava={ this.promeniBrojOktava }
+                        promeniSvojstvo={ this.promeniSvojstvo }
                     />
 
                 </div>

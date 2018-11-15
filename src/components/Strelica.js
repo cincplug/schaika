@@ -3,23 +3,23 @@ import React, { Component } from 'react';
 class Strelica extends Component {
     constructor(props){
         super(props);
-        this.promeniBrojOktava = this.promeniBrojOktava.bind(this);
+        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
     }
     
-    promeniBrojOktava(){
+    promeniSvojstvo(){
         if( 
             (this.props.akcija === 'povecaj' && this.props.brojOktava < this.props.limit)
             ||
             (this.props.akcija === 'smanji' && this.props.brojOktava > this.props.limit)
         ) {
-            this.props.promeniBrojOktava(this.props.akcija);
+            this.props.promeniSvojstvo(this.props.akcija);
         }
     }
     
     render() {
         return (
             <span className={ "strelica " + this.props.akcija }
-                onClick={ this.promeniBrojOktava }>
+                onClick={ this.promeniSvojstvo }>
                 <svg
                     width="30"
                     height="30"

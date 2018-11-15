@@ -13,7 +13,7 @@ class Klavir extends Component {
         super(props);
 
         this.sviraj = this.sviraj.bind(this);
-        this.promeniBrojOktava = this.promeniBrojOktava.bind(this);
+        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
         
         
         this.sirinaOktave = 330; 
@@ -36,7 +36,7 @@ class Klavir extends Component {
         return this.dirkiPoOktavi * brojOktava + this.dirkiPosle; 
     }
     
-    promeniBrojOktava(akcija){
+    promeniSvojstvo(akcija){
         var zaKoliko = (akcija === 'povecaj') ? 1 : -1;
         var brojOktava = this.state.brojOktava + zaKoliko
         this.setState({
@@ -94,7 +94,7 @@ class Klavir extends Component {
             <div id="klavir">
                 <Tabla
                     brojOktava={ this.state.brojOktava }
-                    promeniBrojOktava={ this.promeniBrojOktava }
+                    promeniSvojstvo={ this.promeniSvojstvo }
                     limit={{
                         donji: 1,
                         gornji: 7
