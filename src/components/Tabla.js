@@ -8,12 +8,7 @@ class Tabla extends Component {
     }
     
     promeniBrojOktava(akcija){
-        if(
-            this.props.brojOktava > this.props.limit.donji &&
-            this.props.brojOktava < this.props.limit.gornji
-        ) {
-            this.props.promeniBrojOktava(akcija);
-        }
+        this.props.promeniBrojOktava(akcija);
     }
     
     render() {        
@@ -25,6 +20,8 @@ class Tabla extends Component {
 
                     <Strelica 
                         akcija="smanji"
+                        brojOktava={ this.props.brojOktava }
+                        limit={ this.props.limit.donji }
                         promeniBrojOktava={ this.promeniBrojOktava }
                     />
 
@@ -34,6 +31,8 @@ class Tabla extends Component {
 
                     <Strelica 
                         akcija="povecaj"
+                        brojOktava={ this.props.brojOktava }
+                        limit={ this.props.limit.gornji }
                         promeniBrojOktava={ this.promeniBrojOktava }
                     />
 

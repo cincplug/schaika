@@ -6,11 +6,17 @@ class Strelica extends Component {
         this.promeniBrojOktava = this.promeniBrojOktava.bind(this);
     }
     
-    promeniBrojOktava(koliko){
-        this.props.promeniBrojOktava(this.props.akcija);
+    promeniBrojOktava(){
+        if( 
+            (this.props.akcija === 'povecaj' && this.props.brojOktava < this.props.limit)
+            ||
+            (this.props.akcija === 'smanji' && this.props.brojOktava > this.props.limit)
+        ) {
+            this.props.promeniBrojOktava(this.props.akcija);
+        }
     }
     
-    render() {        
+    render() {
         return (
             <span className={ "strelica " + this.props.akcija }
                 onClick={ this.promeniBrojOktava }>
