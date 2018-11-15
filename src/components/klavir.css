@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: #007744;
+  background: #242424;
   color: white;
 }
 
@@ -14,7 +14,7 @@ body {
 #klavir {
     padding: 10px;
     padding-bottom: 2px;
-    background: linear-gradient(to bottom, #323232 0%, #272727 100%);
+    background: linear-gradient(to bottom, #252525 0%, #272727 100%);
 }
 #klavijatura {
   max-width: 100%;
@@ -22,10 +22,10 @@ body {
 }
 #tabla {
   padding: 10px;
-  background: linear-gradient(to bottom, #323232 0%, #272727 100%);
+  background: linear-gradient(to bottom, #272727 0%, #323232 100%);
 }
 .dirka {
-  fill: #e8e8e8;
+  fill: #424242;
   stroke: #272727;
 }
 .crna {
