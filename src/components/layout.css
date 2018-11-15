@@ -5,7 +5,6 @@ html {
 }
 body {
   margin: 0;
-  background: #007744;
 }
 article,
 aside,
@@ -624,24 +623,3 @@ pre tt:after {
   }
 }
 
-
-
-#glava {
-    background: #004477;
-}
-#klavir {
-  max-width: 100%;
-}
-.dirka {
-  fill: #e8e8e8;
-  stroke: #272727;
-}
-.crna {
-  fill: #272727;
-}
-.dirka:hover {
-    fill: white;
-}
-.crna:hover {
-    fill: black;
-}
