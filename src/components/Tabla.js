@@ -23,6 +23,22 @@ class Tabla extends Component {
                         donji: 1,
                         gornji: 7
                     }}
+                    trans={{
+                        en: "Octaves"
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <Svojstvo 
+                    svojstvo="početna"
+                    vrednost={ this.props.početna }
+                    limit={{
+                        donji: 0,
+                        gornji: 3
+                    }}
+                    trans={{
+                        en: "Start octave"
+                    }}
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
 
@@ -32,6 +48,9 @@ class Tabla extends Component {
                     limit={{
                         donji: 1,
                         gornji: 4
+                    }}
+                    trans={{
+                        en: "Oscillators"
                     }}
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />

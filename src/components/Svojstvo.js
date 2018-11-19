@@ -17,6 +17,7 @@ class Svojstvo extends Component {
             
             <div className={ "svojstvo " + this.props.svojstvo }>
 
+                <div className="ime-svojstva">{ this.props.trans.en }</div>
                 <Strelica 
                     svojstvo={ this.props.svojstvo }
                     akcija="smanji"

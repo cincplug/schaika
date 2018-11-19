@@ -28,7 +28,8 @@ class Klavir extends Component {
         
         this.state = {
             brojOktava: brojOktava,
-            boja: 1,
+            početna: 1,
+            boja: 2,
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
     }
@@ -53,7 +54,7 @@ class Klavir extends Component {
     sviraj(nota){
 
         for(var i = 0; i < this.state.boja; i++){
-            let frekvenca = frekvence[nota + i * this.dirkiPoOktavi + this.donja];
+            let frekvenca = frekvence[nota + i * this.dirkiPoOktavi + this.state.početna * this.dirkiPoOktavi];
             let jacina = (1 - nota / this.state.dirkiUkupno) / (i + 1) / this.state.boja;
             console.log(jacina);
             let zvuk = new Pizzicato.Sound({
@@ -105,6 +106,7 @@ class Klavir extends Component {
                 <Tabla
                     brojOktava={ this.state.brojOktava }
                     boja={ this.state.boja }
+                    početna={ this.state.početna }
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
                 <div className="klavir-auter">

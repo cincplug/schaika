@@ -18,18 +18,26 @@ body {
 }
 
 #klavijatura {
-    max-width: 100%;
+    width: 100%;
     display: block;
+    cursor: default;
 }
 
 #tabla {
     padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
     background: linear-gradient(to bottom, #272727 0%, #323232 100%);
 }
 
 .svojstvo {
     display: inline-block;
     margin-right: 20px;
+}
+
+.ime-svojstva {
+    text-align: center;
+    font-size: 15px;
 }
 
 .strelica {
@@ -50,7 +58,8 @@ body {
 
 .cifra {
     display: inline-block;
-    width: 20px;
+    width: 30px;
+    font-size: 22px;
     text-align: center;
     position: relative;
     bottom: 10px;
@@ -58,7 +67,7 @@ body {
 }
 
 .dirka {
-    fill: #424242;
+    fill: #e8e8e8;
     stroke: #272727;
 }
 
