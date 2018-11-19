@@ -17,19 +17,6 @@ class Tabla extends Component {
             <div id="tabla">
 
                 <Svojstvo 
-                    svojstvo="brojOktava"
-                    vrednost={ this.props.brojOktava }
-                    limit={{
-                        donji: 1,
-                        gornji: 7
-                    }}
-                    trans={{
-                        en: "Octaves"
-                    }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
-                />
-
-                <Svojstvo 
                     svojstvo="početna"
                     vrednost={ this.props.početna }
                     limit={{
@@ -43,6 +30,19 @@ class Tabla extends Component {
                 />
 
                 <Svojstvo 
+                    svojstvo="brojOktava"
+                    vrednost={ this.props.brojOktava }
+                    limit={{
+                        donji: 1,
+                        gornji: 7
+                    }}
+                    trans={{
+                        en: "Octaves"
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <Svojstvo 
                     svojstvo="boja"
                     vrednost={ this.props.boja }
                     limit={{
@@ -51,6 +51,19 @@ class Tabla extends Component {
                     }}
                     trans={{
                         en: "Oscillators"
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <Svojstvo 
+                    svojstvo="kontinuitet"
+                    vrednost={ this.props.kontinuitet }
+                    limit={{
+                        donji: 1,
+                        gornji: 12
+                    }}
+                    trans={{
+                        en: "Continuity"
                     }}
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />

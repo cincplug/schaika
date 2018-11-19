@@ -11,7 +11,7 @@ import './klavir.css'
 class Klavir extends Component {
     constructor(props) {
         super(props);
-        // this.zvuci = new Pizzicato.Group();
+        
         this.sviraj = this.sviraj.bind(this);
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
         
@@ -30,6 +30,7 @@ class Klavir extends Component {
             brojOktava: brojOktava,
             početna: 1,
             boja: 2,
+            kontinuitet: 6,
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
     }
@@ -56,7 +57,9 @@ class Klavir extends Component {
         for(var i = 0; i < this.state.boja; i++){
             let frekvenca = frekvence[nota + i * this.dirkiPoOktavi + this.state.početna * this.dirkiPoOktavi];
             let jacina = (1 - nota / this.state.dirkiUkupno) / (i + 1) / this.state.boja;
-            console.log(jacina);
+            if(typeof this.zvuci === 'undefined'){
+                this.zvuci = new Pizzicato.Group();
+            }
             let zvuk = new Pizzicato.Sound({
                 source: 'wave',
                 options: {
@@ -66,13 +69,18 @@ class Klavir extends Component {
                     frequency: frekvenca
                 }
             });
-            // this.zvuci.addSound(zvuk);
+            this.zvuci.addSound(zvuk);
             zvuk.play();
         }
-        // var kolkoZvuka = this.zvuci.sounds.length;
-        // for(var i = 0; i < kolkoZvuka; i++){
-        //     this.zvuci.sounds[i].volume /= i / 2;
-        // }
+        var kolkoZvuka = this.zvuci.sounds.length;
+        var suvišnih = this.state.kontinuitet * this.state.boja;
+        console.log(suvišnih);
+        if(kolkoZvuka > this.state.kontinuitet * this.state.boja){
+            for(var ii = 0; ii < this.state.boja; ii++){
+                this.zvuci.sounds[ii].stop();
+                this.zvuci.removeSound(this.zvuci.sounds[ii]);
+            }
+        }
     }
     
     render() {
@@ -107,6 +115,7 @@ class Klavir extends Component {
                     brojOktava={ this.state.brojOktava }
                     boja={ this.state.boja }
                     početna={ this.state.početna }
+                    kontinuitet={ this.state.kontinuitet }
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
                 <div className="klavir-auter">
