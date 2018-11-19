@@ -12,10 +12,13 @@ class Svojstvo extends Component {
     }
     
     render() {        
-        
-        return (
+        var klasa = "svojstvo " + this.props.svojstvo + 
+            " " + 
+            this.props.svojstvo + 
+            "-" + this.props.vrednost;
             
-            <div className={ "svojstvo " + this.props.svojstvo }>
+        return (
+            <div className={ klasa }>
 
                 <div className="ime-svojstva">{ this.props.trans.en }</div>
                 <Strelica 

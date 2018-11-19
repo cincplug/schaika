@@ -7,6 +7,7 @@ body {
 #glava {
     background: #004477;
     text-align: center;
+    padding: 10px;
 }
 
 #telo {}
@@ -32,7 +33,18 @@ body {
 
 .svojstvo {
     display: inline-block;
-    margin-right: 20px;
+    text-align: center;
+    width: 15%;
+}
+
+@media(max-width: 480px){
+    #tabla {
+        flex-direction: column;
+    }
+    .svojstvo {
+        display: block;
+        width: 100%;
+    }
 }
 
 .ime-svojstva {
@@ -42,9 +54,11 @@ body {
 
 .strelica {
     display: inline-block;
+    width: 15px;
 }
 
 .strelica svg {
+    width: 15px;
     fill: white;
 }
 
@@ -52,8 +66,22 @@ body {
     fill: #007744;
 }
 
+.j-0 {
+    opacity: 0.2;
+}
+
 .smanji {
     transform: scaleX(-1);
+}
+
+.mir {
+    width: 30px;
+    height: 30px;
+    background: url(../images/svg/zvucnik.svg) no-repeat 0 0;
+    background-size: cover;
+    position: absolute;
+    top: 17px;
+    right: 17px;
 }
 
 .cifra {

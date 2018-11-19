@@ -67,7 +67,24 @@ class Tabla extends Component {
                     }}
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
-                
+
+                <Svojstvo 
+                    svojstvo="jačina"
+                    vrednost={ this.props.jačina }
+                    limit={{
+                        donji: 0,
+                        gornji: 10
+                    }}
+                    trans={{
+                        en: "Volume"
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <div className={ "mir j-" + this.props.jačina }
+                    onClick={ () => this.promeniSvojstvo('jačina', 'nula') }>
+                </div>
+
             </div>
         );
     }

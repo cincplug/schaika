@@ -31,6 +31,7 @@ class Klavir extends Component {
             početna: 1,
             boja: 2,
             kontinuitet: 6,
+            jačina: 5,
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
     }
@@ -40,8 +41,23 @@ class Klavir extends Component {
     }
     
     promeniSvojstvo(svojstvo, akcija){
-        var zaKoliko = (akcija === 'povecaj') ? 1 : -1;
-        var vrednost = this.state[svojstvo] + zaKoliko
+        var vrednost;
+        switch(akcija){
+            case 'povecaj':
+                vrednost = this.state[svojstvo] + 1;
+                break;
+            case 'smanji':
+                vrednost = this.state[svojstvo] - 1;
+                break;
+            case 'nula':
+                vrednost = 0;
+                if(svojstvo === 'jačina' && this.state.jačina === 0) {
+                    vrednost = 1;
+                }
+                break;
+            default:
+                break;
+        }
         this.setState({
             [svojstvo]: vrednost
         });
@@ -50,31 +66,36 @@ class Klavir extends Component {
                 dirkiUkupno: this.prebrojDirke(vrednost)
             });
         }
+        if(svojstvo === 'jačina') {
+            Pizzicato.volume = vrednost / 10;
+        }
     }
     
     sviraj(nota){
 
         for(var i = 0; i < this.state.boja; i++){
             let frekvenca = frekvence[nota + i * this.dirkiPoOktavi + this.state.početna * this.dirkiPoOktavi];
-            let jacina = (1 - nota / this.state.dirkiUkupno) / (i + 1) / this.state.boja;
+            let jačina = (1 - nota / this.state.dirkiUkupno) / (i + 1) / this.state.boja;
             if(typeof this.zvuci === 'undefined'){
+                Pizzicato.volume = this.state.jačina / 10;
                 this.zvuci = new Pizzicato.Group();
             }
+            
             let zvuk = new Pizzicato.Sound({
                 source: 'wave',
                 options: {
                     type: 'sine',
                     release: 1,
-                    volume: jacina,
+                    volume: jačina,
                     frequency: frekvenca
                 }
             });
             this.zvuci.addSound(zvuk);
             zvuk.play();
+            console.log(this.zvuci.sounds);
         }
         var kolkoZvuka = this.zvuci.sounds.length;
-        var suvišnih = this.state.kontinuitet * this.state.boja;
-        console.log(suvišnih);
+        
         if(kolkoZvuka > this.state.kontinuitet * this.state.boja){
             for(var ii = 0; ii < this.state.boja; ii++){
                 this.zvuci.sounds[ii].stop();
@@ -116,6 +137,7 @@ class Klavir extends Component {
                     boja={ this.state.boja }
                     početna={ this.state.početna }
                     kontinuitet={ this.state.kontinuitet }
+                    jačina={ this.state.jačina }
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
                 <div className="klavir-auter">
