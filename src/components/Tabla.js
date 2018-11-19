@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Strelica from '../components/Strelica';
+import Svojstvo from '../components/Svojstvo';
 
 class Tabla extends Component {
     constructor(props) {
@@ -7,8 +7,8 @@ class Tabla extends Component {
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
     }
     
-    promeniSvojstvo(akcija){
-        this.props.promeniSvojstvo(akcija);
+    promeniSvojstvo(svojstvo, akcija){
+        this.props.promeniSvojstvo(svojstvo, akcija);
     }
     
     render() {        
@@ -16,27 +16,26 @@ class Tabla extends Component {
         return (
             <div id="tabla">
 
-                <div className="broj-oktava">
+                <Svojstvo 
+                    svojstvo="brojOktava"
+                    vrednost={ this.props.brojOktava }
+                    limit={{
+                        donji: 1,
+                        gornji: 7
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
 
-                    <Strelica 
-                        akcija="smanji"
-                        brojOktava={ this.props.brojOktava }
-                        limit={ this.props.limit.donji }
-                        promeniSvojstvo={ this.promeniSvojstvo }
-                    />
-
-                    <span className="cifra">
-                        { this.props.brojOktava }
-                    </span>
-
-                    <Strelica 
-                        akcija="povecaj"
-                        brojOktava={ this.props.brojOktava }
-                        limit={ this.props.limit.gornji }
-                        promeniSvojstvo={ this.promeniSvojstvo }
-                    />
-
-                </div>
+                <Svojstvo 
+                    svojstvo="boja"
+                    vrednost={ this.props.boja }
+                    limit={{
+                        donji: 1,
+                        gornji: 4
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+                
             </div>
         );
     }

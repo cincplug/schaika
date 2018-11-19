@@ -8,11 +8,11 @@ class Strelica extends Component {
     
     promeniSvojstvo(){
         if( 
-            (this.props.akcija === 'povecaj' && this.props.brojOktava < this.props.limit)
+            (this.props.akcija === 'povecaj' && this.props.vrednost < this.props.limit)
             ||
-            (this.props.akcija === 'smanji' && this.props.brojOktava > this.props.limit)
+            (this.props.akcija === 'smanji' && this.props.vrednost > this.props.limit)
         ) {
-            this.props.promeniSvojstvo(this.props.akcija);
+            this.props.promeniSvojstvo(this.props.svojstvo, this.props.akcija);
         }
     }
     
@@ -27,7 +27,7 @@ class Strelica extends Component {
                     version="1.1"
                 >
                     <g>
-                        <path fill="white" d="M 0 0 L 30 15 L 0 30 Z"></path>
+                        <path d="M 0 0 L 30 15 L 0 30 Z"></path>
                     </g>
                 </svg>
             </span>

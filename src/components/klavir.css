@@ -1,54 +1,75 @@
 body {
-  margin: 0;
-  background: #242424;
-  color: white;
+    margin: 0;
+    background: #242424;
+    color: white;
 }
 
 #glava {
-  background: #004477;
-  text-align: center;
+    background: #004477;
+    text-align: center;
 }
-#telo {
-      
-}
+
+#telo {}
+
 #klavir {
     padding: 10px;
     padding-bottom: 2px;
     background: linear-gradient(to bottom, #252525 0%, #272727 100%);
 }
+
 #klavijatura {
-  max-width: 100%;
-  display: block;
+    max-width: 100%;
+    display: block;
 }
+
 #tabla {
-  padding: 10px;
-  background: linear-gradient(to bottom, #272727 0%, #323232 100%);
+    padding: 10px;
+    background: linear-gradient(to bottom, #272727 0%, #323232 100%);
 }
-.dirka {
-  fill: #424242;
-  stroke: #272727;
-}
-.crna {
-  fill: #272727;
-}
-.dirka:hover {
-  fill: white;
-}
-.crna:hover {
-  fill: black;
+
+.svojstvo {
+    display: inline-block;
+    margin-right: 20px;
 }
 
 .strelica {
-  display: inline-block;
+    display: inline-block;
 }
+
+.strelica svg {
+    fill: white;
+}
+
+.strelica:hover svg {
+    fill: #007744;
+}
+
 .smanji {
-  transform: scaleX(-1);
+    transform: scaleX(-1);
 }
-.broj-oktava .cifra {
-  display: inline-block;
-  width: 20px;
-  text-align: center;
-  position: relative;
-  bottom: 10px;
-  color: white;
+
+.cifra {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 10px;
+    color: white;
+}
+
+.dirka {
+    fill: #424242;
+    stroke: #272727;
+}
+
+.crna {
+    fill: #272727;
+}
+
+.dirka:hover {
+    fill: white;
+}
+
+.crna:hover {
+    fill: black;
 }
