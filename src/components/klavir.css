@@ -30,6 +30,7 @@ h1 {
 #tabla {
     padding: 10px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     background: linear-gradient(to bottom, #272727 0%, #323232 100%);
 }
@@ -42,10 +43,11 @@ h1 {
 
 @media(max-width: 480px){
     #tabla {
-        flex-direction: column;
+        
     }
     .svojstvo {
-        display: block;
+        flex: 0 0 33%;
+        max-width: 33%;
         width: 100%;
     }
 }
@@ -88,16 +90,18 @@ h1 {
 }
 
 .rekord {
-    right: 60px;
+    right: auto;
+    left: 17px;
     background-image: url(../images/svg/rekord.svg);
 }
 
 @keyframes blinkaj {
     from {
-        transform: scale(1.1)
+        transform: scale(1.4)
     }
     to {
         transform: scale(0.9);
+        border: 4px solid white;
     }
 }
 
@@ -161,4 +165,14 @@ h1 {
 
 .notacija:hover, .notacija-true {
     color: white;
+}
+
+.pesme {
+    margin: 20px 0;
+}
+
+.pesma {
+    margin: 10px 0;
+    padding: 10px;
+    background: #007744;
 }

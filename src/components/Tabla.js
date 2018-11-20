@@ -90,7 +90,9 @@ class Tabla extends Component {
                     onClick={ () => this.promeniSvojstvo('jačina', 'nula') }>
                 </div>
 
-                
+                <div className={ "zaglavlje rekord snima-" + this.props.snima.toString() }
+                    onClick={ this.snimaj }>
+                </div>
 
 
             </div>

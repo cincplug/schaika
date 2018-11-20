@@ -5,6 +5,7 @@ import frekvence from '../data/frekvence.json';
 import Oktava from '../components/Oktava';
 import Tabla from '../components/Tabla';
 import Notacija from '../components/Notacija';
+import Pesma from '../components/Pesma';
 
 import './klavir.css'
 
@@ -17,6 +18,7 @@ class Klavir extends Component {
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
         this.promeniNotaciju = this.promeniNotaciju.bind(this);
         this.snimaj = this.snimaj.bind(this);
+        this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         
         this.sirinaOktave = 330; 
         this.visinaKlavijature = 270;
@@ -31,6 +33,7 @@ class Klavir extends Component {
             'ger': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'],
             'lat': ['do', 'do#', 're', 're#', 'mi', 'fa', 'fa#', 'sol', 'sol#', 'la', 'la#', 'si'],
         };
+        this.pesme = [];
                 
         let brojOktava = 5; 
         
@@ -140,13 +143,48 @@ class Klavir extends Component {
                 this.zvuci.removeSound(this.zvuci.sounds[ii]);
             }
         }
+        
+        if(this.state.snima){
+            var kad;
+            if(this.pesma.length === 0){
+                this.otkad = Date.now();
+                kad = 0;
+            } else {
+                kad = Date.now() - this.otkad;
+            }
+            this.pesma.push([
+                nota,
+                kad
+            ])
+        }
     }
     
     snimaj(){
-        this.otkad = new Date();
-        this.setState({
-            snima: true
-        })
+        if(this.state.snima){
+            this.pesme.push(this.pesma);
+            this.setState({
+                snima: false
+            });
+            this.zvuci.stop();
+            this.zvuci.sounds = [];
+        } else {
+            this.otkad = null;
+            this.pesma = [];
+            this.setState({
+                snima: true
+            });            
+        }
+    }
+    
+    odsvirajPesmu(pesma){
+        var sviraj = this.sviraj;
+        for(var n = 0; n < pesma.length; n++){
+            (function(i) {
+                setTimeout(function() { 
+                    sviraj(pesma[i][0]); 
+                }, Math.floor(pesma[i][1]));
+            })(n);
+        }
     }
     
     render() {
@@ -181,6 +219,18 @@ class Klavir extends Component {
                     notacija={ i }
                     jelOva={ i === this.state.notacija }
                     promeniNotaciju={ this.promeniNotaciju }/>
+            )
+        }
+        
+        var pesme = [];
+        for(var i in this.pesme){
+            pesme.push(
+                <Pesma
+                    key={ "pesma-" + i }
+                    kojaPoRedu={ i }
+                    pesma={ this.pesme[i] }
+                    odsvirajPesmu={ this.odsvirajPesmu }
+                />
             )
         }
         
@@ -226,7 +276,10 @@ class Klavir extends Component {
                         <span>{ this.state.frekvenca } Hz</span>
                     </div>
                 </div>
-                
+                <div className="pesme">
+                    { pesme }
+                </div>
+
             </div>
         );
     }
