@@ -16,6 +16,7 @@ class Klavir extends Component {
         this.sviraj = this.sviraj.bind(this);
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
         this.promeniNotaciju = this.promeniNotaciju.bind(this);
+        this.snimaj = this.snimaj.bind(this);
         
         this.sirinaOktave = 330; 
         this.visinaKlavijature = 270;
@@ -35,6 +36,7 @@ class Klavir extends Component {
         
         this.state = {
             počeo: '',
+            snima: false,
             brojOktava: brojOktava,
             početna: 1,
             boja: 2,
@@ -140,6 +142,13 @@ class Klavir extends Component {
         }
     }
     
+    snimaj(){
+        this.otkad = new Date();
+        this.setState({
+            snima: true
+        })
+    }
+    
     render() {
         let brojOktava = this.state.brojOktava;
         let sirinaKlavira = (brojOktava * this.belihDirkiPoOktavi + this.belihDirkiPosle) * this.sirinaDirke;
@@ -185,6 +194,8 @@ class Klavir extends Component {
                     kontinuitet={ this.state.kontinuitet }
                     jačina={ this.state.jačina }
                     promeniSvojstvo={ this.promeniSvojstvo }
+                    snimaj={ this.snimaj }
+                    snima={ this.state.snima }
                 />
                 <div className="klavir-auter">
                     <svg id="klavijatura"

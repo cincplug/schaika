@@ -5,10 +5,15 @@ class Tabla extends Component {
     constructor(props) {
         super(props);
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
+        this.snimaj = this.snimaj.bind(this);
     }
     
     promeniSvojstvo(svojstvo, akcija){
         this.props.promeniSvojstvo(svojstvo, akcija);
+    }
+
+    snimaj(){
+        this.props.snimaj();
     }
     
     render() {        
@@ -81,9 +86,12 @@ class Tabla extends Component {
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
 
-                <div className={ "mir j-" + this.props.jačina }
+                <div className={ "zaglavlje mir j-" + this.props.jačina }
                     onClick={ () => this.promeniSvojstvo('jačina', 'nula') }>
                 </div>
+
+                
+
 
             </div>
         );
