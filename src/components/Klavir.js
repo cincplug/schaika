@@ -4,6 +4,7 @@ import dirke from '../data/dirke.json';
 import frekvence from '../data/frekvence.json';
 import Oktava from '../components/Oktava';
 import Tabla from '../components/Tabla';
+import Notacija from '../components/Notacija';
 
 import './klavir.css'
 
@@ -14,6 +15,7 @@ class Klavir extends Component {
         
         this.sviraj = this.sviraj.bind(this);
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
+        this.promeniNotaciju = this.promeniNotaciju.bind(this);
         
         this.sirinaOktave = 330; 
         this.visinaKlavijature = 270;
@@ -23,7 +25,11 @@ class Klavir extends Component {
         this.donja = 12;
         this.dirkiPosle = 5;
         this.belihDirkiPosle = 3;
-        this.note = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'];
+        this.note = {
+            'en': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
+            'ger': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'],
+            'lat': ['do', 'do#', 're', 're#', 'mi', 'fa', 'fa#', 'sol', 'sol#', 'la', 'la#', 'si'],
+        };
                 
         let brojOktava = 5; 
         
@@ -35,12 +41,19 @@ class Klavir extends Component {
             kontinuitet: 6,
             jačina: 5,
             frekvenca: null,
+            notacija: 'en',
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
     }
     
     prebrojDirke(brojOktava){
         return this.dirkiPoOktavi * brojOktava + this.dirkiPosle; 
+    }
+    
+    promeniNotaciju(notacija){
+        this.setState({
+            notacija: notacija
+        });
     }
     
     promeniSvojstvo(svojstvo, akcija){
@@ -111,10 +124,10 @@ class Klavir extends Component {
             });
             this.zvuci.addSound(zvuk);
             zvuk.play();
-            var n = frekvence.length % nota;
             this.setState({
                 frekvenca: frekvenca,
-                nota: this.note[nota % 12] + Math.floor((nota + this.state.početna * this.dirkiPoOktavi) / this.dirkiPoOktavi)
+                nota: this.note[this.state.notacija][nota % 12],
+                oktava: Math.floor((nota + this.state.početna * this.dirkiPoOktavi) / this.dirkiPoOktavi)
             })
         }
         var kolkoZvuka = this.zvuci.sounds.length;
@@ -151,6 +164,16 @@ class Klavir extends Component {
             );
         }
         
+        var notacije = [];
+        for(var i in this.note){
+            notacije.push(
+                <Notacija
+                    key={ 'not' + i }
+                    notacija={ i }
+                    jelOva={ i === this.state.notacija }
+                    promeniNotaciju={ this.promeniNotaciju }/>
+            )
+        }
         
         
         return (
@@ -179,6 +202,13 @@ class Klavir extends Component {
                     <div className="stavka">
                         <span className="label">Base note: </span>
                         <span>{ this.state.nota }</span>
+                        <div className="notacije">
+                            <span className="label">Notation:</span> { notacije }
+                        </div>
+                    </div>
+                    <div className="stavka">
+                        <span className="label">Base octave: </span>
+                        <span>{ this.state.oktava }</span>
                     </div>
                     <div className="stavka">
                         <span className="label">Base frequency: </span>

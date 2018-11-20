@@ -131,3 +131,17 @@ h1 {
     font-size: 15px;
     color: #a4a4a4;
 }
+
+.notacije {
+
+}
+
+.notacija {
+    margin-right: 10px;   
+    cursor: pointer;
+}
+
+.notacija-true {
+    color: white;
+    text-decoration: underline;
+}
