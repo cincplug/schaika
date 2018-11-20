@@ -92,16 +92,18 @@ h1 {
 .rekord {
     right: auto;
     left: 17px;
-    background-image: url(../images/svg/rekord.svg);
+    background: #dd3300;
+    border-radius: 50%;
 }
 
 @keyframes blinkaj {
     from {
-        transform: scale(1.4)
+        transform: scale(1.4);
+        border: 4px solid #ffaa00;
     }
     to {
-        transform: scale(0.9);
-        border: 4px solid white;
+        transform: scale(0.7);
+        border: 3px solid #ee5500;
     }
 }
 
@@ -172,7 +174,7 @@ h1 {
 }
 
 .pesma {
-    margin: 10px 0;
+    margin: 10px 10px 0 0;
     padding: 10px;
     background: #007744;
 }

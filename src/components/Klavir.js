@@ -161,28 +161,41 @@ class Klavir extends Component {
     
     snimaj(){
         if(this.state.snima){
-            this.pesme.push(this.pesma);
+            if(this.pesma && this.pesma.length > 0){
+                this.pesma[0][1] = Date.now() - this.otkad;
+                this.pesme.push(this.pesma);
+            }
+            
             this.setState({
                 snima: false
             });
-            this.zvuci.stop();
-            this.zvuci.sounds = [];
+            if(this.zvuci){
+                this.zvuci.stop();
+                this.zvuci.sounds = [];
+            }
         } else {
             this.otkad = null;
-            this.pesma = [];
             this.setState({
                 snima: true
             });            
         }
+        this.pesma = [];
     }
     
     odsvirajPesmu(pesma){
         var sviraj = this.sviraj;
+        var kolikoTraje = pesma[0][1];
+        pesma[0][1] = 0;
+        var z = this.zvuci;
+        setTimeout(function(){
+            z.stop();
+            z.sounds = [];
+        }, kolikoTraje);
         for(var n = 0; n < pesma.length; n++){
-            (function(i) {
+            (function(ii) {
                 setTimeout(function() { 
-                    sviraj(pesma[i][0]); 
-                }, Math.floor(pesma[i][1]));
+                    sviraj(pesma[ii][0]); 
+                }, Math.floor(pesma[ii][1]));
             })(n);
         }
     }
@@ -223,12 +236,13 @@ class Klavir extends Component {
         }
         
         var pesme = [];
-        for(var i in this.pesme){
+        for(var p in this.pesme){
             pesme.push(
                 <Pesma
-                    key={ "pesma-" + i }
-                    kojaPoRedu={ i }
-                    pesma={ this.pesme[i] }
+                    key={ "pesma-" + p }
+                    kojaPoRedu={ p }
+                    pesma={ this.pesme[p] }
+                    visina={ frekvence.length / 3 }
                     odsvirajPesmu={ this.odsvirajPesmu }
                 />
             )
