@@ -2,7 +2,10 @@ body {
     margin: 0;
     background: #242424;
     color: white;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    font-family: sans-serif;
+}
+h1 {
+    font-family: sans-serif;
 }
 
 #glava {
@@ -16,7 +19,6 @@ body {
 #klavir {
     padding: 10px;
     padding-bottom: 2px;
-    background: linear-gradient(to bottom, #252525 0%, #272727 100%);
 }
 
 #klavijatura {
@@ -110,4 +112,22 @@ body {
 
 .crna:hover {
     fill: black;
+}
+
+.autput {
+    display: none;
+}
+
+.autput.jeste {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stavka {
+    width: 220px;
+}
+
+.label {
+    font-size: 15px;
+    color: #a4a4a4;
 }

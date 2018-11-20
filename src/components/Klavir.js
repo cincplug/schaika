@@ -23,15 +23,18 @@ class Klavir extends Component {
         this.donja = 12;
         this.dirkiPosle = 5;
         this.belihDirkiPosle = 3;
+        this.note = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'];
                 
         let brojOktava = 5; 
         
         this.state = {
+            počeo: '',
             brojOktava: brojOktava,
             početna: 1,
             boja: 2,
             kontinuitet: 6,
             jačina: 5,
+            frekvenca: null,
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
     }
@@ -60,6 +63,19 @@ class Klavir extends Component {
         }
         this.setState({
             [svojstvo]: vrednost
+        }, function(){
+            if(this.state.početna + this.state.brojOktava > 9){
+                if(svojstvo === 'početna'){
+                    this.setState({
+                        brojOktava: this.state.brojOktava - 1
+                    });
+                }
+                if(svojstvo === 'brojOktava'){
+                    this.setState({
+                        početna: this.state.početna - 1
+                    });
+                }
+            }
         });
         if(svojstvo === 'brojOktava') {
             this.setState({
@@ -79,6 +95,9 @@ class Klavir extends Component {
             if(typeof this.zvuci === 'undefined'){
                 Pizzicato.volume = this.state.jačina / 10;
                 this.zvuci = new Pizzicato.Group();
+                this.setState({
+                    počeo: ' jeste'
+                })
             }
             
             let zvuk = new Pizzicato.Sound({
@@ -92,7 +111,11 @@ class Klavir extends Component {
             });
             this.zvuci.addSound(zvuk);
             zvuk.play();
-            console.log(this.zvuci.sounds);
+            var n = frekvence.length % nota;
+            this.setState({
+                frekvenca: frekvenca,
+                nota: this.note[nota % 12] + Math.floor((nota + this.state.početna * this.dirkiPoOktavi) / this.dirkiPoOktavi)
+            })
         }
         var kolkoZvuka = this.zvuci.sounds.length;
         
@@ -152,7 +175,17 @@ class Klavir extends Component {
                         </g>
                     </svg>
                 </div>
-
+                <div className={"autput" + this.state.počeo}>
+                    <div className="stavka">
+                        <span className="label">Base note: </span>
+                        <span>{ this.state.nota }</span>
+                    </div>
+                    <div className="stavka">
+                        <span className="label">Base frequency: </span>
+                        <span>{ this.state.frekvenca } Hz</span>
+                    </div>
+                </div>
+                
             </div>
         );
     }
