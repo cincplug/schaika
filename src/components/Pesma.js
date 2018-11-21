@@ -39,9 +39,10 @@ class Pesma extends Component {
         
         var gde;
         if(this.props.pesma.svira){
-            gde = <div className="gde"
+            gde = <div 
+                className="gde"
                 style={{ animationDuration: pesma.traje + 'ms' }}
-                  ></div>;
+            ></div>;
         }
         return (
             <div className={ klasa }>

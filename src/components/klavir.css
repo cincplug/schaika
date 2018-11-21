@@ -197,13 +197,26 @@ h1 {
     padding: 10px;
 }
 
+@keyframes iskrsni {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+        background: #007744;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .pesma {
     margin: 0 10px 10px 0;
     background: rgba(255,255,255,0.1);
     display: inline-block;
     position: relative;
     min-width: 100px;
-    /* border: 1px solid rgba(255,255,255,0.2); */
+    animation: iskrsni 0.3s ease-out;
 }
 
 .pesma .blok {
@@ -271,7 +284,7 @@ h1 {
         left: 0%;
     }    
     to {
-        left: calc(100% - 5px);
+        left: calc(100% - 2px);
     }
 }
 
@@ -283,9 +296,10 @@ h1 {
     position: absolute;
     top: 0;
     left: 0;
-    width: 10px;
+    width: 5px;
     height: 100%;
-    background: #004477;
+    background: #00eeaa;
+    opacity: 0.5;
     animation-name: sviraj;
     animation-timing-function: linear;
 }
