@@ -146,13 +146,13 @@ class Klavir extends Component {
         
         if(this.state.snima){
             var kad;
-            if(this.pesma.length === 0){
+            if(this.pesma.note.length === 0){
                 this.otkad = Date.now();
                 kad = 0;
             } else {
                 kad = Date.now() - this.otkad;
             }
-            this.pesma.push([
+            this.pesma.note.push([
                 nota,
                 kad
             ])
@@ -161,41 +161,42 @@ class Klavir extends Component {
     
     snimaj(){
         if(this.state.snima){
-            if(this.pesma && this.pesma.length > 0){
-                this.pesma[0][1] = Date.now() - this.otkad;
+            if(this.pesma && this.pesma.note.length > 0){
+                this.pesma.traje = Date.now() - this.otkad;
                 this.pesme.push(this.pesma);
             }
-            
-            this.setState({
-                snima: false
-            });
             if(this.zvuci){
                 this.zvuci.stop();
                 this.zvuci.sounds = [];
             }
+            this.setState({
+                snima: false
+            });
         } else {
-            this.otkad = null;
+            this.otkad = 0;
             this.setState({
                 snima: true
             });            
+            this.pesma = {
+                traje: 0,
+                note: []
+            };
         }
-        this.pesma = [];
     }
     
     odsvirajPesmu(pesma){
         var sviraj = this.sviraj;
-        var kolikoTraje = pesma[0][1];
-        pesma[0][1] = 0;
+        var kolikoTraje = pesma.traje;
         var z = this.zvuci;
         setTimeout(function(){
             z.stop();
             z.sounds = [];
         }, kolikoTraje);
-        for(var n = 0; n < pesma.length; n++){
+        for(var n = 0; n < pesma.note.length; n++){
             (function(ii) {
                 setTimeout(function() { 
-                    sviraj(pesma[ii][0]); 
-                }, Math.floor(pesma[ii][1]));
+                    sviraj(pesma.note[ii][0]); 
+                }, Math.floor(pesma.note[ii][1]));
             })(n);
         }
     }
@@ -242,7 +243,7 @@ class Klavir extends Component {
                     key={ "pesma-" + p }
                     kojaPoRedu={ p }
                     pesma={ this.pesme[p] }
-                    visina={ frekvence.length / 3 }
+                    dirkiUkupno={ this.state.dirkiUkupno }
                     odsvirajPesmu={ this.odsvirajPesmu }
                 />
             )

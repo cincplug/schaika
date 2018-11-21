@@ -92,6 +92,8 @@ class Tabla extends Component {
 
                 <div className={ "zaglavlje rekord snima-" + this.props.snima.toString() }
                     onClick={ this.snimaj }>
+                    <div className="krug"></div>
+                    <div className="kvadrat"></div>
                 </div>
 
 

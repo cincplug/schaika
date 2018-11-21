@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background: #242424;
+    background: #272727;
     color: white;
     font-family: sans-serif;
 }
@@ -92,23 +92,42 @@ h1 {
 .rekord {
     right: auto;
     left: 17px;
+    background: none;
+}
+
+.rekord .krug {
+    width: 100%;
+    height: 100%;
     background: #dd3300;
     border-radius: 50%;
 }
 
+.rekord .kvadrat {
+    display: none;
+}
+
 @keyframes blinkaj {
     from {
-        transform: scale(1.4);
-        border: 4px solid #ffaa00;
+        transform: scale(1.2);
     }
     to {
-        transform: scale(0.7);
-        border: 3px solid #ee5500;
+        transform: scale(1.1);
     }
 }
 
-.snima-true {
+.snima-true .krug {
+    border: 2px solid white;
     animation: blinkaj 0.5s ease-in-out infinite alternate;
+}
+
+.snima-true .kvadrat {
+    display: block;
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 30%;
+    background: white;
 }
 
 .cifra {
@@ -175,6 +194,11 @@ h1 {
 
 .pesma {
     margin: 10px 10px 0 0;
-    padding: 10px;
+    padding: 0;
     background: #007744;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.pesma rect {
+    fill: white;
 }
