@@ -261,3 +261,31 @@ h1 {
     background-size: cover;
     cursor: pointer;
 }
+
+.pesma.svira-true {
+    background: #007744;
+}
+
+@keyframes sviraj {
+    from {
+        left: 0%;
+    }    
+    to {
+        left: calc(100% - 5px);
+    }
+}
+
+.pesma .gde {
+    display: none;
+}
+.pesma.svira-true .gde {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    background: #004477;
+    animation-name: sviraj;
+    animation-timing-function: linear;
+}

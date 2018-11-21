@@ -184,18 +184,27 @@ class Klavir extends Component {
             });            
             this.pesma = {
                 traje: 0,
+                svira: false,
                 note: []
             };
         }
     }
     
-    odsvirajPesmu(pesma){
+    odsvirajPesmu(pesma, kojaPoRedu){
+        var t = this;
+        var p = this.state.pesme;
         var sviraj = this.sviraj;
         var kolikoTraje = pesma.traje;
         var z = this.zvuci;
+        pesma.svira = true;
         setTimeout(function(){
             z.stop();
             z.sounds = [];
+            pesma.svira = false;
+            p[kojaPoRedu].svira = false;
+            t.setState({
+                pesme: p
+            });
         }, kolikoTraje);
         for(var n = 0; n < pesma.note.length; n++){
             (function(ii) {
@@ -251,13 +260,14 @@ class Klavir extends Component {
         }
         
         var pesme = [];
-        for(var p in this.state.pesme){
+        for(var p = 0; p < this.state.pesme.length; p++){
             pesme.push(
                 <Pesma
                     key={ "pesma-" + p }
                     kojaPoRedu={ p }
                     pesma={ this.state.pesme[p] }
                     dirkiUkupno={ this.state.dirkiUkupno }
+                    svira={ this.state.pesme[p].svira }
                     odsvirajPesmu={ this.odsvirajPesmu }
                     makni={ this.makni }
                 />
@@ -289,7 +299,7 @@ class Klavir extends Component {
                             { klavijatura }
                         </g>
                     </svg>
-
+                    
                     <div className={"autput" + this.state.počeo}>
                         <div className="stavka">
                             <span className="label">Base note: </span>

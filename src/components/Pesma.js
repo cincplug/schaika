@@ -10,7 +10,7 @@ class Pesma extends Component {
     }
     
     odsvirajPesmu(){
-        this.props.odsvirajPesmu(this.props.pesma);
+        this.props.odsvirajPesmu(this.props.pesma, this.props.kojaPoRedu);
     }
     
     makni(){
@@ -18,7 +18,8 @@ class Pesma extends Component {
     }
     
     render() {
-        var klasa = "pesma pesma-" + this.props.kojaPoRedu.toString();  
+        var klasa = "pesma pesma-" + this.props.kojaPoRedu.toString() +
+            " svira-" + this.props.pesma.svira.toString();  
         var note = [];
         var pesma = this.props.pesma;
         for(var n in pesma.note){
@@ -33,11 +34,15 @@ class Pesma extends Component {
             );
         }
         var širina = pesma.traje / 20;
-        var gde;
-        // if(this.props.sadSvira){
-        //     gde = <rect x={ pesma.note[n][1] / this.odnosŠirine  } y={ 0 } width="1" height="30" fill="black" />;
-        // }
+
         var visina = this.props.dirkiUkupno / this.odnosVisine;
+        
+        var gde;
+        if(this.props.pesma.svira){
+            gde = <div className="gde"
+                style={{ animationDuration: pesma.traje + 'ms' }}
+                  ></div>;
+        }
         return (
             <div className={ klasa }>
 
@@ -53,8 +58,6 @@ class Pesma extends Component {
                     >
                         <g>
                             { note }
-
-                            { gde }
                         </g>
                     </svg>
                 </div>
@@ -72,6 +75,8 @@ class Pesma extends Component {
                     ></div>
 
                 </div>
+
+                { gde }
 
             </div>
         );
