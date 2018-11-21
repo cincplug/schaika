@@ -20,6 +20,7 @@ class Klavir extends Component {
         this.snimaj = this.snimaj.bind(this);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         this.makni = this.makni.bind(this);
+        this.vrti = this.vrti.bind(this);
         
         this.sirinaOktave = 330; 
         this.visinaKlavijature = 270;
@@ -122,7 +123,7 @@ class Klavir extends Component {
             let zvuk = new Pizzicato.Sound({
                 source: 'wave',
                 options: {
-                    type: 'sine',
+                    type: 'triangle',
                     release: 1,
                     volume: jačina,
                     frequency: frekvenca
@@ -184,7 +185,8 @@ class Klavir extends Component {
             });            
             this.pesma = {
                 traje: 0,
-                svira: false,
+                jelSvira: false,
+                jelVrti: false,
                 note: []
             };
         }
@@ -196,12 +198,12 @@ class Klavir extends Component {
         var sviraj = this.sviraj;
         var kolikoTraje = pesma.traje;
         var z = this.zvuci;
-        pesma.svira = true;
+        pesma.jelSvira = true;
         setTimeout(function(){
             z.stop();
             z.sounds = [];
-            pesma.svira = false;
-            p[kojaPoRedu].svira = false;
+            pesma.jelSvira = false;
+            p[kojaPoRedu].jelSvira = false;
             t.setState({
                 pesme: p
             });
@@ -216,9 +218,16 @@ class Klavir extends Component {
     }
     
     makni(pesma){
-        console.log(pesma);
         let p = this.state.pesme;
         p.splice(pesma, 1);
+        this.setState({
+            pesme: p
+        });
+    }
+    
+    vrti(pesma){
+        let p = this.state.pesme;
+        p[pesma].jelVrti = !p[pesma].jelVrti;
         this.setState({
             pesme: p
         });
@@ -267,9 +276,11 @@ class Klavir extends Component {
                     kojaPoRedu={ p }
                     pesma={ this.state.pesme[p] }
                     dirkiUkupno={ this.state.dirkiUkupno }
-                    svira={ this.state.pesme[p].svira }
+                    jelSvira={ this.state.pesme[p].jelSvira }
+                    jelVrti={ this.state.pesme[p].jelVrti }
                     odsvirajPesmu={ this.odsvirajPesmu }
                     makni={ this.makni }
+                    vrti={ this.vrti }
                 />
             )
         }
@@ -299,7 +310,7 @@ class Klavir extends Component {
                             { klavijatura }
                         </g>
                     </svg>
-                    
+
                     <div className={"autput" + this.state.počeo}>
                         <div className="stavka">
                             <span className="label">Base note: </span>

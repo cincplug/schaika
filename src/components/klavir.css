@@ -229,8 +229,8 @@ h1 {
     line-height: 12px;
 }
 
-.pesma .note {
-
+.pesma .notica {
+    fill: white;
 }
 
 .pesma .overlej {
@@ -275,8 +275,35 @@ h1 {
     cursor: pointer;
 }
 
-.pesma.svira-true {
+.pesma .vrti {
+    display: block;
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 10px;
+    height: 12px;
+    background: url(../images/svg/riplej.svg) no-repeat 0 0;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.pesma.jelSvira-true {
     background: #007744;
+}
+
+@keyframes vrti {
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(360deg);
+    }
+}
+
+.pesma.jelVrti-true .vrti {
+    animation: vrti 0.7s ease-in infinite;
+    border-radius: 50%;
 }
 
 @keyframes sviraj {
@@ -291,7 +318,7 @@ h1 {
 .pesma .gde {
     display: none;
 }
-.pesma.svira-true .gde {
+.pesma.jelSvira-true .gde {
     display: block;
     position: absolute;
     top: 0;

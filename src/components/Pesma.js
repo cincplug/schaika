@@ -5,6 +5,8 @@ class Pesma extends Component {
         super(props);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         this.makni = this.makni.bind(this);
+        this.vrti = this.vrti.bind(this);
+        
         this.odnosŠirine = 20;
         this.odnosVisine = 2;
     }
@@ -17,14 +19,22 @@ class Pesma extends Component {
         this.props.makni(this.props.kojaPoRedu);
     }
     
+    vrti(){
+        this.props.vrti(this.props.kojaPoRedu);
+    }
+    
+    
+    
     render() {
         var klasa = "pesma pesma-" + this.props.kojaPoRedu.toString() +
-            " svira-" + this.props.pesma.svira.toString();  
+            " jelSvira-" + this.props.pesma.jelSvira.toString() +  
+            " jelVrti-" + this.props.pesma.jelVrti.toString();  
         var note = [];
         var pesma = this.props.pesma;
         for(var n in pesma.note){
             note.push(
                 <rect
+                    className="notica"
                     key={ "rec-" + n + '-' + this.props.kojaPoRedu }
                     x={ Math.floor(pesma.note[n][1] / this.odnosŠirine) } 
                     y={ Math.floor(pesma.note[n][0] / this.odnosVisine) } 
@@ -38,7 +48,7 @@ class Pesma extends Component {
         var visina = this.props.dirkiUkupno / this.odnosVisine;
         
         var gde;
-        if(this.props.pesma.svira){
+        if(this.props.pesma.jelSvira){
             gde = <div 
                 className="gde"
                 style={{ animationDuration: pesma.traje + 'ms' }}
@@ -68,6 +78,11 @@ class Pesma extends Component {
                     <div 
                         className="sviraj"
                         onClick={ this.odsvirajPesmu }
+                    ></div>
+
+                    <div
+                        className="vrti"
+                        onClick={ this.vrti }
                     ></div>
 
                     <div
