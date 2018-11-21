@@ -17,8 +17,13 @@ h1 {
 #telo {}
 
 #klavir {
-    padding: 10px;
     padding-bottom: 2px;
+}
+
+#kutija {
+    padding: 10px; 
+    padding-bottom: 0;
+    background: linear-gradient(to bottom, #323232 0%, #171717 100%);
 }
 
 #klavijatura {
@@ -32,7 +37,6 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    background: linear-gradient(to bottom, #272727 0%, #323232 100%);
 }
 
 .svojstvo {
@@ -164,6 +168,7 @@ h1 {
 .autput.jeste {
     display: flex;
     justify-content: space-around;
+    padding-bottom: 10px;
 }
 
 .stavka {
@@ -189,16 +194,70 @@ h1 {
 }
 
 .pesme {
-    margin: 20px 0;
+    padding: 10px;
 }
 
 .pesma {
-    margin: 10px 10px 0 0;
-    padding: 0;
-    background: #007744;
-    border: 1px solid rgba(255,255,255,0.2);
+    margin: 0 10px 10px 0;
+    background: rgba(255,255,255,0.1);
+    display: inline-block;
+    position: relative;
+    min-width: 100px;
+    /* border: 1px solid rgba(255,255,255,0.2); */
 }
 
-.pesma rect {
-    fill: white;
+.pesma .blok {
+    padding: 10px;
+}
+
+.pesma .ime-pesme {
+    background: rgba(255,255,255,0.1);
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.pesma .note {
+
+}
+
+.pesma .overlej {
+    /* display: none; */
+    opacity: 0;
+}
+
+.pesma:hover .overlej {
+    /* display: block; */
+    opacity: 1;
+    transition: opacity 0.1s ease-in;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+}
+
+.pesma .sviraj {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: url(../images/svg/sviraj.svg) no-repeat 0 0;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.pesma .makni {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    background: url(../images/svg/makni.svg) no-repeat 0 0;
+    background-size: cover;
+    cursor: pointer;
 }

@@ -252,17 +252,18 @@ class Klavir extends Component {
         
         return (
             <div id="klavir">
-                <Tabla
-                    brojOktava={ this.state.brojOktava }
-                    boja={ this.state.boja }
-                    početna={ this.state.početna }
-                    kontinuitet={ this.state.kontinuitet }
-                    jačina={ this.state.jačina }
-                    promeniSvojstvo={ this.promeniSvojstvo }
-                    snimaj={ this.snimaj }
-                    snima={ this.state.snima }
-                />
-                <div className="klavir-auter">
+                <div id="kutija">
+                    <Tabla
+                        brojOktava={ this.state.brojOktava }
+                        boja={ this.state.boja }
+                        početna={ this.state.početna }
+                        kontinuitet={ this.state.kontinuitet }
+                        jačina={ this.state.jačina }
+                        promeniSvojstvo={ this.promeniSvojstvo }
+                        snimaj={ this.snimaj }
+                        snima={ this.state.snima }
+                    />
+
                     <svg id="klavijatura"
                         className="sviraj"
                         width={ sirinaKlavira }
@@ -273,22 +274,23 @@ class Klavir extends Component {
                             { klavijatura }
                         </g>
                     </svg>
-                </div>
-                <div className={"autput" + this.state.počeo}>
-                    <div className="stavka">
-                        <span className="label">Base note: </span>
-                        <span>{ this.state.nota }</span>
-                        <div className="notacije">
-                            <span className="label">Notation:</span> { notacije }
+
+                    <div className={"autput" + this.state.počeo}>
+                        <div className="stavka">
+                            <span className="label">Base note: </span>
+                            <span>{ this.state.nota }</span>
+                            <div className="notacije">
+                                <span className="label">Notation:</span> { notacije }
+                            </div>
                         </div>
-                    </div>
-                    <div className="stavka">
-                        <span className="label">Base octave: </span>
-                        <span>{ this.state.oktava }</span>
-                    </div>
-                    <div className="stavka">
-                        <span className="label">Base frequency: </span>
-                        <span>{ this.state.frekvenca } Hz</span>
+                        <div className="stavka">
+                            <span className="label">Base octave: </span>
+                            <span>{ this.state.oktava }</span>
+                        </div>
+                        <div className="stavka">
+                            <span className="label">Base frequency: </span>
+                            <span>{ this.state.frekvenca } Hz</span>
+                        </div>
                     </div>
                 </div>
                 <div className="pesme">

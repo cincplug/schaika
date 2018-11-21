@@ -4,8 +4,8 @@ class Pesma extends Component {
     constructor(props) {
         super(props);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
-        
-        this.š = 20;
+        this.odnosŠirine = 20;
+        this.odnosVisine = 2;
     }
     
     odsvirajPesmu(){
@@ -20,8 +20,8 @@ class Pesma extends Component {
             note.push(
                 <rect
                     key={ "rec-" + n + '-' + this.props.kojaPoRedu }
-                    x={ pesma.note[n][1] / this.š  } 
-                    y={ pesma.note[n][0] } 
+                    x={ Math.floor(pesma.note[n][1] / this.odnosŠirine) } 
+                    y={ Math.floor(pesma.note[n][0] / this.odnosVisine) } 
                     width="5" 
                     height="1" 
                 />
@@ -29,24 +29,45 @@ class Pesma extends Component {
         }
         var širina = pesma.traje / 20;
         var gde;
-        if(this.props.sadSvira){
-            gde = <rect x={ pesma.note[n][1] / this.š  } y={ 0 } width="1" height="30" fill="black" />;
-        }
-        var visina = this.props.dirkiUkupno;
+        // if(this.props.sadSvira){
+        //     gde = <rect x={ pesma.note[n][1] / this.odnosŠirine  } y={ 0 } width="1" height="30" fill="black" />;
+        // }
+        var visina = this.props.dirkiUkupno / this.odnosVisine;
         return (
-            <svg 
-                className={ klasa }
-                onClick={ this.odsvirajPesmu }
-                height={ visina }
-                width={ širina }
-                viewBox={"0 0 " + širina + visina}
-            >
-                <g>
-                    { note }
+            <div className={ klasa }>
 
-                    { gde }
-                </g>
-            </svg>
+                <div className="blok ime-pesme">
+                    Pattern { this.props.kojaPoRedu + 1 }
+                </div>
+
+                <div className="blok note">
+                    <svg 
+                        height={ visina }
+                        width={ širina }
+                        viewBox={"0 0 " + širina + " " + visina}
+                    >
+                        <g>
+                            { note }
+
+                            { gde }
+                        </g>
+                    </svg>
+                </div>
+
+                <div className="overlej">
+
+                    <div 
+                        className="sviraj"
+                        onClick={ this.odsvirajPesmu }
+                    ></div>
+
+                    <div
+                        className="makni"
+                    ></div>
+
+                </div>
+                
+            </div>
         );
     }
 }
