@@ -4,12 +4,17 @@ class Pesma extends Component {
     constructor(props) {
         super(props);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
+        this.makni = this.makni.bind(this);
         this.odnosŠirine = 20;
         this.odnosVisine = 2;
     }
     
     odsvirajPesmu(){
         this.props.odsvirajPesmu(this.props.pesma);
+    }
+    
+    makni(){
+        this.props.makni(this.props.kojaPoRedu);
     }
     
     render() {
@@ -63,10 +68,11 @@ class Pesma extends Component {
 
                     <div
                         className="makni"
+                        onClick={ this.makni }
                     ></div>
 
                 </div>
-                
+
             </div>
         );
     }

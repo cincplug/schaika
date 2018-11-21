@@ -19,6 +19,7 @@ class Klavir extends Component {
         this.promeniNotaciju = this.promeniNotaciju.bind(this);
         this.snimaj = this.snimaj.bind(this);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
+        this.makni = this.makni.bind(this);
         
         this.sirinaOktave = 330; 
         this.visinaKlavijature = 270;
@@ -33,7 +34,6 @@ class Klavir extends Component {
             'ger': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'],
             'lat': ['do', 'do#', 're', 're#', 'mi', 'fa', 'fa#', 'sol', 'sol#', 'la', 'la#', 'si'],
         };
-        this.pesme = [];
                 
         let brojOktava = 5; 
         
@@ -46,6 +46,7 @@ class Klavir extends Component {
             kontinuitet: 6,
             jačina: 5,
             frekvenca: null,
+            pesme: [],
             notacija: 'en',
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
@@ -163,7 +164,11 @@ class Klavir extends Component {
         if(this.state.snima){
             if(this.pesma && this.pesma.note.length > 0){
                 this.pesma.traje = Date.now() - this.otkad;
-                this.pesme.push(this.pesma);
+                let p = this.state.pesme;
+                p.push(this.pesma);
+                this.setState({
+                    pesme: p
+                })
             }
             if(this.zvuci){
                 this.zvuci.stop();
@@ -199,6 +204,15 @@ class Klavir extends Component {
                 }, Math.floor(pesma.note[ii][1]));
             })(n);
         }
+    }
+    
+    makni(pesma){
+        console.log(pesma);
+        let p = this.state.pesme;
+        p.splice(pesma, 1);
+        this.setState({
+            pesme: p
+        });
     }
     
     render() {
@@ -237,14 +251,15 @@ class Klavir extends Component {
         }
         
         var pesme = [];
-        for(var p in this.pesme){
+        for(var p in this.state.pesme){
             pesme.push(
                 <Pesma
                     key={ "pesma-" + p }
                     kojaPoRedu={ p }
-                    pesma={ this.pesme[p] }
+                    pesma={ this.state.pesme[p] }
                     dirkiUkupno={ this.state.dirkiUkupno }
                     odsvirajPesmu={ this.odsvirajPesmu }
+                    makni={ this.makni }
                 />
             )
         }
