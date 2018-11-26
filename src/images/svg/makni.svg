@@ -6,6 +6,6 @@
     version="1.1"
 >
     <g>
-        <path d="M 0 0 L 12 12 M 0 12 L 12 0 Z" stroke="white" stroke-width="2"></path>
+        <path d="M 0 0 L 12 12 M 0 12 L 12 0 Z" stroke="white" stroke-width="1"></path>
     </g>
 </svg>

@@ -207,6 +207,9 @@ class Klavir extends Component {
             t.setState({
                 pesme: p
             });
+            if(t.state.pesme[kojaPoRedu].jelVrti){
+                t.odsvirajPesmu(pesma, kojaPoRedu);
+            } 
         }, kolikoTraje);
         for(var n = 0; n < pesma.note.length; n++){
             (function(ii) {
