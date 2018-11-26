@@ -61,6 +61,20 @@ class Tabla extends Component {
                 />
 
                 <Svojstvo 
+                    svojstvo="oblik"
+                    vrednost={ this.props.oblik }
+                    limit={{
+                        donji: 0,
+                        gornji: 3
+                    }}
+                    trans={{
+                        en: "Waveform"
+                    }}
+                    tekst={ this.props.oblici }
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <Svojstvo 
                     svojstvo="kontinuitet"
                     vrednost={ this.props.kontinuitet }
                     limit={{

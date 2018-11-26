@@ -30,6 +30,7 @@ class Klavir extends Component {
         this.donja = 12;
         this.dirkiPosle = 5;
         this.belihDirkiPosle = 3;
+        this.oblici = ["sine", "square", "sawtooth", "triangle"];
         this.note = {
             'en': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
             'ger': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'],
@@ -44,6 +45,7 @@ class Klavir extends Component {
             brojOktava: brojOktava,
             početna: 1,
             boja: 2,
+            oblik: 0,
             kontinuitet: 6,
             jačina: 5,
             frekvenca: null,
@@ -126,7 +128,8 @@ class Klavir extends Component {
                     type: 'triangle',
                     release: 1,
                     volume: jačina,
-                    frequency: frekvenca
+                    frequency: frekvenca,
+                    type: this.oblici[this.state.oblik]
                 }
             });
             this.zvuci.addSound(zvuk);
@@ -295,6 +298,8 @@ class Klavir extends Component {
                     <Tabla
                         brojOktava={ this.state.brojOktava }
                         boja={ this.state.boja }
+                        oblici={ this.oblici }
+                        oblik={ this.state.oblik }
                         početna={ this.state.početna }
                         kontinuitet={ this.state.kontinuitet }
                         jačina={ this.state.jačina }

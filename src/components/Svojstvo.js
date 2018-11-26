@@ -12,8 +12,12 @@ class Svojstvo extends Component {
     }
     
     render() {        
-        var klasa = "svojstvo " + this.props.svojstvo;
-            
+        var klasa = "svojstvo " + this.props.svojstvo + 
+            (this.props.tekst ? ' tekst' : '');
+        var vrednost = this.props.vrednost;
+        if(this.props.tekst){
+            vrednost = this.props.tekst[this.props.vrednost];
+        }
         return (
             <div className={ klasa }>
 
@@ -27,7 +31,7 @@ class Svojstvo extends Component {
                 />
 
                 <span className="cifra">
-                    { this.props.vrednost }
+                    { vrednost }
                 </span>
 
                 <Strelica 
