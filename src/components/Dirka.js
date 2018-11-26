@@ -7,15 +7,19 @@ class Dirka extends Component {
         this.sviraj = this.sviraj.bind(this);
     }
     
-    sviraj(dd){
-        this.props.sviraj(dd);
+    sviraj(e){
+        if(e.buttons){
+            this.props.sviraj(this.props.dd);
+        }
     }
     
     render() {        
         return (
             <path className={ this.props.klasa }
                 d={ this.props.d }
-                onClick={ () => this.sviraj(this.props.dd) }>
+                onMouseDown={ this.sviraj }
+                onMouseOver={ this.sviraj }
+            >
                 <bx-title>{ this.props.dirka }</bx-title>
             </path>
         );
