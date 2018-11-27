@@ -37,14 +37,13 @@ class Pesma extends Component {
                     className="notica"
                     key={ "rec-" + n + '-' + this.props.kojaPoRedu }
                     x={ Math.floor(pesma.note[n][1] / this.odnosŠirine) } 
-                    y={ Math.floor(pesma.note[n][0] / this.odnosVisine) } 
-                    width="5" 
+                    y={ Math.floor((this.props.dirkiUkupno - pesma.note[n][0]) / this.odnosVisine) } 
+                    width={ Math.floor((pesma.note[n][2] - pesma.note[n][1]) / this.odnosŠirine) } 
                     height="1" 
                 />
             );
         }
         var širina = pesma.traje / 20;
-
         var visina = this.props.dirkiUkupno / this.odnosVisine;
         
         var gde;
@@ -54,6 +53,7 @@ class Pesma extends Component {
                 style={{ animationDuration: pesma.traje + 'ms' }}
             ></div>;
         }
+        
         return (
             <div className={ klasa }>
 
