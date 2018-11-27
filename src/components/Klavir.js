@@ -171,7 +171,6 @@ class Klavir extends Component {
             var kad;
             if(this.pesma.note.length === 0){
                 this.otkad = Date.now();
-                this.sad = Date.now();
                 kad = 0;
             } else {
                 kad = Date.now() - this.otkad;
@@ -195,7 +194,7 @@ class Klavir extends Component {
             n.zvuk.stop();
         }
         
-        if(this.state.snima && this.pesma && this.pesma.note.length > 1){
+        if(this.state.snima && this.pesma && this.pesma.note.length > 0){
             var kad = Date.now() - this.otkad;
             this.pesma.note[this.pesma.note.length - 1][2] = kad;
         }
