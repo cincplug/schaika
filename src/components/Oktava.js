@@ -6,10 +6,15 @@ class Oktava extends Component {
     constructor(props) {
         super(props);
         this.sviraj = this.sviraj.bind(this);
+        this.ćuti = this.ćuti.bind(this);
     }
     
-    sviraj(dd){
-        this.props.sviraj(dd);
+    sviraj(nota){
+        this.props.sviraj(nota);
+    }
+    
+    ćuti(nota){
+        this.props.ćuti(nota);
     }
     
     render() {        
@@ -32,6 +37,7 @@ class Oktava extends Component {
                     d={ path }
                     dd={ dd }
                     sviraj={ this.sviraj }
+                    ćuti={ this.ćuti }
                     dirka={ this.props.dirke[this.props.koja][0] }
                 />
             oktava.push(dirka);
