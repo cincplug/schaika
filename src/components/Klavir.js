@@ -201,6 +201,7 @@ class Klavir extends Component {
         });
         if(n && n.zvuk){
             n.zvuk.stop();
+            // n.zvuk.disconnect();
         }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
@@ -219,8 +220,9 @@ class Klavir extends Component {
                     this.setState({
                         pesme: p
                     })
+                    
+                    this.pesma.zvuci.sounds = [];
 
-                    // this.pesma.zvuci.sounds = [];
                 }
             }
             this.setState({
