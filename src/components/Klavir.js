@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Pizzicato from 'Pizzicato';
 import dirke from '../data/dirke.json';
+import note from '../data/note.json';
 import frekvence from '../data/frekvence.json';
 import Oktava from '../components/Oktava';
 import Tabla from '../components/Tabla';
@@ -9,6 +10,13 @@ import Pesma from '../components/Pesma';
 
 import './klavir.css'
 
+const sirinaOktave = 330; 
+const visinaKlavijature = 270;
+const dirkiPoOktavi = 12;             
+const belihDirkiPoOktavi = 7; 
+const dirkiPosle = 5;
+const belihDirkiPosle = 3;
+const oblici = ["sine", "square", "sawtooth", "triangle"];
 
 class Klavir extends Component {
     constructor(props) {
@@ -22,21 +30,6 @@ class Klavir extends Component {
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         this.makni = this.makni.bind(this);
         this.vrti = this.vrti.bind(this);
-        
-        this.sirinaOktave = 330; 
-        this.visinaKlavijature = 270;
-        this.dirkiPoOktavi = 12;             
-        this.belihDirkiPoOktavi = 7; 
-        this.sirinaDirke = this.sirinaOktave / this.belihDirkiPoOktavi;
-        this.donja = 12;
-        this.dirkiPosle = 5;
-        this.belihDirkiPosle = 3;
-        this.oblici = ["sine", "square", "sawtooth", "triangle"];
-        this.note = {
-            'en': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],
-            'ger': ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'b', 'h'],
-            'lat': ['do', 'do#', 're', 're#', 'mi', 'fa', 'fa#', 'sol', 'sol#', 'la', 'la#', 'si'],
-        };
                 
         let brojOktava = 5; 
         
@@ -58,7 +51,7 @@ class Klavir extends Component {
     }
     
     prebrojDirke(brojOktava){
-        return this.dirkiPoOktavi * brojOktava + this.dirkiPosle; 
+        return dirkiPoOktavi * brojOktava + dirkiPosle; 
     }
     
     promeniNotaciju(notacija){
@@ -114,7 +107,7 @@ class Klavir extends Component {
     sviraj(nota){
 
         for(var i = 0; i < this.state.boja; i++){
-            let frekvenca = frekvence[nota + i * this.dirkiPoOktavi + this.state.početna * this.dirkiPoOktavi];
+            let frekvenca = frekvence[nota + i * dirkiPoOktavi + this.state.početna * dirkiPoOktavi];
             // let jačina = (1 - nota / this.state.dirkiUkupno) / (i + 1) / this.state.boja;
             if(typeof this.zvuci === 'undefined'){
                 Pizzicato.volume = this.state.jačina / 10;
@@ -137,7 +130,7 @@ class Klavir extends Component {
                     release: 0.7,
                     volume: this.state.jačina,
                     frequency: frekvenca,
-                    type: this.oblici[this.state.oblik]
+                    type: oblici[this.state.oblik]
                 }
             });
             this.zvuci.addSound(zvuk);
@@ -151,8 +144,8 @@ class Klavir extends Component {
             this.setState({
                 svira: s,
                 frekvenca: frekvenca,
-                nota: this.note[this.state.notacija][nota % 12],
-                oktava: Math.floor((nota + this.state.početna * this.dirkiPoOktavi) / this.dirkiPoOktavi)
+                nota: note[this.state.notacija][nota % 12],
+                oktava: Math.floor((nota + this.state.početna * dirkiPoOktavi) / dirkiPoOktavi)
             })
         }
             
@@ -280,15 +273,16 @@ class Klavir extends Component {
     
     render() {
         let brojOktava = this.state.brojOktava;
-        let sirinaKlavira = (brojOktava * this.belihDirkiPoOktavi + this.belihDirkiPosle) * this.sirinaDirke;
-        let viewBox = "0 0 " + sirinaKlavira + " " + this.visinaKlavijature;
-        if(this.dirkiPosle > 0){
+        let sirinaDirke = sirinaOktave / belihDirkiPoOktavi;
+        let sirinaKlavira = (brojOktava * belihDirkiPoOktavi + belihDirkiPosle) * this.sirinaDirke;
+        let viewBox = "0 0 " + sirinaKlavira + " " + visinaKlavijature;
+        if(dirkiPosle > 0){
             brojOktava++;
         }
         var klavijatura = [];
         for(var o = 0; o < brojOktava; o++) {
-            let transform = "translate(" + (this.sirinaOktave * o) + " 0)";
-            var dokle = (o < brojOktava - 1) ? this.dirkiPoOktavi : this.dirkiPosle;
+            let transform = "translate(" + (sirinaOktave * o) + " 0)";
+            var dokle = (o < brojOktava - 1) ? dirkiPoOktavi : dirkiPosle;
 
             klavijatura.push(
                 <Oktava key={ 'o-' + o }
@@ -298,7 +292,7 @@ class Klavir extends Component {
                     dirke={ dirke }
                     sviraj={ this.sviraj }
                     ćuti={ this.ćuti }
-                    dirkiPoOktavi={ this.dirkiPoOktavi } 
+                    dirkiPoOktavi={ dirkiPoOktavi } 
                 />
             );
         }
@@ -338,7 +332,7 @@ class Klavir extends Component {
                     <Tabla
                         brojOktava={ this.state.brojOktava }
                         boja={ this.state.boja }
-                        oblici={ this.oblici }
+                        oblici={ oblici }
                         oblik={ this.state.oblik }
                         početna={ this.state.početna }
                         kontinuitet={ this.state.kontinuitet }
