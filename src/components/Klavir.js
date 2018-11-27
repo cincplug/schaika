@@ -8,7 +8,7 @@ import Tabla from '../components/Tabla';
 import Notacija from '../components/Notacija';
 import Pesma from '../components/Pesma';
 
-import './klavir.css'
+import './klavir.css';
 
 const sirinaOktave = 330; 
 const visinaKlavijature = 270;
@@ -22,6 +22,7 @@ class Klavir extends Component {
     constructor(props) {
         super(props);
         
+        this.tastatura = this.tastatura.bind(this);
         this.sviraj = this.sviraj.bind(this);
         this.ćuti = this.ćuti.bind(this);
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
@@ -42,12 +43,26 @@ class Klavir extends Component {
             boja: 1,
             oblik: 0,
             kontinuitet: 6,
-            jačina: 5,
+            jačina: 8,
             frekvenca: null,
             pesme: [],
             notacija: 'en',
             dirkiUkupno: this.prebrojDirke(brojOktava)
         };
+    }
+    
+    componentDidMount(){
+        document.addEventListener('keyup', this.tastatura, false);
+    }
+    
+    componentWillUnmount(){
+        document.removeEventListener('keyup', this.tastatura, false);
+    }
+    
+    tastatura(e){
+        if(e.keyCode === 32){
+            this.snimaj();
+        }
     }
     
     prebrojDirke(brojOktava){
@@ -104,14 +119,13 @@ class Klavir extends Component {
         }
     }
     
-    sviraj(nota){
+    sviraj(nota, pesma){
 
         for(var i = 0; i < this.state.boja; i++){
             let frekvenca = frekvence[nota + i * dirkiPoOktavi + this.state.početna * dirkiPoOktavi];
-            // let jačina = (1 - nota / this.state.dirkiUkupno) / (i + 1) / this.state.boja;
-            if(typeof this.zvuci === 'undefined'){
+            if(!this.state.počeo){
                 Pizzicato.volume = this.state.jačina / 10;
-                this.zvuci = new Pizzicato.Group();
+                // this.zvuci = new Pizzicato.Group();
                 this.setState({
                     počeo: ' jeste'
                 })
@@ -133,8 +147,10 @@ class Klavir extends Component {
                     type: oblici[this.state.oblik]
                 }
             });
-            this.zvuci.addSound(zvuk);
+
+            // this.zvuci.addSound(zvuk);
             zvuk.play();
+
             var s = this.state.svira;
             s.push({
                 nota: nota,
@@ -151,14 +167,14 @@ class Klavir extends Component {
             
         
         
-        var kolkoZvuka = this.zvuci.sounds.length;
-        
-        if(kolkoZvuka > this.state.kontinuitet * this.state.boja){
-            for(var ii = 0; ii < this.state.boja; ii++){
-                this.zvuci.sounds[ii].stop();
-                this.zvuci.removeSound(this.zvuci.sounds[ii]);
-            }
-        }
+        // var kolkoZvuka = this.zvuci.sounds.length;
+        // 
+        // if(kolkoZvuka > this.state.kontinuitet * this.state.boja){
+        //     for(var ii = 0; ii < this.state.boja; ii++){
+        //         this.zvuci.sounds[ii].stop();
+        //         this.zvuci.removeSound(this.zvuci.sounds[ii]);
+        //     }
+        // }
         
         if(this.state.snima){
             var kad;
@@ -195,17 +211,17 @@ class Klavir extends Component {
     
     snimaj(){
         if(this.state.snima){
-            if(this.pesma && this.pesma.note.length > 0){
-                this.pesma.traje = Date.now() - this.otkad;
-                let p = this.state.pesme;
-                p.push(this.pesma);
-                this.setState({
-                    pesme: p
-                })
-            }
-            if(this.zvuci){
-                this.zvuci.stop();
-                this.zvuci.sounds = [];
+            if(this.pesma){
+                if(this.pesma.note.length > 0){
+                    this.pesma.traje = Date.now() - this.otkad;
+                    let p = this.state.pesme;
+                    p.push(this.pesma);
+                    this.setState({
+                        pesme: p
+                    })
+
+                    // this.pesma.zvuci.sounds = [];
+                }
             }
             this.setState({
                 snima: false
@@ -220,7 +236,8 @@ class Klavir extends Component {
                 traje: 0,
                 jelSvira: false,
                 jelVrti: false,
-                note: []
+                note: [],
+                zvuci: {}
             };
         }
     }
@@ -229,11 +246,11 @@ class Klavir extends Component {
         var t = this;
         var p = this.state.pesme;
         var kolikoTraje = pesma.traje;
-        var z = this.zvuci;
+        // var z = this.zvuci;
         pesma.jelSvira = true;
         setTimeout(function(){
-            z.stop();
-            z.sounds = [];
+            // z.stop();
+            // z.sounds = [];
             pesma.jelSvira = false;
             p[kojaPoRedu].jelSvira = false;
             t.setState({
@@ -274,7 +291,7 @@ class Klavir extends Component {
     render() {
         let brojOktava = this.state.brojOktava;
         let sirinaDirke = sirinaOktave / belihDirkiPoOktavi;
-        let sirinaKlavira = (brojOktava * belihDirkiPoOktavi + belihDirkiPosle) * this.sirinaDirke;
+        let sirinaKlavira = (brojOktava * belihDirkiPoOktavi + belihDirkiPosle) * sirinaDirke;
         let viewBox = "0 0 " + sirinaKlavira + " " + visinaKlavijature;
         if(dirkiPosle > 0){
             brojOktava++;
@@ -298,7 +315,7 @@ class Klavir extends Component {
         }
         
         var notacije = [];
-        for(var i in this.note){
+        for(var i in note){
             notacije.push(
                 <Notacija
                     key={ 'not' + i }

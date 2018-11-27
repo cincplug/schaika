@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
+const odnosŠirine = 10;
+const odnosVisine = 1;
+
 class Pesma extends Component {
     constructor(props) {
         super(props);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         this.makni = this.makni.bind(this);
         this.vrti = this.vrti.bind(this);
-        
-        this.odnosŠirine = 20;
-        this.odnosVisine = 2;
     }
     
     odsvirajPesmu(){
@@ -36,15 +36,15 @@ class Pesma extends Component {
                 <rect
                     className="notica"
                     key={ "rec-" + n + '-' + this.props.kojaPoRedu }
-                    x={ Math.floor(pesma.note[n][1] / this.odnosŠirine) } 
-                    y={ Math.floor((this.props.dirkiUkupno - pesma.note[n][0]) / this.odnosVisine) } 
-                    width={ Math.floor((pesma.note[n][2] - pesma.note[n][1]) / this.odnosŠirine) } 
+                    x={ Math.floor(pesma.note[n][1] / odnosŠirine) } 
+                    y={ Math.floor((this.props.dirkiUkupno - pesma.note[n][0]) / odnosVisine) } 
+                    width={ Math.floor((pesma.note[n][2] - pesma.note[n][1]) / odnosŠirine) } 
                     height="1" 
                 />
             );
         }
         var širina = pesma.traje / 20;
-        var visina = this.props.dirkiUkupno / this.odnosVisine;
+        var visina = this.props.dirkiUkupno / odnosVisine;
         
         var gde;
         if(this.props.pesma.jelSvira){
