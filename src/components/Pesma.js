@@ -43,14 +43,14 @@ class Pesma extends Component {
                 />
             );
         }
-        var širina = pesma.traje / 20;
+        var širina = Math.floor(pesma.traje * 1000 / odnosŠirine);
         var visina = this.props.dirkiUkupno / odnosVisine;
         
         var gde;
         if(this.props.pesma.jelSvira){
             gde = <div 
                 className="gde"
-                style={{ animationDuration: pesma.traje + 'ms' }}
+                style={{ animationDuration: pesma.traje * 1000 + 'ms' }}
             ></div>;
         }
         
@@ -58,7 +58,7 @@ class Pesma extends Component {
             <div className={ klasa }>
 
                 <div className="blok ime-pesme">
-                    Pattern { this.props.kojaPoRedu + 1 }
+                    Pattern { this.props.kojaPoRedu + 1 }, { pesma.traje }, { visina }
                 </div>
 
                 <div className="blok note">

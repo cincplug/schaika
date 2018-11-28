@@ -156,7 +156,7 @@ class Klavir extends Component {
                 zvuk: zvuk,
                 kad: Pizzicato.context.currentTime
             });
-            console.log(zvuci);
+            // console.log(zvuci);
             
             this.setState({
                 zvuci: zvuci,
@@ -196,7 +196,6 @@ class Klavir extends Component {
     ćuti(otkad){
         var zvuci = this.state.zvuci;
         var nađiZvuk = zvuci[zvuci.length - 1];
-        console.log(nađiZvuk);
         zvuci.splice(nađiZvuk, 1);
         this.setState({
             zvuci: zvuci
@@ -230,7 +229,7 @@ class Klavir extends Component {
             this.setState({
                 snima: false
             });
-            console.log(JSON.stringify(this.pesma.note, null, 4));
+            // console.log(JSON.stringify(this.pesma.note, null, 4));
         } else {
             this.otkad = Pizzicato.context.currentTime;
             this.setState({
@@ -263,7 +262,7 @@ class Klavir extends Component {
             if(t.state.pesme[kojaPoRedu].jelVrti){
                 t.odsvirajPesmu(pesma, kojaPoRedu);
             } 
-        }, kolikoTraje);
+        }, kolikoTraje * 1000);
         for(var n = 0; n < pesma.note.length; n++){
             (function(ii) {
                 setTimeout(function() { 
