@@ -11,22 +11,22 @@ class Dirka extends Component {
     
     sviraj(e){
         if(e.buttons){
-            this.props.sviraj(this.props.dd);
+            this.props.sviraj(this.props.nota);
         }
     }
     
     pustio(e){
-        this.props.ćuti(this.props.dd);
+        this.props.ćuti();
     }
     
     otišo(e){
-        this.props.ćuti(this.props.dd);
+        this.props.ćuti();
     }
     
     render() {        
         return (
             <path className={ this.props.klasa }
-                d={ this.props.d }
+                d={ this.props.path }
                 onMouseDown={ this.sviraj }
                 onMouseOver={ this.sviraj }
                 onMouseOut={ this.otišo }
