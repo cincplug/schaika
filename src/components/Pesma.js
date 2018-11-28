@@ -34,7 +34,7 @@ class Pesma extends Component {
         for(var n in pesma.note){
             note.push(
                 <rect
-                    className="notica"
+                    className="nota"
                     key={ "rec-" + n + '-' + this.props.kojaPoRedu }
                     x={ Math.floor(pesma.note[n][1] / odnosŠirine) } 
                     y={ Math.floor((this.props.dirkiUkupno - pesma.note[n][0]) / odnosVisine) } 
@@ -58,7 +58,7 @@ class Pesma extends Component {
             <div className={ klasa }>
 
                 <div className="blok ime-pesme">
-                    Pattern { this.props.kojaPoRedu + 1 }, { pesma.traje }, { visina }
+                    Pattern { this.props.kojaPoRedu + 1 }
                 </div>
 
                 <div className="blok note">

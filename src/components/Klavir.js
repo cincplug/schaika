@@ -43,7 +43,7 @@ class Klavir extends Component {
             boja: 1,
             oblik: 0,
             kontinuitet: 6,
-            jačina: 8,
+            jačina: 5,
             frekvenca: null,
             pesme: [],
             notacija: 'en',
