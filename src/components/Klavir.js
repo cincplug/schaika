@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Pizzicato from 'Pizzicato';
+// import Pizzicato from 'Pizzicato';
 import dirke from '../data/dirke.json';
 import note from '../data/note.json';
 import frekvence from '../data/frekvence.json';
@@ -18,6 +18,8 @@ const dirkiPosle = 5;
 const belihDirkiPosle = 3;
 const oblici = ["sine", "square", "sawtooth", "triangle"];
 
+var context = new (window.AudioContext || window.webkitAudioContext)();
+
 class Klavir extends Component {
     constructor(props) {
         super(props);
@@ -28,11 +30,13 @@ class Klavir extends Component {
         this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
         this.promeniNotaciju = this.promeniNotaciju.bind(this);
         this.snimaj = this.snimaj.bind(this);
+        this.odsvirajNotu = this.odsvirajNotu.bind(this);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         this.makni = this.makni.bind(this);
         this.vrti = this.vrti.bind(this);
                 
         let brojOktava = 5; 
+        
         
         this.state = {
             počeo: '',
@@ -115,46 +119,45 @@ class Klavir extends Component {
             });
         }
         if(svojstvo === 'jačina') {
-            Pizzicato.volume = vrednost / 10;
+            // Pizzicato.volume = vrednost / 10;
         }
     }
     
-    sviraj(nota, pesma){
-
+    odsvirajNotu(nota){
+        
         for(var i = 0; i < this.state.boja; i++){
-            let frekvenca = frekvence[nota + i * dirkiPoOktavi + this.state.početna * dirkiPoOktavi];
+            let frekvenca = frekvence[nota[0] + i * dirkiPoOktavi + this.state.početna * dirkiPoOktavi];
             if(!this.state.počeo){
-                Pizzicato.volume = this.state.jačina / 10;
+                // Pizzicato.volume = this.state.jačina / 10;
                 this.zvuci = [];
                 this.setState({
                     počeo: ' jeste'
                 })
             }
             
-            let zvuk = new Pizzicato.Sound({
-                source: 'wave',
-                options: {
-                    // audioFunction: function(e) {
-                    //     var output = e.outputBuffer.getChannelData(0);
-                    //     for (var i = 0; i < e.outputBuffer.length; i++){
-                    //         let h = i;
-                    //         output[i] = h / 2;
-                    //     }
-                    // },
-                    release: 0.7,
-                    volume: this.state.jačina,
-                    frequency: frekvenca,
-                    type: oblici[this.state.oblik]
-                }
-            });
+            
+            var zvuk = context.createOscillator();
+            zvuk.type = oblici[this.state.oblik];
+            zvuk.frequency.value = frekvenca;
+            var gain = context.createGain();
+            zvuk.connect(gain);
+            gain.connect(context.destination);
 
-            zvuk.play();
+            var now = context.currentTime;
+            gain.gain.setValueAtTime(this.state.jačina, now);
+            gain.gain.exponentialRampToValueAtTime(0.5, now + 2);
+            zvuk.start(now);
+
+            // zvuk.stop(now + 0.5);
+            
+            
+            // zvuk.start();
 
             var zvuci = this.state.zvuci;
             zvuci.push({
-                nota: nota,
+                nota: nota[0],
                 zvuk: zvuk,
-                kad: Pizzicato.context.currentTime
+                kad: context.currentTime
             });
             // console.log(zvuci);
             
@@ -165,8 +168,11 @@ class Klavir extends Component {
                 oktava: Math.floor((nota + this.state.početna * dirkiPoOktavi) / dirkiPoOktavi)
             })
         }
-            
-        
+    }
+    
+    sviraj(nota, pesma){
+
+        this.odsvirajNotu([nota, 0, null]);        
         
         // var kolkoZvuka = this.zvuci.sounds.length;
         // 
@@ -180,10 +186,10 @@ class Klavir extends Component {
         if(this.state.snima){
             var kad;
             if(this.pesma.note.length === 0){
-                this.otkad = Pizzicato.context.currentTime;
+                this.otkad = context.currentTime;
                 kad = 0;
             } else {
-                kad = Pizzicato.context.currentTime - this.otkad;
+                kad = context.currentTime - this.otkad;
             }
             this.pesma.note.push([
                 nota,
@@ -193,9 +199,9 @@ class Klavir extends Component {
         }
     }
     
-    ćuti(otkad){
+    ćuti(nota){
         var zvuci = this.state.zvuci;
-        var nađiZvuk = zvuci[zvuci.length - 1];
+        var nađiZvuk = zvuci.find(z => z.nota === nota);
         zvuci.splice(nađiZvuk, 1);
         this.setState({
             zvuci: zvuci
@@ -206,7 +212,7 @@ class Klavir extends Component {
         }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
-            var kad = Pizzicato.context.currentTime - this.otkad;
+            var kad = context.currentTime - this.otkad;
             this.pesma.note[this.pesma.note.length - 1][2] = kad * 1000;
         }
     }
@@ -215,7 +221,7 @@ class Klavir extends Component {
         if(this.state.snima){
             if(this.pesma){
                 if(this.pesma.note.length > 0){
-                    this.pesma.traje = Pizzicato.context.currentTime - this.otkad;
+                    this.pesma.traje = context.currentTime - this.otkad;
                     let p = this.state.pesme;
                     p.push(this.pesma);
                     this.setState({
@@ -231,7 +237,7 @@ class Klavir extends Component {
             });
             // console.log(JSON.stringify(this.pesma.note, null, 4));
         } else {
-            this.otkad = Pizzicato.context.currentTime;
+            this.otkad = context.currentTime;
             this.setState({
                 snima: true
             });            
@@ -265,12 +271,12 @@ class Klavir extends Component {
         }, kolikoTraje * 1000);
         for(var n = 0; n < pesma.note.length; n++){
             (function(ii) {
-                setTimeout(function() { 
-                    t.sviraj(pesma.note[ii][0]); 
-                }, Math.floor(pesma.note[ii][1]));
-                setTimeout(function() { 
-                    t.ćuti(pesma.note[ii][0]); 
-                }, Math.floor(pesma.note[ii][2]));
+                // setTimeout(function() { 
+                    t.odsvirajNotu(pesma.note[ii]); 
+                // }, Math.floor(pesma.note[ii][1]));
+                // setTimeout(function() { 
+                //     t.ćuti(pesma.note[ii][0]); 
+                // }, Math.floor(pesma.note[ii][2]));
             })(n);
         }
     }

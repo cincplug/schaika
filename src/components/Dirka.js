@@ -16,11 +16,11 @@ class Dirka extends Component {
     }
     
     pustio(e){
-        this.props.ćuti();
+        this.props.ćuti(this.props.nota);
     }
     
     otišo(e){
-        this.props.ćuti();
+        this.props.ćuti(this.props.nota);
     }
     
     render() {        
