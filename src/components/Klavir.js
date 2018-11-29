@@ -17,7 +17,7 @@ const dirkiPosle = 5;
 const belihDirkiPosle = 3;
 const oblici = ["sine", "triangle", "sawtooth", "square"];
 
-var context = new (window.AudioContext || window.webkitAudioContext)();
+const context = new (window.AudioContext || window.webkitAudioContext)();
 
 class Klavir extends Component {
     constructor(props) {
