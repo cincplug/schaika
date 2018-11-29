@@ -7,20 +7,32 @@ class Dirka extends Component {
         this.sviraj = this.sviraj.bind(this);
         this.pustio = this.pustio.bind(this);
         this.otišo = this.otišo.bind(this);
+        
+        this.state = {
+            zvuk: null
+        }
     }
     
     sviraj(e){
         if(e.buttons){
-            this.props.sviraj(this.props.nota);
+            var zvuk = this.props.sviraj(this.props.nota);
+
+            this.setState({
+                zvuk: zvuk
+            });
         }
     }
     
     pustio(e){
-        this.props.ćuti(this.props.nota);
+        if(this.state.zvuk){
+            this.props.ćuti(this.state.zvuk);
+        }
     }
     
     otišo(e){
-        this.props.ćuti(this.props.nota);
+        if(this.state.zvuk){
+            this.props.ćuti(this.state.zvuk);
+        }
     }
     
     render() {        

@@ -10,11 +10,11 @@ class Oktava extends Component {
     }
     
     sviraj(nota){
-        this.props.sviraj(nota);
+        return this.props.sviraj(nota);
     }
     
-    ćuti(nota){
-        this.props.ćuti(nota);
+    ćuti(zvuk){
+        this.props.ćuti(zvuk);
     }
     
     render() {        
