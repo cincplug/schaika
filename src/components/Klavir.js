@@ -46,7 +46,7 @@ class Klavir extends Component {
             oblik: 0,
             atak: 1,
             rilis: 2,
-            sustejn: 1,
+            sustejn: 0  ,
             jačina: 5,
             frekvenca: null,
             pesme: [],
@@ -123,8 +123,7 @@ class Klavir extends Component {
         }
     }
     
-    odsvirajNotu(nota){
-        
+    odsvirajNotu(nota, otkad = 0, dokad = 0){
         var zvuk = [];
         for(var i = 0; i < this.state.boja; i++){
             
@@ -142,14 +141,17 @@ class Klavir extends Component {
             ton.connect(gain);
             gain.connect(context.destination);
 
-            var now = context.currentTime;
+            var sad = context.currentTime;
             let smanji = Math.pow(this.state.oblik + 1, 2);
             
-            var jačina = this.state.jačina / smanji;
-            gain.gain.setValueAtTime(jačina / 2, now);
-            gain.gain.exponentialRampToValueAtTime(jačina, now + this.state.atak / 10);
-            gain.gain.exponentialRampToValueAtTime(jačina / 10, now + this.state.atak / 10 + this.state.rilis / 5);
-            ton.start(now);
+            var jačina = this.state.jačina / smanji / 2;
+            gain.gain.setValueAtTime(jačina, sad);
+            gain.gain.exponentialRampToValueAtTime(jačina, sad + otkad + this.state.atak / 10);
+            gain.gain.exponentialRampToValueAtTime(jačina / 10, sad + otkad + this.state.atak / 10 + this.state.rilis / 5);
+            ton.start(sad + otkad / 1000);
+            if(dokad){
+                ton.stop(sad + dokad / 1000);
+            }
             
             this.setState({
                 frekvenca: frekvenca,
@@ -187,10 +189,10 @@ class Klavir extends Component {
     
     ćuti(zvuk){
             
-            for(var ton in zvuk){
-                console.log(zvuk[ton]);
-                zvuk[ton].stop();
-            }
+        for(var ton in zvuk){
+            // console.log(zvuk[ton]);
+            zvuk[ton].stop(context.currentTime + this.state.sustejn);
+        }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
             var kad = context.currentTime - this.otkad;
@@ -233,11 +235,8 @@ class Klavir extends Component {
         var t = this;
         var p = this.state.pesme;
         var kolikoTraje = pesma.traje;
-        // var z = this.zvuci;
         pesma.jelSvira = true;
         setTimeout(function(){
-            // z.stop();
-            // z.sounds = [];
             pesma.jelSvira = false;
             p[kojaPoRedu].jelSvira = false;
             t.setState({
@@ -248,14 +247,11 @@ class Klavir extends Component {
             } 
         }, kolikoTraje * 1000);
         for(var n = 0; n < pesma.note.length; n++){
-            (function(ii) {
-                // setTimeout(function() { 
-                    t.odsvirajNotu(pesma.note[ii]); 
-                // }, Math.floor(pesma.note[ii][1]));
-                // setTimeout(function() { 
-                //     t.ćuti(pesma.note[ii][0]); 
-                // }, Math.floor(pesma.note[ii][2]));
-            })(n);
+            t.odsvirajNotu(
+                pesma.note[n][0], 
+                pesma.note[n][1], 
+                pesma.note[n][2]
+            ); 
         }
     }
     

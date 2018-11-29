@@ -100,7 +100,7 @@ class Tabla extends Component {
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
 
-                <Svojstvo 
+                {/* <Svojstvo 
                     svojstvo="sustejn"
                     vrednost={ this.props.sustejn }
                     limit={{
@@ -111,7 +111,7 @@ class Tabla extends Component {
                         en: "Sustain"
                     }}
                     promeniSvojstvo={ this.promeniSvojstvo }
-                />
+                /> */}
 
                 <Svojstvo 
                     svojstvo="jačina"
