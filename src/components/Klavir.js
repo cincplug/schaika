@@ -147,8 +147,8 @@ class Klavir extends Component {
             
             var jačina = this.state.jačina / smanji;
             gain.gain.setValueAtTime(jačina / 2, now);
-            gain.gain.exponentialRampToValueAtTime(jačina, now + this.state.atak);
-            gain.gain.exponentialRampToValueAtTime(jačina / 100, now + this.state.atak + this.state.rilis);
+            gain.gain.exponentialRampToValueAtTime(jačina, now + this.state.atak / 10);
+            gain.gain.exponentialRampToValueAtTime(jačina / 10, now + this.state.atak / 10 + this.state.rilis / 5);
             ton.start(now);
             
             this.setState({
@@ -186,9 +186,10 @@ class Klavir extends Component {
     }
     
     ćuti(zvuk){
-        
+            
             for(var ton in zvuk){
-                zvuk[ton].stop(this.state.sustejn);
+                console.log(zvuk[ton]);
+                zvuk[ton].stop();
             }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
