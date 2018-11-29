@@ -122,37 +122,39 @@ class Klavir extends Component {
     }
     
     odsvirajNotu(nota){
-
-        // for(var i = 0; i < this.state.boja; i++){
+        
+        var zvuk = [];
+        for(var i = 0; i < this.state.boja; i++){
             
-            let frekvenca = frekvence[nota + this.state.početna * dirkiPoOktavi];
-            console.log(frekvenca);
+            let frekvenca = frekvence[nota + (i + this.state.početna) * dirkiPoOktavi];
             if(!this.state.počeo){
                 this.setState({
                     počeo: ' jeste'
                 })
             }
             
-            
-            var zvuk = context.createOscillator();
-            zvuk.type = oblici[this.state.oblik];
-            zvuk.frequency.value = frekvenca;
+            var ton = context.createOscillator();
+            ton.type = oblici[this.state.oblik];
+            ton.frequency.value = frekvenca;
             var gain = context.createGain();
-            zvuk.connect(gain);
+            ton.connect(gain);
             gain.connect(context.destination);
 
             var now = context.currentTime;
             gain.gain.setValueAtTime(this.state.jačina / 10, now);
             gain.gain.exponentialRampToValueAtTime(0.1, now + 1);
-            zvuk.start(now);
+            ton.start(now);
             
             this.setState({
                 frekvenca: frekvenca,
                 nota: note[this.state.notacija][nota % 12],
                 oktava: Math.floor((nota + this.state.početna * dirkiPoOktavi) / dirkiPoOktavi)
             });
-            return zvuk;
-        // }
+            
+            zvuk.push(ton);
+        }
+        
+        return zvuk;
     }
     
     sviraj(nota, pesma){
@@ -187,9 +189,10 @@ class Klavir extends Component {
     }
     
     ćuti(zvuk){
-        if(zvuk){
-            zvuk.stop();
-        }
+        
+            for(var ton in zvuk){
+                zvuk[ton].stop();
+            }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
             var kad = context.currentTime - this.otkad;
