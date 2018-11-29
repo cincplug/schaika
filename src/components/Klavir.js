@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import Pizzicato from 'Pizzicato';
 import dirke from '../data/dirke.json';
 import note from '../data/note.json';
 import frekvence from '../data/frekvence.json';
@@ -119,7 +118,7 @@ class Klavir extends Component {
             });
         }
         if(svojstvo === 'jačina') {
-            // Pizzicato.volume = vrednost / 10;
+
         }
     }
     
@@ -128,7 +127,7 @@ class Klavir extends Component {
         for(var i = 0; i < this.state.boja; i++){
             let frekvenca = frekvence[nota[0] + i * dirkiPoOktavi + this.state.početna * dirkiPoOktavi];
             if(!this.state.počeo){
-                // Pizzicato.volume = this.state.jačina / 10;
+                
                 this.zvuci = [];
                 this.setState({
                     počeo: ' jeste'
@@ -144,14 +143,10 @@ class Klavir extends Component {
             gain.connect(context.destination);
 
             var now = context.currentTime;
-            gain.gain.setValueAtTime(this.state.jačina, now);
-            gain.gain.exponentialRampToValueAtTime(0.5, now + 2);
+            gain.gain.setValueAtTime(this.state.jačina / 10, now);
+            gain.gain.exponentialRampToValueAtTime(0.1, now + 1);
             zvuk.start(now);
 
-            // zvuk.stop(now + 0.5);
-            
-            
-            // zvuk.start();
 
             var zvuci = this.state.zvuci;
             zvuci.push({
@@ -208,7 +203,6 @@ class Klavir extends Component {
         });
         if(nađiZvuk && nađiZvuk.zvuk){
             nađiZvuk.zvuk.stop();
-            // n.zvuk.disconnect();
         }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
@@ -235,7 +229,7 @@ class Klavir extends Component {
             this.setState({
                 snima: false
             });
-            // console.log(JSON.stringify(this.pesma.note, null, 4));
+
         } else {
             this.otkad = context.currentTime;
             this.setState({
@@ -255,11 +249,11 @@ class Klavir extends Component {
         var t = this;
         var p = this.state.pesme;
         var kolikoTraje = pesma.traje;
-        // var z = this.zvuci;
+        var z = this.zvuci;
         pesma.jelSvira = true;
         setTimeout(function(){
-            // z.stop();
-            // z.sounds = [];
+            z.stop();
+            z.sounds = [];
             pesma.jelSvira = false;
             p[kojaPoRedu].jelSvira = false;
             t.setState({
