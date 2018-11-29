@@ -46,7 +46,7 @@ class Klavir extends Component {
             oblik: 0,
             atak: 1,
             rilis: 2,
-            sustejn: 0  ,
+            sustejn: 0,
             jačina: 5,
             frekvenca: null,
             pesme: [],
@@ -124,6 +124,8 @@ class Klavir extends Component {
     }
     
     odsvirajNotu(nota, otkad = 0, dokad = 0){
+        otkad /= 1000;
+        dokad /= 1000;
         var zvuk = [];
         for(var i = 0; i < this.state.boja; i++){
             
@@ -144,13 +146,13 @@ class Klavir extends Component {
             var sad = context.currentTime;
             let smanji = Math.pow(this.state.oblik + 1, 2);
             
-            var jačina = this.state.jačina / smanji / 2;
+            var jačina = this.state.jačina / smanji / 4;
             gain.gain.setValueAtTime(jačina, sad);
             gain.gain.exponentialRampToValueAtTime(jačina, sad + otkad + this.state.atak / 10);
             gain.gain.exponentialRampToValueAtTime(jačina / 10, sad + otkad + this.state.atak / 10 + this.state.rilis / 5);
-            ton.start(sad + otkad / 1000);
+            ton.start(sad + otkad);
             if(dokad){
-                ton.stop(sad + dokad / 1000);
+                ton.stop(sad + dokad);
             }
             
             this.setState({
@@ -191,7 +193,7 @@ class Klavir extends Component {
             
         for(var ton in zvuk){
             // console.log(zvuk[ton]);
-            zvuk[ton].stop(context.currentTime + this.state.sustejn);
+            zvuk[ton].stop(context.currentTime);
         }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){

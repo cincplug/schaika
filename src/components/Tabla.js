@@ -117,7 +117,7 @@ class Tabla extends Component {
                     svojstvo="jačina"
                     vrednost={ this.props.jačina }
                     limit={{
-                        donji: 0,
+                        donji: 1,
                         gornji: 10
                     }}
                     trans={{
@@ -126,9 +126,9 @@ class Tabla extends Component {
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />
 
-                <div className={ "zaglavlje mir j-" + this.props.jačina }
+                {/* <div className={ "zaglavlje mir j-" + this.props.jačina }
                     onClick={ () => this.promeniSvojstvo('jačina', 'nula') }>
-                </div>
+                </div> */}
 
                 <div className={ "zaglavlje rekord snima-" + this.props.snima.toString() }
                     onClick={ this.snimaj }>
