@@ -15,7 +15,7 @@ const dirkiPoOktavi = 12;
 const belihDirkiPoOktavi = 7; 
 const dirkiPosle = 5;
 const belihDirkiPosle = 3;
-const oblici = ["sine", "square", "sawtooth", "triangle"];
+const oblici = ["sine", "triangle", "sawtooth", "square"];
 
 var context = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -44,7 +44,9 @@ class Klavir extends Component {
             početna: 1,
             boja: 1,
             oblik: 0,
-            kontinuitet: 6,
+            atak: 1,
+            rilis: 2,
+            sustejn: 1,
             jačina: 5,
             frekvenca: null,
             pesme: [],
@@ -141,8 +143,12 @@ class Klavir extends Component {
             gain.connect(context.destination);
 
             var now = context.currentTime;
-            gain.gain.setValueAtTime(this.state.jačina / 10, now);
-            gain.gain.exponentialRampToValueAtTime(0.1, now + 1);
+            let smanji = Math.pow(this.state.oblik + 1, 2);
+            
+            var jačina = this.state.jačina / smanji;
+            gain.gain.setValueAtTime(jačina / 2, now);
+            gain.gain.exponentialRampToValueAtTime(jačina, now + this.state.atak);
+            gain.gain.exponentialRampToValueAtTime(jačina / 100, now + this.state.atak + this.state.rilis);
             ton.start(now);
             
             this.setState({
@@ -160,15 +166,6 @@ class Klavir extends Component {
     sviraj(nota, pesma){
 
         var zvuk = this.odsvirajNotu(nota);        
-        
-        // var kolkoZvuka = this.zvuci.sounds.length;
-        // 
-        // if(kolkoZvuka > this.state.kontinuitet * this.state.boja){
-        //     for(var ii = 0; ii < this.state.boja; ii++){
-        //         this.zvuci.sounds[ii].stop();
-        //         this.zvuci.removeSound(this.zvuci.sounds[ii]);
-        //     }
-        // }
         
         if(this.state.snima){
             var kad;
@@ -191,7 +188,7 @@ class Klavir extends Component {
     ćuti(zvuk){
         
             for(var ton in zvuk){
-                zvuk[ton].stop();
+                zvuk[ton].stop(this.state.sustejn);
             }
         
         if(this.state.snima && this.pesma && this.pesma.note.length > 0){
@@ -341,7 +338,9 @@ class Klavir extends Component {
                         oblici={ oblici }
                         oblik={ this.state.oblik }
                         početna={ this.state.početna }
-                        kontinuitet={ this.state.kontinuitet }
+                        atak={ this.state.atak }
+                        rilis={ this.state.rilis }
+                        sustejn={ this.state.sustejn }
                         jačina={ this.state.jačina }
                         promeniSvojstvo={ this.promeniSvojstvo }
                         snimaj={ this.snimaj }

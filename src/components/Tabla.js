@@ -75,14 +75,40 @@ class Tabla extends Component {
                 />
 
                 <Svojstvo 
-                    svojstvo="kontinuitet"
-                    vrednost={ this.props.kontinuitet }
+                    svojstvo="atak"
+                    vrednost={ this.props.atak }
                     limit={{
-                        donji: 1,
+                        donji: 0,
                         gornji: 12
                     }}
                     trans={{
-                        en: "Continuity"
+                        en: "Attack"
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <Svojstvo 
+                    svojstvo="rilis"
+                    vrednost={ this.props.rilis }
+                    limit={{
+                        donji: 0,
+                        gornji: 25
+                    }}
+                    trans={{
+                        en: "Release"
+                    }}
+                    promeniSvojstvo={ this.promeniSvojstvo }
+                />
+
+                <Svojstvo 
+                    svojstvo="sustejn"
+                    vrednost={ this.props.sustejn }
+                    limit={{
+                        donji: 0,
+                        gornji: 40
+                    }}
+                    trans={{
+                        en: "Sustain"
                     }}
                     promeniSvojstvo={ this.promeniSvojstvo }
                 />

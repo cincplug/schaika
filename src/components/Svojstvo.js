@@ -16,7 +16,7 @@ class Svojstvo extends Component {
             (this.props.tekst ? ' tekst' : '');
         var vrednost = this.props.vrednost;
         if(this.props.tekst){
-            vrednost = this.props.tekst[this.props.vrednost];
+            vrednost = this.props.tekst[this.props.vrednost].substr(0,3);
         }
         return (
             <div className={ klasa }>

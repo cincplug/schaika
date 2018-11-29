@@ -43,7 +43,7 @@ h1 {
 .svojstvo {
     display: inline-block;
     text-align: center;
-    width: 15%;
+    /* width: 15%; */
 }
 
 @media(max-width: 480px){
@@ -74,6 +74,25 @@ h1 {
 
 .strelica:hover svg {
     fill: #007744;
+}
+
+.cifra {
+    display: inline-block;
+    width: 40px;
+    font-size: 22px;
+    text-align: center;
+    position: relative;
+    bottom: 7px;
+    color: white;
+}
+
+.tekst .cifra {
+    font-size: 14px;
+    bottom: 11px;
+}
+
+.oblik .cifra {
+    /* width: 60px; */
 }
 
 .j-0 {
@@ -133,27 +152,6 @@ h1 {
     top: 30%;
     left: 30%;
     background: white;
-}
-
-.cifra {
-    display: inline-block;
-    width: 30px;
-    font-size: 22px;
-    text-align: center;
-    position: relative;
-    bottom: 7px;
-    color: white;
-}
-
-.tekst .cifra {
-    width: auto;
-    font-size: 14px;
-    bottom: 10px;
-    margin: 0 5px;
-}
-
-.oblik .cifra {
-    width: 60px;
 }
 
 .dirka {
