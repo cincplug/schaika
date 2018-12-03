@@ -1,3 +1,6 @@
+import wrapWithProvider from "./wrap-with-provider"
+export const wrapRootElement = wrapWithProvider
+
 /**
  * Implement Gatsby's Browser APIs in this file.
  *

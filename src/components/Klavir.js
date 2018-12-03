@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import context from '../services/context.js';
 import dirke from '../data/dirke.json';
 import note from '../data/note.json';
 import frekvence from '../data/frekvence.json';
@@ -17,7 +18,7 @@ const dirkiPosle = 5;
 const belihDirkiPosle = 3;
 const oblici = ["sine", "triangle", "sawtooth", "square"];
 
-const context = new (window.AudioContext || window.webkitAudioContext)();
+
 
 class Klavir extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Klavir extends Component {
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
         this.makni = this.makni.bind(this);
         this.vrti = this.vrti.bind(this);
-                
+        
         let brojOktava = 5; 
         
         
