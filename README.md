@@ -1,3 +1,7 @@
+## 🚀 Overview
+
+This React-based synthesizer was built with Gatsby (no particular reason why Gatsby, just wanted to see how it works). Below is usual Gatsby's overview and instructions for use.
+
 <p align="center">
   <a href="https://www.gatsbyjs.org">
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
