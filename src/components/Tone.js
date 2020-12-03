@@ -5,8 +5,8 @@ class Tone extends Component {
     constructor(props) {
         super(props);
         this.play = this.play.bind(this);
-        this.pustio = this.handleMouseUp.bind(this);
-        this.otišo = this.handleMouseOut.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.handleMouseOut = this.handleMouseOut.bind(this);
         
         this.state = {
             sound: null

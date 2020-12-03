@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import context from '../services/context.js';
 import keys from '../data/keys.json';
 import tones from '../data/tones.json';
 import frequencies from '../data/frequencies.json';
+import Header from './Header';
 import Octave from './Octave';
 import Controls from './Controls';
 import Notation from './Notation';
@@ -10,6 +10,7 @@ import Clip from './Clip';
 
 import './keyboard.css';
 
+const context = new AudioContext;
 const octaveWidth = 330; 
 const keyboardHeight = 270;
 const keysPerOctave = 12;             
@@ -48,7 +49,7 @@ class Keyboard extends Component {
             attack: 1,
             release: 2,
             sustain: 0,
-            volume: 5,
+            volume: 4,
             frequency: null,
             clips: [],
             notation: 'en',
@@ -331,6 +332,7 @@ class Keyboard extends Component {
         
         return (
             <div id="keyboard">
+                <Header/>
                 <div id="kutija">
                     <Controls
                         octavesCount={ this.state.octavesCount }
