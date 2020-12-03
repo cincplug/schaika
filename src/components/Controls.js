@@ -4,16 +4,16 @@ import Property from './Property';
 class Controls extends Component {
     constructor(props) {
         super(props);
-        this.promeniProperty = this.promeniProperty.bind(this);
-        this.snimaj = this.snimaj.bind(this);
+        this.updateProperty = this.updateProperty.bind(this);
+        this.record = this.record.bind(this);
     }
     
-    promeniProperty(svojstvo, akcija){
-        this.props.promeniProperty(svojstvo, akcija);
+    updateProperty(property, action){
+        this.props.updateProperty(property, action);
     }
 
-    snimaj(){
-        this.props.snimaj();
+    record(){
+        this.props.record();
     }
     
     render() {        
@@ -22,118 +22,118 @@ class Controls extends Component {
             <div id="tabla">
 
                 <Property 
-                    svojstvo="početna"
-                    vrednost={ this.props.početna }
+                    property="initial"
+                    value={ this.props.initial }
                     limit={{
-                        donji: 0,
-                        gornji: 3
+                        lower: 0,
+                        upper: 3
                     }}
                     trans={{
                         en: "Start octave"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 />
 
                 <Property 
-                    svojstvo="brojOctave"
-                    vrednost={ this.props.brojOctave }
+                    property="octavesCount"
+                    value={ this.props.octavesCount }
                     limit={{
-                        donji: 1,
-                        gornji: 7
+                        lower: 1,
+                        upper: 7
                     }}
                     trans={{
                         en: "Octaves"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 />
 
                 <Property 
-                    svojstvo="boja"
-                    vrednost={ this.props.boja }
+                    property="colour"
+                    value={ this.props.colour }
                     limit={{
-                        donji: 1,
-                        gornji: 4
+                        lower: 1,
+                        upper: 4
                     }}
                     trans={{
                         en: "Oscillators"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 />
 
                 <Property 
-                    svojstvo="oblik"
-                    vrednost={ this.props.oblik }
+                    property="waveForm"
+                    value={ this.props.waveForm }
                     limit={{
-                        donji: 0,
-                        gornji: 3
+                        lower: 0,
+                        upper: 3
                     }}
                     trans={{
                         en: "Waveform"
                     }}
-                    tekst={ this.props.oblici }
-                    promeniProperty={ this.promeniProperty }
+                    tekst={ this.props.waveForms }
+                    updateProperty={ this.updateProperty }
                 />
 
                 <Property 
-                    svojstvo="atak"
-                    vrednost={ this.props.atak }
+                    property="attack"
+                    value={ this.props.attack }
                     limit={{
-                        donji: 0,
-                        gornji: 12
+                        lower: 0,
+                        upper: 12
                     }}
                     trans={{
                         en: "Attack"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 />
 
                 <Property 
-                    svojstvo="rilis"
-                    vrednost={ this.props.rilis }
+                    property="release"
+                    value={ this.props.release }
                     limit={{
-                        donji: 0,
-                        gornji: 25
+                        lower: 0,
+                        upper: 25
                     }}
                     trans={{
                         en: "Release"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 />
 
                 {/* <Property 
-                    svojstvo="sustejn"
-                    vrednost={ this.props.sustejn }
+                    property="sustain"
+                    value={ this.props.sustain }
                     limit={{
-                        donji: 0,
-                        gornji: 40
+                        lower: 0,
+                        upper: 40
                     }}
                     trans={{
                         en: "Sustain"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 /> */}
 
                 <Property 
-                    svojstvo="jačina"
-                    vrednost={ this.props.jačina }
+                    property="volume"
+                    value={ this.props.volume }
                     limit={{
-                        donji: 1,
-                        gornji: 10
+                        lower: 1,
+                        upper: 10
                     }}
                     trans={{
                         en: "Volume"
                     }}
-                    promeniProperty={ this.promeniProperty }
+                    updateProperty={ this.updateProperty }
                 />
 
-                {/* <div className={ "zaglavlje mir j-" + this.props.jačina }
-                    onClick={ () => this.promeniProperty('jačina', 'nula') }>
+                {/* <div className={ "header mir j-" + this.props.volume }
+                    onClick={ () => this.updateProperty('volume', 'zero') }>
                 </div> */}
 
-                <div className={ "zaglavlje rekord snima-" + this.props.snima.toString() }
-                    onClick={ this.snimaj }>
-                    <div className="krug"></div>
-                    <div className="kvadrat"></div>
+                <div className={ "header rekord isRecording-" + this.props.isRecording.toString() }
+                    onClick={ this.record }>
+                    <div className="circle"></div>
+                    <div className="square"></div>
                 </div>
 
 

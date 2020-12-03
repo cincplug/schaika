@@ -4,42 +4,42 @@ import Arrow from './Arrow';
 class Property extends Component {
     constructor(props) {
         super(props);
-        this.promeniProperty = this.promeniProperty.bind(this);
+        this.updateProperty = this.updateProperty.bind(this);
     }
     
-    promeniProperty(svojstvo, akcija){
-        this.props.promeniProperty(svojstvo, akcija);
+    updateProperty(property, action){
+        this.props.updateProperty(property, action);
     }
     
     render() {        
-        var klasa = "svojstvo " + this.props.svojstvo + 
+        var className = "property " + this.props.property + 
             (this.props.tekst ? ' tekst' : '');
-        var vrednost = this.props.vrednost;
+        var value = this.props.value;
         if(this.props.tekst){
-            vrednost = this.props.tekst[this.props.vrednost].substr(0,3);
+            value = this.props.tekst[this.props.value].substr(0,3);
         }
         return (
-            <div className={ klasa }>
+            <div className={ className }>
 
-                <div className="ime-svojstva label">{ this.props.trans.en }</div>
+                <div className="property-name label">{ this.props.trans.en }</div>
                 <Arrow 
-                    svojstvo={ this.props.svojstvo }
-                    akcija="smanji"
-                    vrednost={ this.props.vrednost }
-                    limit={ this.props.limit.donji }
-                    promeniProperty={ this.promeniProperty }
+                    property={ this.props.property }
+                    action="decrease"
+                    value={ this.props.value }
+                    limit={ this.props.limit.lower }
+                    updateProperty={ this.updateProperty }
                 />
 
                 <span className="cifra">
-                    { vrednost }
+                    { value }
                 </span>
 
                 <Arrow 
-                    svojstvo={ this.props.svojstvo }
-                    akcija="povecaj"
-                    vrednost={ this.props.vrednost }
-                    limit={ this.props.limit.gornji }
-                    promeniProperty={ this.promeniProperty }
+                    property={ this.props.property }
+                    action="increase"
+                    value={ this.props.value }
+                    limit={ this.props.limit.upper }
+                    updateProperty={ this.updateProperty }
                 />
 
             </div>

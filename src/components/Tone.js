@@ -4,45 +4,45 @@ import React, { Component } from 'react';
 class Tone extends Component {
     constructor(props) {
         super(props);
-        this.sviraj = this.sviraj.bind(this);
-        this.pustio = this.pustio.bind(this);
-        this.otišo = this.otišo.bind(this);
+        this.play = this.play.bind(this);
+        this.pustio = this.handleMouseUp.bind(this);
+        this.otišo = this.handleMouseOut.bind(this);
         
         this.state = {
-            zvuk: null
+            sound: null
         }
     }
     
-    sviraj(e){
+    play(e){
         if(e.buttons){
-            var zvuk = this.props.sviraj(this.props.nota);
+            var sound = this.props.play(this.props.nota);
 
             this.setState({
-                zvuk: zvuk
+                sound: sound
             });
         }
     }
     
-    pustio(e){
-        if(this.state.zvuk){
-            this.props.ćuti(this.state.zvuk);
+    handleMouseUp(){
+        if(this.state.sound){
+            this.props.stop(this.state.sound);
         }
     }
     
-    otišo(e){
-        if(this.state.zvuk){
-            this.props.ćuti(this.state.zvuk);
+    handleMouseOut(){
+        if(this.state.sound){
+            this.props.stop(this.state.sound);
         }
     }
     
     render() {        
         return (
-            <path className={ this.props.klasa }
+            <path className={ this.props.class }
                 d={ this.props.path }
-                onMouseDown={ this.sviraj }
-                onMouseOver={ this.sviraj }
-                onMouseOut={ this.otišo }
-                onMouseUp={ this.pustio }
+                onMouseDown={ this.play }
+                onMouseOver={ this.play }
+                onMouseOut={ this.handleMouseOut }
+                onMouseUp={ this.handleMouseUp }
             >
                 <bx-title>{ this.props.tone }</bx-title>
             </path>

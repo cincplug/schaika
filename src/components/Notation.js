@@ -3,19 +3,19 @@ import React, { Component } from 'react';
 class Notation extends Component {
     constructor(props) {
         super(props);
-        this.promeniNotaciju = this.promeniNotaciju.bind(this);
+        this.updateNotation = this.updateNotation.bind(this);
     }
     
-    promeniNotaciju(){
-        this.props.promeniNotaciju(this.props.notacija);
+    updateNotation(){
+        this.props.updateNotation(this.props.notation);
     }
     
     render() {
-        var klasa = "label notacija notacija-" + this.props.jelOva.toString();        
+        var className = "label notation notation-" + this.props.isMatching.toString();        
         return (
-            <span className={ klasa }
-                onClick={ this.promeniNotaciju }>
-                { this.props.notacija }
+            <span className={ className }
+                onClick={ this.updateNotation }>
+                { this.props.notation }
             </span>
         );
     }

@@ -1,98 +1,98 @@
 import React, { Component } from 'react';
 
-const odnosŠirine = 10;
-const odnosVisine = 1;
+const widthRatio = 10;
+const heightRatio = 1;
 
 class Clip extends Component {
     constructor(props) {
         super(props);
-        this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
-        this.makni = this.makni.bind(this);
-        this.vrti = this.vrti.bind(this);
+        this.playClip = this.playClip.bind(this);
+        this.move = this.move.bind(this);
+        this.repeat = this.repeat.bind(this);
     }
     
-    odsvirajPesmu(){
-        this.props.odsvirajPesmu(this.props.pesma, this.props.kojaPoRedu);
+    playClip(){
+        this.props.playClip(this.props.clip, this.props.index);
     }
     
-    makni(){
-        this.props.makni(this.props.kojaPoRedu);
+    move(){
+        this.props.move(this.props.index);
     }
     
-    vrti(){
-        this.props.vrti(this.props.kojaPoRedu);
+    repeat(){
+        this.props.repeat(this.props.index);
     }
     
     
     
     render() {
-        var klasa = "pesma pesma-" + this.props.kojaPoRedu.toString() +
-            " jelSvira-" + this.props.pesma.jelSvira.toString() +  
-            " jelVrti-" + this.props.pesma.jelVrti.toString();  
-        var note = [];
-        var pesma = this.props.pesma;
-        for(var n in pesma.note){
-            note.push(
+        var className = "clip clip-" + this.props.index.toString() +
+            " isPlaying-" + this.props.clip.isPlaying.toString() +  
+            " isRepeat-" + this.props.clip.isRepeat.toString();  
+        var tones = [];
+        var clip = this.props.clip;
+        for(var n in clip.tones){
+            tones.push(
                 <rect
                     className="nota"
-                    key={ "rec-" + n + '-' + this.props.kojaPoRedu }
-                    x={ Math.floor(pesma.note[n][1] / odnosŠirine) } 
-                    y={ Math.floor((this.props.dirkiUkupno - pesma.note[n][0]) / odnosVisine) } 
-                    width={ Math.floor((pesma.note[n][2] - pesma.note[n][1]) / odnosŠirine) } 
+                    key={ "rec-" + n + '-' + this.props.index }
+                    x={ Math.floor(clip.tones[n][1] / widthRatio) } 
+                    y={ Math.floor((this.props.tonesCount - clip.tones[n][0]) / heightRatio) } 
+                    width={ Math.floor((clip.tones[n][2] - clip.tones[n][1]) / widthRatio) } 
                     height="1" 
                 />
             );
         }
-        var širina = Math.floor(pesma.traje * 1000 / odnosŠirine);
-        var visina = this.props.dirkiUkupno / odnosVisine;
+        var width = Math.floor(clip.duration * 1000 / widthRatio);
+        var height = this.props.tonesCount / heightRatio;
         
-        var gde;
-        if(this.props.pesma.jelSvira){
-            gde = <div 
-                className="gde"
-                style={{ animationDuration: pesma.traje * 1000 + 'ms' }}
+        var where;
+        if(this.props.clip.isPlaying){
+            where = <div 
+                className="where"
+                style={{ animationDuration: clip.duration * 1000 + 'ms' }}
             ></div>;
         }
         
         return (
-            <div className={ klasa }>
+            <div className={ className }>
 
-                <div className="blok ime-pesme">
-                    Pattern { this.props.kojaPoRedu + 1 }
+                <div className="block name-clips">
+                    Pattern { this.props.index + 1 }
                 </div>
 
-                <div className="blok note">
+                <div className="block tones">
                     <svg 
-                        height={ visina }
-                        width={ širina }
-                        viewBox={"0 0 " + širina + " " + visina}
+                        height={ height }
+                        width={ width }
+                        viewBox={"0 0 " + width + " " + height}
                     >
                         <g>
-                            { note }
+                            { tones }
                         </g>
                     </svg>
                 </div>
 
-                <div className="overlej">
+                <div className="overlay">
 
                     <div 
-                        className="sviraj"
-                        onClick={ this.odsvirajPesmu }
+                        className="play"
+                        onClick={ this.playClip }
                     ></div>
 
                     <div
-                        className="vrti"
-                        onClick={ this.vrti }
+                        className="repeat"
+                        onClick={ this.repeat }
                     ></div>
 
                     <div
-                        className="makni"
-                        onClick={ this.makni }
+                        className="move"
+                        onClick={ this.move }
                     ></div>
 
                 </div>
 
-                { gde }
+                { where }
 
             </div>
         );

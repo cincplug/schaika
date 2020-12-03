@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 const Header = ({ siteTitle }) => (
-  <div id="glava" className="glava">
+  <div id="head" className="head">
 
       <h1 style={{ margin: 0 }}>
           <Link

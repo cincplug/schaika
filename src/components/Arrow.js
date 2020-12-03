@@ -3,23 +3,23 @@ import React, { Component } from 'react';
 class Arrow extends Component {
     constructor(props){
         super(props);
-        this.promeniProperty = this.promeniProperty.bind(this);
+        this.updateProperty = this.updateProperty.bind(this);
     }
     
-    promeniProperty(){
+    updateProperty(){
         if( 
-            (this.props.akcija === 'povecaj' && this.props.vrednost < this.props.limit)
+            (this.props.action === 'increase' && this.props.value < this.props.limit)
             ||
-            (this.props.akcija === 'smanji' && this.props.vrednost > this.props.limit)
+            (this.props.action === 'decrease' && this.props.value > this.props.limit)
         ) {
-            this.props.promeniProperty(this.props.svojstvo, this.props.akcija);
+            this.props.updateProperty(this.props.property, this.props.action);
         }
     }
     
     render() {
         return (
-            <span className={ "strelica " + this.props.akcija }
-                onClick={ this.promeniProperty }>
+            <span className={ "arrow " + this.props.action }
+                onClick={ this.updateProperty }>
                 <svg
                     width="30"
                     height="30"

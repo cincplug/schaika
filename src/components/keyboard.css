@@ -8,13 +8,13 @@ h1 {
     font-family: sans-serif;
 }
 
-#glava {
+#head {
     background: #004477;
     text-align: center;
     padding: 10px;
 }
 
-#telo {}
+#main {}
 
 #keyboard {
     padding-bottom: 2px;
@@ -40,7 +40,7 @@ h1 {
     justify-content: space-evenly;
 }
 
-.svojstvo {
+.property {
     display: inline-block;
     text-align: center;
     /* width: 15%; */
@@ -50,29 +50,29 @@ h1 {
     #tabla {
         
     }
-    .svojstvo {
+    .property {
         flex: 0 0 33%;
         max-width: 33%;
         width: 100%;
     }
 }
 
-.ime-svojstva {
+.property-name {
     text-align: center;
     font-size: 15px;
 }
 
-.strelica {
+.arrow {
     display: inline-block;
     width: 17px;
 }
 
-.strelica svg {
+.arrow svg {
     width: 15px;
     fill: white;
 }
 
-.strelica:hover svg {
+.arrow:hover svg {
     fill: #007744;
 }
 
@@ -91,7 +91,7 @@ h1 {
     bottom: 11px;
 }
 
-.oblik .cifra {
+.waveForm .cifra {
     /* width: 60px; */
 }
 
@@ -99,11 +99,11 @@ h1 {
     opacity: 0.2;
 }
 
-.smanji {
+.decrease {
     transform: scaleX(-1);
 }
 
-.zaglavlje {
+.header {
     width: 30px;
     height: 30px;
     background: url(../images/svg/zvucnik.svg) no-repeat 0 0;
@@ -119,14 +119,14 @@ h1 {
     background: none;
 }
 
-.rekord .krug {
+.rekord .circle {
     width: 100%;
     height: 100%;
     background: #dd3300;
     border-radius: 50%;
 }
 
-.rekord .kvadrat {
+.rekord .square {
     display: none;
 }
 
@@ -139,12 +139,12 @@ h1 {
     }
 }
 
-.snima-true .krug {
+.isRecording-true .circle {
     border: 2px solid white;
     animation: blinkaj 0.5s ease-in-out infinite alternate;
 }
 
-.snima-true .kvadrat {
+.isRecording-true .square {
     display: block;
     position: absolute;
     width: 40%;
@@ -171,17 +171,17 @@ h1 {
     fill: black;
 }
 
-.autput {
+.output {
     display: none;
 }
 
-.autput.jeste {
+.output.jeste {
     display: flex;
     justify-content: space-around;
     padding-bottom: 10px;
 }
 
-.stavka {
+.item {
     width: 220px;
 }
 
@@ -194,16 +194,16 @@ h1 {
 
 }
 
-.notacija {
+.notation {
     margin-right: 10px;   
     cursor: pointer;
 }
 
-.notacija:hover, .notacija-true {
+.notation:hover, .notation-true {
     color: white;
 }
 
-.pesme {
+.clips {
     padding: 10px;
 }
 
@@ -220,7 +220,7 @@ h1 {
     }
 }
 
-.pesma {
+.clip {
     margin: 0 10px 10px 0;
     background: rgba(255,255,255,0.1);
     display: inline-block;
@@ -229,26 +229,26 @@ h1 {
     animation: iskrsni 0.3s ease-out;
 }
 
-.pesma .blok {
+.clip .block {
     padding: 10px;
 }
 
-.pesma .ime-pesme {
+.clip .name-clips {
     background: rgba(255,255,255,0.1);
     font-size: 12px;
     line-height: 12px;
 }
 
-.pesma .nota {
+.clip .nota {
     fill: white;
 }
 
-.pesma .overlej {
+.clip .overlay {
     /* display: none; */
     opacity: 0;
 }
 
-.pesma:hover .overlej {
+.clip:hover .overlay {
     /* display: block; */
     opacity: 1;
     transition: opacity 0.1s ease-in;
@@ -260,7 +260,7 @@ h1 {
     background: rgba(0,0,0,0.7);
 }
 
-.pesma .sviraj {
+.clip .play {
     display: block;
     position: absolute;
     top: 50%;
@@ -268,24 +268,24 @@ h1 {
     transform: translate(-50%, -50%);
     width: 40px;
     height: 40px;
-    background: url(../images/svg/sviraj.svg) no-repeat 0 0;
+    background: url(../images/svg/play.svg) no-repeat 0 0;
     background-size: cover;
     cursor: pointer;
 }
 
-.pesma .makni {
+.clip .move {
     display: block;
     position: absolute;
     top: 10px;
     right: 10px;
     width: 12px;
     height: 12px;
-    background: url(../images/svg/makni.svg) no-repeat 0 0;
+    background: url(../images/svg/move.svg) no-repeat 0 0;
     background-size: cover;
     cursor: pointer;
 }
 
-.pesma .vrti {
+.clip .repeat {
     display: block;
     position: absolute;
     top: 9px;
@@ -297,11 +297,11 @@ h1 {
     cursor: pointer;
 }
 
-.pesma.jelSvira-true {
+.clip.isPlaying-true {
     background: #007744;
 }
 
-@keyframes vrti {
+@keyframes repeat {
     0%{
         transform: rotateZ(360deg);
     }
@@ -313,16 +313,16 @@ h1 {
     }
 }
 
-.pesma.jelVrti-true {
+.clip.isRepeat-true {
     box-shadow: 0 0 3px #a4a4a4;
 }
 
-.pesma.jelVrti-true .vrti {
-    animation: vrti 0.7s ease-in infinite;
+.clip.isRepeat-true .repeat {
+    animation: repeat 0.7s ease-in infinite;
     border-radius: 50%;
 }
 
-@keyframes sviraj {
+@keyframes play {
     from {
         left: 0%;
     }    
@@ -331,10 +331,10 @@ h1 {
     }
 }
 
-.pesma .gde {
+.clip .where {
     display: none;
 }
-.pesma.jelSvira-true .gde {
+.clip.isPlaying-true .where {
     display: block;
     position: absolute;
     top: 0;
@@ -343,6 +343,6 @@ h1 {
     height: 100%;
     background: #00eeaa;
     opacity: 0.5;
-    animation-name: sviraj;
+    animation-name: play;
     animation-timing-function: linear;
 }

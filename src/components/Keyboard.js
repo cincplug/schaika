@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import context from '../services/context.js';
-import dirke from '../data/dirke.json';
-import note from '../data/note.json';
-import frekvence from '../data/frekvence.json';
+import keys from '../data/keys.json';
+import tones from '../data/tones.json';
+import frequencies from '../data/frequencies.json';
 import Octave from './Octave';
 import Controls from './Controls';
 import Notation from './Notation';
@@ -10,13 +10,13 @@ import Clip from './Clip';
 
 import './keyboard.css';
 
-const sirinaOktave = 330; 
-const visinaKlavijature = 270;
-const dirkiPoOktavi = 12;             
-const belihDirkiPoOktavi = 7; 
-const dirkiPosle = 5;
-const belihDirkiPosle = 3;
-const oblici = ["sine", "triangle", "sawtooth", "square"];
+const octaveWidth = 330; 
+const keyboardHeight = 270;
+const keysPerOctave = 12;             
+const whiteKeysPerOctave = 7; 
+const keysAfter = 5;
+const whiteKeysAfter = 3;
+const waveForms = ["sine", "triangle", "sawtooth", "square"];
 
 
 
@@ -24,306 +24,306 @@ class Keyboard extends Component {
     constructor(props) {
         super(props);
         
-        this.tastatura = this.tastatura.bind(this);
-        this.sviraj = this.sviraj.bind(this);
-        this.ćuti = this.ćuti.bind(this);
-        this.promeniProperty = this.promeniProperty.bind(this);
-        this.promeniNotaciju = this.promeniNotaciju.bind(this);
-        this.snimaj = this.snimaj.bind(this);
-        this.odsvirajNotu = this.odsvirajNotu.bind(this);
-        this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
-        this.makni = this.makni.bind(this);
-        this.vrti = this.vrti.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.play = this.play.bind(this);
+        this.stop = this.stop.bind(this);
+        this.updateProperty = this.updateProperty.bind(this);
+        this.updateNotation = this.updateNotation.bind(this);
+        this.record = this.record.bind(this);
+        this.playNote = this.playNote.bind(this);
+        this.playClip = this.playClip.bind(this);
+        this.move = this.move.bind(this);
+        this.repeat = this.repeat.bind(this);
         
-        let brojOctave = 5; 
+        let octavesCount = 5; 
         
         
         this.state = {
-            počeo: '',
-            snima: false,
-            brojOctave: brojOctave,
-            početna: 1,
-            boja: 1,
-            oblik: 0,
-            atak: 1,
-            rilis: 2,
-            sustejn: 0,
-            jačina: 5,
-            frekvenca: null,
-            pesme: [],
-            notacija: 'en',
-            dirkiUkupno: this.prebrojDirke(brojOctave)
+            started: '',
+            isRecording: false,
+            octavesCount: octavesCount,
+            initial: 1,
+            colour: 1,
+            waveForm: 0,
+            attack: 1,
+            release: 2,
+            sustain: 0,
+            volume: 5,
+            frequency: null,
+            clips: [],
+            notation: 'en',
+            tonesCount: this.countKeys(octavesCount)
         };
     }
     
     componentDidMount(){
-        document.addEventListener('keyup', this.tastatura, false);
+        document.addEventListener('keyup', this.handleKeyUp, false);
     }
     
     componentWillUnmount(){
-        document.removeEventListener('keyup', this.tastatura, false);
+        document.removeEventListener('keyup', this.handleKeyUp, false);
     }
     
-    tastatura(e){
+    handleKeyUp(e){
         if(e.keyCode === 32){
-            this.snimaj();
+            this.record();
         }
     }
     
-    prebrojDirke(brojOctave){
-        return dirkiPoOktavi * brojOctave + dirkiPosle; 
+    countKeys(octavesCount){
+        return keysPerOctave * octavesCount + keysAfter; 
     }
     
-    promeniNotaciju(notacija){
+    updateNotation(notation){
         this.setState({
-            notacija: notacija
+            notation: notation
         });
     }
     
-    promeniProperty(svojstvo, akcija){
-        var vrednost;
-        switch(akcija){
-            case 'povecaj':
-                vrednost = this.state[svojstvo] + 1;
+    updateProperty(property, action){
+        var value;
+        switch(action){
+            case 'increase':
+                value = this.state[property] + 1;
                 break;
-            case 'smanji':
-                vrednost = this.state[svojstvo] - 1;
+            case 'decrease':
+                value = this.state[property] - 1;
                 break;
-            case 'nula':
-                vrednost = 0;
-                if(svojstvo === 'jačina' && this.state.jačina === 0) {
-                    vrednost = 1;
+            case 'zero':
+                value = 0;
+                if(property === 'volume' && this.state.volume === 0) {
+                    value = 1;
                 }
                 break;
             default:
                 break;
         }
         this.setState({
-            [svojstvo]: vrednost
+            [property]: value
         }, function(){
-            if(this.state.početna + this.state.brojOctave > 9){
-                if(svojstvo === 'početna'){
+            if(this.state.initial + this.state.octavesCount > 9){
+                if(property === 'initial'){
                     this.setState({
-                        brojOctave: this.state.brojOctave - 1
+                        octavesCount: this.state.octavesCount - 1
                     });
                 }
-                if(svojstvo === 'brojOctave'){
+                if(property === 'octavesCount'){
                     this.setState({
-                        početna: this.state.početna - 1
+                        initial: this.state.initial - 1
                     });
                 }
             }
         });
-        if(svojstvo === 'brojOctave') {
+        if(property === 'octavesCount') {
             this.setState({
-                dirkiUkupno: this.prebrojDirke(vrednost)
+                tonesCount: this.countKeys(value)
             });
         }
-        if(svojstvo === 'jačina') {
+        if(property === 'volume') {
 
         }
     }
     
-    odsvirajNotu(nota, otkad = 0, dokad = 0){
-        otkad /= 1000;
-        dokad /= 1000;
-        var zvuk = [];
-        for(var i = 0; i < this.state.boja; i++){
+    playNote(nota, since = 0, until = 0){
+        since /= 1000;
+        until /= 1000;
+        var sound = [];
+        for(var i = 0; i < this.state.colour; i++){
             
-            let frekvenca = frekvence[nota + (i + this.state.početna) * dirkiPoOktavi];
-            if(!this.state.počeo){
+            let frequency = frequencies[nota + (i + this.state.initial) * keysPerOctave];
+            if(!this.state.started){
                 this.setState({
-                    počeo: ' jeste'
+                    started: ' jeste'
                 })
             }
             
             var ton = context.createOscillator();
-            ton.type = oblici[this.state.oblik];
-            ton.frequency.value = frekvenca;
+            ton.type = waveForms[this.state.waveForm];
+            ton.frequency.value = frequency;
             var gain = context.createGain();
             ton.connect(gain);
             gain.connect(context.destination);
 
-            var sad = context.currentTime;
-            let smanji = Math.pow(this.state.oblik + 1, 2);
+            var now = context.currentTime;
+            let decrease = Math.pow(this.state.waveForm + 1, 2);
             
-            var jačina = this.state.jačina / smanji / 4;
-            gain.gain.setValueAtTime(jačina, sad);
-            gain.gain.exponentialRampToValueAtTime(jačina, sad + otkad + this.state.atak / 10);
-            gain.gain.exponentialRampToValueAtTime(jačina / 10, sad + otkad + this.state.atak / 10 + this.state.rilis / 5);
-            ton.start(sad + otkad);
-            if(dokad){
-                ton.stop(sad + dokad);
+            var volume = this.state.volume / decrease / 4;
+            gain.gain.setValueAtTime(volume, now);
+            gain.gain.exponentialRampToValueAtTime(volume, now + since + this.state.attack / 10);
+            gain.gain.exponentialRampToValueAtTime(volume / 10, now + since + this.state.attack / 10 + this.state.release / 5);
+            ton.start(now + since);
+            if(until){
+                ton.stop(now + until);
             }
             
             this.setState({
-                frekvenca: frekvenca,
-                nota: note[this.state.notacija][nota % 12],
-                oktava: Math.floor((nota + this.state.početna * dirkiPoOktavi) / dirkiPoOktavi)
+                frequency: frequency,
+                nota: tones[this.state.notation][nota % 12],
+                octave: Math.floor((nota + this.state.initial * keysPerOctave) / keysPerOctave)
             });
             
-            zvuk.push(ton);
+            sound.push(ton);
         }
         
-        return zvuk;
+        return sound;
     }
     
-    sviraj(nota, pesma){
+    play(nota, clip){
 
-        var zvuk = this.odsvirajNotu(nota);        
+        var sound = this.playNote(nota);        
         
-        if(this.state.snima){
+        if(this.state.isRecording){
             var kad;
-            if(this.pesma.note.length === 0){
-                this.otkad = context.currentTime;
+            if(this.clip.tones.length === 0){
+                this.since = context.currentTime;
                 kad = 0;
             } else {
-                kad = context.currentTime - this.otkad;
+                kad = context.currentTime - this.since;
             }
-            this.pesma.note.push([
+            this.clip.tones.push([
                 nota,
                 kad * 1000,
                 0
             ])
         }
         
-        return zvuk;
+        return sound;
     }
     
-    ćuti(zvuk){
+    stop(sound){
             
-        for(var ton in zvuk){
-            // console.log(zvuk[ton]);
-            zvuk[ton].stop(context.currentTime);
+        for(var ton in sound){
+            // console.log(sound[ton]);
+            sound[ton].stop(context.currentTime);
         }
         
-        if(this.state.snima && this.pesma && this.pesma.note.length > 0){
-            var kad = context.currentTime - this.otkad;
-            this.pesma.note[this.pesma.note.length - 1][2] = kad * 1000;
+        if(this.state.isRecording && this.clip && this.clip.tones.length > 0){
+            var kad = context.currentTime - this.since;
+            this.clip.tones[this.clip.tones.length - 1][2] = kad * 1000;
         }
     }
     
-    snimaj(){
-        if(this.state.snima){
-            if(this.pesma){
-                if(this.pesma.note.length > 0){
-                    this.pesma.traje = context.currentTime - this.otkad;
-                    let p = this.state.pesme;
-                    p.push(this.pesma);
+    record(){
+        if(this.state.isRecording){
+            if(this.clip){
+                if(this.clip.tones.length > 0){
+                    this.clip.duration = context.currentTime - this.since;
+                    let p = this.state.clips;
+                    p.push(this.clip);
                     this.setState({
-                        pesme: p
+                        clips: p
                     })
                 }
             }
             this.setState({
-                snima: false
+                isRecording: false
             });
 
         } else {
-            this.otkad = context.currentTime;
+            this.since = context.currentTime;
             this.setState({
-                snima: true
+                isRecording: true
             });            
-            this.pesma = {
-                traje: 0,
-                jelSvira: false,
-                jelVrti: false,
-                note: [],
+            this.clip = {
+                duration: 0,
+                isPlaying: false,
+                isRepeat: false,
+                tones: [],
                 zvuci: {}
             };
         }
     }
     
-    odsvirajPesmu(pesma, kojaPoRedu){
+    playClip(clip, index){
         var t = this;
-        var p = this.state.pesme;
-        var kolikoTraje = pesma.traje;
-        pesma.jelSvira = true;
+        var p = this.state.clips;
+        var kolikoTraje = clip.duration;
+        clip.isPlaying = true;
         setTimeout(function(){
-            pesma.jelSvira = false;
-            p[kojaPoRedu].jelSvira = false;
+            clip.isPlaying = false;
+            p[index].isPlaying = false;
             t.setState({
-                pesme: p
+                clips: p
             });
-            if(t.state.pesme[kojaPoRedu].jelVrti){
-                t.odsvirajPesmu(pesma, kojaPoRedu);
+            if(t.state.clips[index].isRepeat){
+                t.playClip(clip, index);
             } 
         }, kolikoTraje * 1000);
-        for(var n = 0; n < pesma.note.length; n++){
-            t.odsvirajNotu(
-                pesma.note[n][0], 
-                pesma.note[n][1], 
-                pesma.note[n][2]
+        for(var n = 0; n < clip.tones.length; n++){
+            t.playNote(
+                clip.tones[n][0], 
+                clip.tones[n][1], 
+                clip.tones[n][2]
             ); 
         }
     }
     
-    makni(pesma){
-        let p = this.state.pesme;
-        p.splice(pesma, 1);
+    move(clip){
+        let p = this.state.clips;
+        p.splice(clip, 1);
         this.setState({
-            pesme: p
+            clips: p
         });
     }
     
-    vrti(pesma){
-        let p = this.state.pesme;
-        p[pesma].jelVrti = !p[pesma].jelVrti;
+    repeat(clip){
+        let p = this.state.clips;
+        p[clip].isRepeat = !p[clip].isRepeat;
         this.setState({
-            pesme: p
+            clips: p
         });
     }
     
     render() {
-        let brojOctave = this.state.brojOctave;
-        let sirinaDirke = sirinaOktave / belihDirkiPoOktavi;
-        let sirinaKeyboarda = (brojOctave * belihDirkiPoOktavi + belihDirkiPosle) * sirinaDirke;
-        let viewBox = "0 0 " + sirinaKeyboarda + " " + visinaKlavijature;
-        if(dirkiPosle > 0){
-            brojOctave++;
+        let octavesCount = this.state.octavesCount;
+        let keyWidth = octaveWidth / whiteKeysPerOctave;
+        let keyboardWidth = (octavesCount * whiteKeysPerOctave + whiteKeysAfter) * keyWidth;
+        let viewBox = "0 0 " + keyboardWidth + " " + keyboardHeight;
+        if(keysAfter > 0){
+            octavesCount++;
         }
         var klavijatura = [];
-        for(var o = 0; o < brojOctave; o++) {
-            let transform = "translate(" + (sirinaOktave * o) + " 0)";
-            var dokle = (o < brojOctave - 1) ? dirkiPoOktavi : dirkiPosle;
+        for(var o = 0; o < octavesCount; o++) {
+            let transform = "translate(" + (octaveWidth * o) + " 0)";
+            var until = (o < octavesCount - 1) ? keysPerOctave : keysAfter;
 
             klavijatura.push(
                 <Octave key={ 'o-' + o }
-                    koja={ o }
+                    which={ o }
                     transform={ transform }
-                    dokle={ dokle }
-                    dirke={ dirke }
-                    sviraj={ this.sviraj }
-                    ćuti={ this.ćuti }
-                    dirkiPoOktavi={ dirkiPoOktavi } 
+                    until={ until }
+                    keys={ keys }
+                    play={ this.play }
+                    stop={ this.stop }
+                    keysPerOctave={ keysPerOctave } 
                 />
             );
         }
         
         var notacije = [];
-        for(var i in note){
+        for(var i in tones){
             notacije.push(
                 <Notation
                     key={ 'not' + i }
-                    notacija={ i }
-                    jelOva={ i === this.state.notacija }
-                    promeniNotaciju={ this.promeniNotaciju }/>
+                    notation={ i }
+                    isMatching={ i === this.state.notation }
+                    updateNotation={ this.updateNotation }/>
             )
         }
         
-        var pesme = [];
-        for(var p = 0; p < this.state.pesme.length; p++){
-            pesme.push(
+        var clips = [];
+        for(var p = 0; p < this.state.clips.length; p++){
+            clips.push(
                 <Clip
-                    key={ "pesma-" + p }
-                    kojaPoRedu={ p }
-                    pesma={ this.state.pesme[p] }
-                    dirkiUkupno={ this.state.dirkiUkupno }
-                    jelSvira={ this.state.pesme[p].jelSvira }
-                    jelVrti={ this.state.pesme[p].jelVrti }
-                    odsvirajPesmu={ this.odsvirajPesmu }
-                    makni={ this.makni }
-                    vrti={ this.vrti }
+                    key={ "clip-" + p }
+                    index={ p }
+                    clip={ this.state.clips[p] }
+                    tonesCount={ this.state.tonesCount }
+                    isPlaying={ this.state.clips[p].isPlaying }
+                    isRepeat={ this.state.clips[p].isRepeat }
+                    playClip={ this.playClip }
+                    move={ this.move }
+                    repeat={ this.repeat }
                 />
             )
         }
@@ -333,23 +333,23 @@ class Keyboard extends Component {
             <div id="keyboard">
                 <div id="kutija">
                     <Controls
-                        brojOctave={ this.state.brojOctave }
-                        boja={ this.state.boja }
-                        oblici={ oblici }
-                        oblik={ this.state.oblik }
-                        početna={ this.state.početna }
-                        atak={ this.state.atak }
-                        rilis={ this.state.rilis }
-                        sustejn={ this.state.sustejn }
-                        jačina={ this.state.jačina }
-                        promeniProperty={ this.promeniProperty }
-                        snimaj={ this.snimaj }
-                        snima={ this.state.snima }
+                        octavesCount={ this.state.octavesCount }
+                        colour={ this.state.colour }
+                        waveForms={ waveForms }
+                        waveForm={ this.state.waveForm }
+                        initial={ this.state.initial }
+                        attack={ this.state.attack }
+                        release={ this.state.release }
+                        sustain={ this.state.sustain }
+                        volume={ this.state.volume }
+                        updateProperty={ this.updateProperty }
+                        record={ this.record }
+                        isRecording={ this.state.isRecording }
                     />
 
                     <svg id="klavijatura"
-                        className="sviraj"
-                        width={ sirinaKeyboarda }
+                        className="play"
+                        width={ keyboardWidth }
                         viewBox={ viewBox }
                         version="1.1"
                     >
@@ -358,26 +358,26 @@ class Keyboard extends Component {
                         </g>
                     </svg>
 
-                    <div className={"autput" + this.state.počeo}>
-                        <div className="stavka">
-                            <span className="label">Base note: </span>
+                    <div className={"output" + this.state.started}>
+                        <div className="item">
+                            <span className="label">Base tones: </span>
                             <span>{ this.state.nota }</span>
                             <div className="notacije">
                                 <span className="label">Notation:</span> { notacije }
                             </div>
                         </div>
-                        <div className="stavka">
+                        <div className="item">
                             <span className="label">Base octave: </span>
-                            <span>{ this.state.oktava }</span>
+                            <span>{ this.state.octave }</span>
                         </div>
-                        <div className="stavka">
+                        <div className="item">
                             <span className="label">Base frequency: </span>
-                            <span>{ this.state.frekvenca } Hz</span>
+                            <span>{ this.state.frequency } Hz</span>
                         </div>
                     </div>
                 </div>
-                <div className="pesme">
-                    { pesme }
+                <div className="clips">
+                    { clips }
                 </div>
 
             </div>
