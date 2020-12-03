@@ -8,7 +8,7 @@ import Controls from './Controls';
 import Notation from './Notation';
 import Clip from './Clip';
 
-import './keyboard.css';
+import './main.css';
 
 const context = new AudioContext();
 const octaveWidth = 330; 
@@ -36,7 +36,7 @@ class Keyboard extends Component {
         this.move = this.move.bind(this);
         this.repeat = this.repeat.bind(this);
         
-        let octavesCount = 5; 
+        const octavesCount = 5; 
         
         
         this.state = {
