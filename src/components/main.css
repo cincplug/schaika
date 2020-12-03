@@ -94,25 +94,14 @@ h1 {
     transform: scaleX(-1);
 }
 
-.header {
+.rekord {
     width: 30px;
     height: 30px;
     background: url(../images/svg/zvucnik.svg) no-repeat 0 0;
     background-size: cover;
     position: absolute;
     top: 27px;
-    right: 17px;
-}
-
-.rekord {
-    right: auto;
     left: 17px;
-    background: none;
-}
-
-.rekord .circle {
-    width: 100%;
-    height: 100%;
     background: #dd3300;
     border-radius: 50%;
 }
@@ -130,7 +119,7 @@ h1 {
     }
 }
 
-.isRecording-true .circle {
+.isRecording-true {
     border: 2px solid white;
     animation: blinkaj 0.5s ease-in-out infinite alternate;
 }

@@ -130,7 +130,7 @@ class Controls extends Component {
                     onClick={ () => this.updateProperty('volume', 'zero') }>
                 </div> */}
 
-                <div className={ "header rekord isRecording-" + this.props.isRecording.toString() }
+                <div className={ "rekord isRecording-" + this.props.isRecording.toString() }
                     onClick={ this.record }>
                     <div className="circle"></div>
                     <div className="square"></div>

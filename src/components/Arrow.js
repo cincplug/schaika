@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 class Arrow extends Component {
-    constructor(props){
-        super(props);
-        this.updateProperty = this.updateProperty.bind(this);
-    }
-    
     updateProperty(){
         if( 
             (this.props.action === 'increase' && this.props.value < this.props.limit)
@@ -19,7 +14,7 @@ class Arrow extends Component {
     render() {
         return (
             <span className={ "arrow " + this.props.action }
-                onClick={ this.updateProperty }>
+                onClick={ () => this.updateProperty() }>
                 <svg
                     width="30"
                     height="30"
