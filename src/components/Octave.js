@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Dirka from '../components/Dirka';
+import Tone from './Tone';
 
 
-class Oktava extends Component {
+class Octave extends Component {
     constructor(props) {
         super(props);
         this.sviraj = this.sviraj.bind(this);
@@ -29,19 +29,19 @@ class Oktava extends Component {
             path += " Z";
             var nota = this.props.koja * this.props.dirkiPoOktavi + polustepen;
             var jelCrna = ([1, 3, 6, 8, 10].indexOf(polustepen) !== -1) ? 'crna' : 'bela';
-            var klasa = "dirka " + jelCrna + " nije";
+            var klasa = "tone " + jelCrna + " nije";
 
-            var dirka = 
-                <Dirka 
+            var tone = 
+                <Tone 
                     key={ 'd-' + polustepen }
                     klasa={ klasa }
                     path={ path }
                     nota={ nota }
                     sviraj={ this.sviraj }
                     ćuti={ this.ćuti }
-                    dirka={ this.props.dirke[this.props.koja][0] }
+                    tone={ this.props.dirke[this.props.koja][0] }
                 />
-            oktava.push(dirka);
+            oktava.push(tone);
             nota++;
         }
         return (
@@ -52,4 +52,4 @@ class Oktava extends Component {
     }
 }
 
-export default Oktava;
+export default Octave;

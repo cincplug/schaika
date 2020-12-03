@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 const odnosŠirine = 10;
 const odnosVisine = 1;
 
-class Pesma extends Component {
+class Clip extends Component {
     constructor(props) {
         super(props);
         this.odsvirajPesmu = this.odsvirajPesmu.bind(this);
@@ -99,4 +99,4 @@ class Pesma extends Component {
     }
 }
 
-export default Pesma;
+export default Clip;

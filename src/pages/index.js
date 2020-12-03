@@ -1,11 +1,11 @@
 import React from 'react'
 
 import Layout from '../components/layout'
-import Klavir from '../components/Klavir'
+import Keyboard from '../components/Keyboard'
 
 const IndexPage = () => (
   <Layout>
-      <Klavir/>
+      <Keyboard/>
   </Layout>
 )
 

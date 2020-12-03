@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class Dirka extends Component {
+class Tone extends Component {
     constructor(props) {
         super(props);
         this.sviraj = this.sviraj.bind(this);
@@ -44,10 +44,10 @@ class Dirka extends Component {
                 onMouseOut={ this.otišo }
                 onMouseUp={ this.pustio }
             >
-                <bx-title>{ this.props.dirka }</bx-title>
+                <bx-title>{ this.props.tone }</bx-title>
             </path>
         );
     }
 }
 
-export default Dirka;
+export default Tone;

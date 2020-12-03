@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 
-class Strelica extends Component {
+class Arrow extends Component {
     constructor(props){
         super(props);
-        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
+        this.promeniProperty = this.promeniProperty.bind(this);
     }
     
-    promeniSvojstvo(){
+    promeniProperty(){
         if( 
             (this.props.akcija === 'povecaj' && this.props.vrednost < this.props.limit)
             ||
             (this.props.akcija === 'smanji' && this.props.vrednost > this.props.limit)
         ) {
-            this.props.promeniSvojstvo(this.props.svojstvo, this.props.akcija);
+            this.props.promeniProperty(this.props.svojstvo, this.props.akcija);
         }
     }
     
     render() {
         return (
             <span className={ "strelica " + this.props.akcija }
-                onClick={ this.promeniSvojstvo }>
+                onClick={ this.promeniProperty }>
                 <svg
                     width="30"
                     height="30"
@@ -35,4 +35,4 @@ class Strelica extends Component {
     }
 }
 
-export default Strelica;
+export default Arrow;

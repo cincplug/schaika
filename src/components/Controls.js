@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Svojstvo from '../components/Svojstvo';
+import Property from './Property';
 
-class Tabla extends Component {
+class Controls extends Component {
     constructor(props) {
         super(props);
-        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
+        this.promeniProperty = this.promeniProperty.bind(this);
         this.snimaj = this.snimaj.bind(this);
     }
     
-    promeniSvojstvo(svojstvo, akcija){
-        this.props.promeniSvojstvo(svojstvo, akcija);
+    promeniProperty(svojstvo, akcija){
+        this.props.promeniProperty(svojstvo, akcija);
     }
 
     snimaj(){
@@ -21,7 +21,7 @@ class Tabla extends Component {
         return (
             <div id="tabla">
 
-                <Svojstvo 
+                <Property 
                     svojstvo="početna"
                     vrednost={ this.props.početna }
                     limit={{
@@ -31,12 +31,12 @@ class Tabla extends Component {
                     trans={{
                         en: "Start octave"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
-                <Svojstvo 
-                    svojstvo="brojOktava"
-                    vrednost={ this.props.brojOktava }
+                <Property 
+                    svojstvo="brojOctave"
+                    vrednost={ this.props.brojOctave }
                     limit={{
                         donji: 1,
                         gornji: 7
@@ -44,10 +44,10 @@ class Tabla extends Component {
                     trans={{
                         en: "Octaves"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
-                <Svojstvo 
+                <Property 
                     svojstvo="boja"
                     vrednost={ this.props.boja }
                     limit={{
@@ -57,10 +57,10 @@ class Tabla extends Component {
                     trans={{
                         en: "Oscillators"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
-                <Svojstvo 
+                <Property 
                     svojstvo="oblik"
                     vrednost={ this.props.oblik }
                     limit={{
@@ -71,10 +71,10 @@ class Tabla extends Component {
                         en: "Waveform"
                     }}
                     tekst={ this.props.oblici }
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
-                <Svojstvo 
+                <Property 
                     svojstvo="atak"
                     vrednost={ this.props.atak }
                     limit={{
@@ -84,10 +84,10 @@ class Tabla extends Component {
                     trans={{
                         en: "Attack"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
-                <Svojstvo 
+                <Property 
                     svojstvo="rilis"
                     vrednost={ this.props.rilis }
                     limit={{
@@ -97,10 +97,10 @@ class Tabla extends Component {
                     trans={{
                         en: "Release"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
-                {/* <Svojstvo 
+                {/* <Property 
                     svojstvo="sustejn"
                     vrednost={ this.props.sustejn }
                     limit={{
@@ -110,10 +110,10 @@ class Tabla extends Component {
                     trans={{
                         en: "Sustain"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 /> */}
 
-                <Svojstvo 
+                <Property 
                     svojstvo="jačina"
                     vrednost={ this.props.jačina }
                     limit={{
@@ -123,11 +123,11 @@ class Tabla extends Component {
                     trans={{
                         en: "Volume"
                     }}
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
                 {/* <div className={ "zaglavlje mir j-" + this.props.jačina }
-                    onClick={ () => this.promeniSvojstvo('jačina', 'nula') }>
+                    onClick={ () => this.promeniProperty('jačina', 'nula') }>
                 </div> */}
 
                 <div className={ "zaglavlje rekord snima-" + this.props.snima.toString() }
@@ -142,4 +142,4 @@ class Tabla extends Component {
     }
 }
 
-export default Tabla;
+export default Controls;

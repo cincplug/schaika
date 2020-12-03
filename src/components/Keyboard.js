@@ -3,12 +3,12 @@ import context from '../services/context.js';
 import dirke from '../data/dirke.json';
 import note from '../data/note.json';
 import frekvence from '../data/frekvence.json';
-import Oktava from '../components/Oktava';
-import Tabla from '../components/Tabla';
-import Notacija from '../components/Notacija';
-import Pesma from '../components/Pesma';
+import Octave from './Octave';
+import Controls from './Controls';
+import Notation from './Notation';
+import Clip from './Clip';
 
-import './klavir.css';
+import './keyboard.css';
 
 const sirinaOktave = 330; 
 const visinaKlavijature = 270;
@@ -20,14 +20,14 @@ const oblici = ["sine", "triangle", "sawtooth", "square"];
 
 
 
-class Klavir extends Component {
+class Keyboard extends Component {
     constructor(props) {
         super(props);
         
         this.tastatura = this.tastatura.bind(this);
         this.sviraj = this.sviraj.bind(this);
         this.ćuti = this.ćuti.bind(this);
-        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
+        this.promeniProperty = this.promeniProperty.bind(this);
         this.promeniNotaciju = this.promeniNotaciju.bind(this);
         this.snimaj = this.snimaj.bind(this);
         this.odsvirajNotu = this.odsvirajNotu.bind(this);
@@ -35,13 +35,13 @@ class Klavir extends Component {
         this.makni = this.makni.bind(this);
         this.vrti = this.vrti.bind(this);
         
-        let brojOktava = 5; 
+        let brojOctave = 5; 
         
         
         this.state = {
             počeo: '',
             snima: false,
-            brojOktava: brojOktava,
+            brojOctave: brojOctave,
             početna: 1,
             boja: 1,
             oblik: 0,
@@ -52,7 +52,7 @@ class Klavir extends Component {
             frekvenca: null,
             pesme: [],
             notacija: 'en',
-            dirkiUkupno: this.prebrojDirke(brojOktava)
+            dirkiUkupno: this.prebrojDirke(brojOctave)
         };
     }
     
@@ -70,8 +70,8 @@ class Klavir extends Component {
         }
     }
     
-    prebrojDirke(brojOktava){
-        return dirkiPoOktavi * brojOktava + dirkiPosle; 
+    prebrojDirke(brojOctave){
+        return dirkiPoOktavi * brojOctave + dirkiPosle; 
     }
     
     promeniNotaciju(notacija){
@@ -80,7 +80,7 @@ class Klavir extends Component {
         });
     }
     
-    promeniSvojstvo(svojstvo, akcija){
+    promeniProperty(svojstvo, akcija){
         var vrednost;
         switch(akcija){
             case 'povecaj':
@@ -101,20 +101,20 @@ class Klavir extends Component {
         this.setState({
             [svojstvo]: vrednost
         }, function(){
-            if(this.state.početna + this.state.brojOktava > 9){
+            if(this.state.početna + this.state.brojOctave > 9){
                 if(svojstvo === 'početna'){
                     this.setState({
-                        brojOktava: this.state.brojOktava - 1
+                        brojOctave: this.state.brojOctave - 1
                     });
                 }
-                if(svojstvo === 'brojOktava'){
+                if(svojstvo === 'brojOctave'){
                     this.setState({
                         početna: this.state.početna - 1
                     });
                 }
             }
         });
-        if(svojstvo === 'brojOktava') {
+        if(svojstvo === 'brojOctave') {
             this.setState({
                 dirkiUkupno: this.prebrojDirke(vrednost)
             });
@@ -275,20 +275,20 @@ class Klavir extends Component {
     }
     
     render() {
-        let brojOktava = this.state.brojOktava;
+        let brojOctave = this.state.brojOctave;
         let sirinaDirke = sirinaOktave / belihDirkiPoOktavi;
-        let sirinaKlavira = (brojOktava * belihDirkiPoOktavi + belihDirkiPosle) * sirinaDirke;
-        let viewBox = "0 0 " + sirinaKlavira + " " + visinaKlavijature;
+        let sirinaKeyboarda = (brojOctave * belihDirkiPoOktavi + belihDirkiPosle) * sirinaDirke;
+        let viewBox = "0 0 " + sirinaKeyboarda + " " + visinaKlavijature;
         if(dirkiPosle > 0){
-            brojOktava++;
+            brojOctave++;
         }
         var klavijatura = [];
-        for(var o = 0; o < brojOktava; o++) {
+        for(var o = 0; o < brojOctave; o++) {
             let transform = "translate(" + (sirinaOktave * o) + " 0)";
-            var dokle = (o < brojOktava - 1) ? dirkiPoOktavi : dirkiPosle;
+            var dokle = (o < brojOctave - 1) ? dirkiPoOktavi : dirkiPosle;
 
             klavijatura.push(
-                <Oktava key={ 'o-' + o }
+                <Octave key={ 'o-' + o }
                     koja={ o }
                     transform={ transform }
                     dokle={ dokle }
@@ -303,7 +303,7 @@ class Klavir extends Component {
         var notacije = [];
         for(var i in note){
             notacije.push(
-                <Notacija
+                <Notation
                     key={ 'not' + i }
                     notacija={ i }
                     jelOva={ i === this.state.notacija }
@@ -314,7 +314,7 @@ class Klavir extends Component {
         var pesme = [];
         for(var p = 0; p < this.state.pesme.length; p++){
             pesme.push(
-                <Pesma
+                <Clip
                     key={ "pesma-" + p }
                     kojaPoRedu={ p }
                     pesma={ this.state.pesme[p] }
@@ -330,10 +330,10 @@ class Klavir extends Component {
         
         
         return (
-            <div id="klavir">
+            <div id="keyboard">
                 <div id="kutija">
-                    <Tabla
-                        brojOktava={ this.state.brojOktava }
+                    <Controls
+                        brojOctave={ this.state.brojOctave }
                         boja={ this.state.boja }
                         oblici={ oblici }
                         oblik={ this.state.oblik }
@@ -342,14 +342,14 @@ class Klavir extends Component {
                         rilis={ this.state.rilis }
                         sustejn={ this.state.sustejn }
                         jačina={ this.state.jačina }
-                        promeniSvojstvo={ this.promeniSvojstvo }
+                        promeniProperty={ this.promeniProperty }
                         snimaj={ this.snimaj }
                         snima={ this.state.snima }
                     />
 
                     <svg id="klavijatura"
                         className="sviraj"
-                        width={ sirinaKlavira }
+                        width={ sirinaKeyboarda }
                         viewBox={ viewBox }
                         version="1.1"
                     >
@@ -385,4 +385,4 @@ class Klavir extends Component {
     }
 }
 
-export default Klavir;
+export default Keyboard;

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Strelica from '../components/Strelica';
+import Arrow from './Arrow';
 
-class Svojstvo extends Component {
+class Property extends Component {
     constructor(props) {
         super(props);
-        this.promeniSvojstvo = this.promeniSvojstvo.bind(this);
+        this.promeniProperty = this.promeniProperty.bind(this);
     }
     
-    promeniSvojstvo(svojstvo, akcija){
-        this.props.promeniSvojstvo(svojstvo, akcija);
+    promeniProperty(svojstvo, akcija){
+        this.props.promeniProperty(svojstvo, akcija);
     }
     
     render() {        
@@ -22,24 +22,24 @@ class Svojstvo extends Component {
             <div className={ klasa }>
 
                 <div className="ime-svojstva label">{ this.props.trans.en }</div>
-                <Strelica 
+                <Arrow 
                     svojstvo={ this.props.svojstvo }
                     akcija="smanji"
                     vrednost={ this.props.vrednost }
                     limit={ this.props.limit.donji }
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
                 <span className="cifra">
                     { vrednost }
                 </span>
 
-                <Strelica 
+                <Arrow 
                     svojstvo={ this.props.svojstvo }
                     akcija="povecaj"
                     vrednost={ this.props.vrednost }
                     limit={ this.props.limit.gornji }
-                    promeniSvojstvo={ this.promeniSvojstvo }
+                    promeniProperty={ this.promeniProperty }
                 />
 
             </div>
@@ -48,4 +48,4 @@ class Svojstvo extends Component {
     }
 }
 
-export default Svojstvo;
+export default Property;

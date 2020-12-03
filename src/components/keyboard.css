@@ -16,7 +16,7 @@ h1 {
 
 #telo {}
 
-#klavir {
+#keyboard {
     padding-bottom: 2px;
     user-select: none;
 }
@@ -154,7 +154,7 @@ h1 {
     background: white;
 }
 
-.dirka {
+.tone {
     fill: #e8e8e8;
     stroke: #272727;
 }
@@ -163,7 +163,7 @@ h1 {
     fill: #272727;
 }
 
-.dirka:hover {
+.tone:hover {
     fill: white;
 }
 

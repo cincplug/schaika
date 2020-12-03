@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Notacija extends Component {
+class Notation extends Component {
     constructor(props) {
         super(props);
         this.promeniNotaciju = this.promeniNotaciju.bind(this);
@@ -21,4 +21,4 @@ class Notacija extends Component {
     }
 }
 
-export default Notacija;
+export default Notation;
