@@ -1,324 +1,325 @@
 body {
-    margin: 0;
-    background: #272727;
-    color: white;
-    font-family: sans-serif;
+  margin: 0;
+  background: #272727;
+  color: white;
+  font-family: sans-serif;
 }
 .title {
-    margin: 0;
+  margin: 0;
 }
 
 #head {
-    background: #004477;
-    text-align: center;
-    padding: 10px;
+  background: #004477;
+  text-align: center;
+  padding: 10px;
 }
 
 #keyboard {
-    padding-bottom: 2px;
-    user-select: none;
+  padding-bottom: 2px;
+  user-select: none;
 }
 
 #kutija {
-    padding: 10px; 
-    padding-bottom: 0;
-    background: linear-gradient(to bottom, #323232 0%, #171717 100%);
+  padding: 10px;
+  padding-bottom: 0;
+  background: linear-gradient(to bottom, #323232 0%, #171717 100%);
 }
 
 #klavijatura {
-    width: 100%;
-    display: block;
-    cursor: default;
+  width: 100%;
+  display: block;
+  cursor: default;
 }
 
 #tabla {
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .property {
-    display: inline-block;
-    text-align: center;
-    /* width: 15%; */
+  display: inline-block;
+  text-align: center;
+  /* width: 15%; */
 }
 
-@media(max-width: 480px){
-    .property {
-        flex: 0 0 33%;
-        max-width: 33%;
-        width: 100%;
-    }
+@media (max-width: 480px) {
+  .property {
+    flex: 0 0 33%;
+    max-width: 33%;
+    width: 100%;
+  }
 }
 
 .property-name {
-    text-align: center;
-    font-size: 15px;
+  text-align: center;
+  font-size: 15px;
 }
 
 .arrow {
-    display: inline-block;
-    width: 17px;
+  display: inline-block;
+  width: 17px;
 }
 
 .arrow svg {
-    width: 15px;
-    fill: white;
+  width: 15px;
+  fill: white;
 }
 
 .arrow:hover svg {
-    fill: #007744;
+  fill: #007744;
 }
 
 .cifra {
-    display: inline-block;
-    width: 40px;
-    font-size: 22px;
-    text-align: center;
-    position: relative;
-    bottom: 7px;
-    color: white;
+  display: inline-block;
+  width: 40px;
+  font-size: 22px;
+  text-align: center;
+  position: relative;
+  bottom: 7px;
+  color: white;
 }
 
 .tekst .cifra {
-    font-size: 14px;
-    bottom: 11px;
+  font-size: 14px;
+  bottom: 11px;
 }
 
 .j-0 {
-    opacity: 0.2;
+  opacity: 0.2;
 }
 
 .decrease {
-    transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .rekord {
-    width: 30px;
-    height: 30px;
-    background: url(../images/svg/zvucnik.svg) no-repeat 0 0;
-    background-size: cover;
-    position: absolute;
-    top: 27px;
-    left: 17px;
-    background: #dd3300;
-    border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: url(../images/svg/zvucnik.svg) no-repeat 0 0;
+  background-size: cover;
+  position: absolute;
+  top: 27px;
+  left: 17px;
+  background: #dd3300;
+  border-radius: 50%;
 }
 
 .rekord .square {
-    display: none;
+  display: none;
 }
 
 @keyframes blinkaj {
-    from {
-        transform: scale(1.2);
-    }
-    to {
-        transform: scale(1.1);
-    }
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
 
 .isRecording-true {
-    border: 2px solid white;
-    animation: blinkaj 0.5s ease-in-out infinite alternate;
+  border: 2px solid white;
+  animation: blinkaj 0.5s ease-in-out infinite alternate;
 }
 
 .isRecording-true .square {
-    display: block;
-    position: absolute;
-    width: 40%;
-    height: 40%;
-    top: 30%;
-    left: 30%;
-    background: white;
+  display: block;
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  top: 30%;
+  left: 30%;
+  background: white;
 }
 
 .tone {
-    fill: #e8e8e8;
-    stroke: #272727;
+  fill: #e8e8e8;
+  stroke: #272727;
 }
 
 .crna {
-    fill: #272727;
+  fill: #272727;
 }
 
 .tone:hover {
-    fill: white;
+  fill: white;
 }
 
 .crna:hover {
-    fill: black;
+  fill: black;
 }
 
 .output {
-    display: none;
+  display: none;
 }
 
 .output.jeste {
-    display: flex;
-    justify-content: space-around;
-    padding-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
 }
 
 .item {
-    width: 220px;
+  width: 220px;
 }
 
 .label {
-    font-size: 15px;
-    color: #a4a4a4;
+  font-size: 15px;
+  color: #a4a4a4;
 }
 
 .notation {
-    margin-right: 10px;   
-    cursor: pointer;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-.notation:hover, .notation-true {
-    color: white;
+.notation:hover,
+.notation-true {
+  color: white;
 }
 
 .clips {
-    padding: 10px;
+  padding: 10px;
 }
 
 @keyframes iskrsni {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.1);
-        background: #007744;
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+    background: #007744;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .clip {
-    margin: 0 10px 10px 0;
-    background: rgba(255,255,255,0.1);
-    display: inline-block;
-    position: relative;
-    min-width: 100px;
-    animation: iskrsni 0.3s ease-out;
+  margin: 0 10px 10px 0;
+  background: rgba(255, 255, 255, 0.1);
+  display: inline-block;
+  position: relative;
+  min-width: 100px;
+  animation: iskrsni 0.3s ease-out;
 }
 
 .clip .block {
-    padding: 10px;
+  padding: 10px;
 }
 
 .clip .name-clips {
-    background: rgba(255,255,255,0.1);
-    font-size: 12px;
-    line-height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  line-height: 12px;
 }
 
 .clip .nota {
-    fill: white;
+  fill: white;
 }
 
 .clip .overlay {
-    /* display: none; */
-    opacity: 0;
+  /* display: none; */
+  opacity: 0;
 }
 
 .clip:hover .overlay {
-    /* display: block; */
-    opacity: 1;
-    transition: opacity 0.1s ease-in;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
+  /* display: block; */
+  opacity: 1;
+  transition: opacity 0.1s ease-in;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .clip .play {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    background: url(../images/svg/play.svg) no-repeat 0 0;
-    background-size: cover;
-    cursor: pointer;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: url(../images/svg/play.svg) no-repeat 0 0;
+  background-size: cover;
+  cursor: pointer;
 }
 
 .clip .move {
-    display: block;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 12px;
-    height: 12px;
-    background: url(../images/svg/close.svg) no-repeat 0 0;
-    background-size: cover;
-    cursor: pointer;
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  background: url(../images/svg/close.svg) no-repeat 0 0;
+  background-size: cover;
+  cursor: pointer;
 }
 
 .clip .repeat {
-    display: block;
-    position: absolute;
-    top: 9px;
-    right: 30px;
-    width: 12px;
-    height: 15px;
-    background: url(../images/svg/riplej.svg) no-repeat 0 0;
-    background-size: cover;
-    cursor: pointer;
+  display: block;
+  position: absolute;
+  top: 9px;
+  right: 30px;
+  width: 12px;
+  height: 15px;
+  background: url(../images/svg/riplej.svg) no-repeat 0 0;
+  background-size: cover;
+  cursor: pointer;
 }
 
 .clip.isPlaying-true {
-    background: #007744;
+  background: #007744;
 }
 
 @keyframes repeat {
-    0%{
-        transform: rotateZ(360deg);
-    }
-    50%{
-        transform: rotateZ(330deg);
-    }
-    100%{
-        transform: rotateZ(0deg);
-    }
+  0% {
+    transform: rotateZ(360deg);
+  }
+  50% {
+    transform: rotateZ(330deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
 }
 
 .clip.isRepeat-true {
-    box-shadow: 0 0 3px #a4a4a4;
+  box-shadow: 0 0 3px #a4a4a4;
 }
 
 .clip.isRepeat-true .repeat {
-    animation: repeat 0.7s ease-in infinite;
-    border-radius: 50%;
+  animation: repeat 0.7s ease-in infinite;
+  border-radius: 50%;
 }
 
 @keyframes play {
-    from {
-        left: 0%;
-    }    
-    to {
-        left: calc(100% - 2px);
-    }
+  from {
+    left: 0%;
+  }
+  to {
+    left: calc(100% - 2px);
+  }
 }
 
 .clip .where {
-    display: none;
+  display: none;
 }
 .clip.isPlaying-true .where {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 5px;
-    height: 100%;
-    background: #00eeaa;
-    opacity: 0.5;
-    animation-name: play;
-    animation-timing-function: linear;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: #00eeaa;
+  opacity: 0.5;
+  animation-name: play;
+  animation-timing-function: linear;
 }
