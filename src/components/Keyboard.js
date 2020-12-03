@@ -10,7 +10,7 @@ import Clip from './Clip';
 
 import './keyboard.css';
 
-const context = new AudioContext;
+const context = new AudioContext();
 const octaveWidth = 330; 
 const keyboardHeight = 270;
 const keysPerOctave = 12;             
