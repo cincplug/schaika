@@ -14,8 +14,6 @@ h1 {
     padding: 10px;
 }
 
-#main {}
-
 #keyboard {
     padding-bottom: 2px;
     user-select: none;
@@ -47,9 +45,6 @@ h1 {
 }
 
 @media(max-width: 480px){
-    #tabla {
-        
-    }
     .property {
         flex: 0 0 33%;
         max-width: 33%;
@@ -89,10 +84,6 @@ h1 {
 .tekst .cifra {
     font-size: 14px;
     bottom: 11px;
-}
-
-.waveForm .cifra {
-    /* width: 60px; */
 }
 
 .j-0 {
@@ -188,10 +179,6 @@ h1 {
 .label {
     font-size: 15px;
     color: #a4a4a4;
-}
-
-.notacije {
-
 }
 
 .notation {
