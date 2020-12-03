@@ -33,7 +33,7 @@ class Keyboard extends Component {
         this.record = this.record.bind(this);
         this.playNote = this.playNote.bind(this);
         this.playClip = this.playClip.bind(this);
-        this.move = this.move.bind(this);
+        this.remove = this.remove.bind(this);
         this.repeat = this.repeat.bind(this);
         
         const octavesCount = 5; 
@@ -169,7 +169,7 @@ class Keyboard extends Component {
         return sound;
     }
     
-    play(nota, clip){
+    play(nota){
 
         var sound = this.playNote(nota);        
         
@@ -209,10 +209,10 @@ class Keyboard extends Component {
             if(this.clip){
                 if(this.clip.tones.length > 0){
                     this.clip.duration = context.currentTime - this.since;
-                    let p = this.state.clips;
-                    p.push(this.clip);
-                    this.setState({
-                        clips: p
+                    this.setState((prevState) => {
+                        return {
+                            clips: prevState.clips.concat(this.clip)
+                        };
                     })
                 }
             }
@@ -259,7 +259,7 @@ class Keyboard extends Component {
         }
     }
     
-    move(clip){
+    remove(clip){
         let p = this.state.clips;
         p.splice(clip, 1);
         this.setState({
@@ -323,7 +323,7 @@ class Keyboard extends Component {
                     isPlaying={ this.state.clips[p].isPlaying }
                     isRepeat={ this.state.clips[p].isRepeat }
                     playClip={ this.playClip }
-                    move={ this.move }
+                    remove={ this.remove }
                     repeat={ this.repeat }
                 />
             )

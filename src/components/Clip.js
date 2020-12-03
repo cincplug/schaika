@@ -4,19 +4,13 @@ const widthRatio = 10;
 const heightRatio = 1;
 
 class Clip extends Component {
-    constructor(props) {
-        super(props);
-        this.playClip = this.playClip.bind(this);
-        this.move = this.move.bind(this);
-        this.repeat = this.repeat.bind(this);
-    }
     
     playClip(){
         this.props.playClip(this.props.clip, this.props.index);
     }
     
-    move(){
-        this.props.move(this.props.index);
+    remove(){
+        this.props.remove(this.props.index);
     }
     
     repeat(){
@@ -77,17 +71,17 @@ class Clip extends Component {
 
                     <div 
                         className="play"
-                        onClick={ this.playClip }
+                        onClick={ ()=>this.playClip() }
                     ></div>
 
                     <div
                         className="repeat"
-                        onClick={ this.repeat }
+                        onClick={ ()=>this.repeat() }
                     ></div>
 
                     <div
                         className="move"
-                        onClick={ this.move }
+                        onClick={ ()=>this.remove() }
                     ></div>
 
                 </div>

@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import Property from './Property';
 
 class Controls extends Component {
-    constructor(props) {
-        super(props);
-        this.updateProperty = this.updateProperty.bind(this);
-        this.record = this.record.bind(this);
-    }
     
     updateProperty(property, action){
         this.props.updateProperty(property, action);
@@ -31,7 +26,7 @@ class Controls extends Component {
                     trans={{
                         en: "Start octave"
                     }}
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
 
                 <Property 
@@ -44,7 +39,7 @@ class Controls extends Component {
                     trans={{
                         en: "Octaves"
                     }}
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
 
                 <Property 
@@ -57,7 +52,7 @@ class Controls extends Component {
                     trans={{
                         en: "Oscillators"
                     }}
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
 
                 <Property 
@@ -71,7 +66,7 @@ class Controls extends Component {
                         en: "Waveform"
                     }}
                     tekst={ this.props.waveForms }
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
 
                 <Property 
@@ -84,7 +79,7 @@ class Controls extends Component {
                     trans={{
                         en: "Attack"
                     }}
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
 
                 <Property 
@@ -97,21 +92,8 @@ class Controls extends Component {
                     trans={{
                         en: "Release"
                     }}
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
-
-                {/* <Property 
-                    property="sustain"
-                    value={ this.props.sustain }
-                    limit={{
-                        lower: 0,
-                        upper: 40
-                    }}
-                    trans={{
-                        en: "Sustain"
-                    }}
-                    updateProperty={ this.updateProperty }
-                /> */}
 
                 <Property 
                     property="volume"
@@ -123,7 +105,7 @@ class Controls extends Component {
                     trans={{
                         en: "Volume"
                     }}
-                    updateProperty={ this.updateProperty }
+                    updateProperty={ (property, action) => this.updateProperty(property, action) }
                 />
 
                 {/* <div className={ "header mir j-" + this.props.volume }
@@ -131,7 +113,7 @@ class Controls extends Component {
                 </div> */}
 
                 <div className={ "rekord isRecording-" + this.props.isRecording.toString() }
-                    onClick={ this.record }>
+                    onClick={ ()=>this.record() }>
                     <div className="circle"></div>
                     <div className="square"></div>
                 </div>
