@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import keys from "../data/keys.json";
 import tones from "../data/tones.json";
 import frequencies from "../data/frequencies.json";
+import keyboardMap from "../data/keyboard-map.json";
 import Header from "./Header";
 import Octave from "./Octave";
 import Controls from "./Controls";
@@ -24,6 +25,7 @@ class Keyboard extends Component {
     super(props);
 
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.play = this.play.bind(this);
     this.stop = this.stop.bind(this);
     this.updateProperty = this.updateProperty.bind(this);
@@ -35,6 +37,7 @@ class Keyboard extends Component {
     this.repeat = this.repeat.bind(this);
 
     const octavesCount = 5;
+    this.oscillators = [];
 
     this.state = {
       started: "",
@@ -56,15 +59,28 @@ class Keyboard extends Component {
 
   componentDidMount() {
     document.addEventListener("keyup", this.handleKeyUp, false);
+    document.addEventListener("keydown", this.handleKeyDown, false);
   }
 
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp, false);
+    document.removeEventListener("keydown", this.handleKeyDown, false);
   }
 
   handleKeyUp(e) {
     if (e.keyCode === 32) {
       this.record();
+    }
+    const note = keyboardMap[e.key];
+    if (note) {
+      this.stopOscillators(note);
+    }
+  }
+
+  handleKeyDown(e) {
+    const note = keyboardMap[e.key];
+    if (note) {
+      this.play(note);
     }
   }
 
@@ -190,10 +206,12 @@ class Keyboard extends Component {
       this.clip.tones.push([nota, kad * 1000, 0]);
     }
 
+    this.oscillators.push({ note: nota, sound });
     return sound;
   }
 
   stop(sound) {
+    console.warn("stani bre", sound, typeof sound, context);
     for (var ton in sound) {
       // console.log(sound[ton]);
       sound[ton].stop(context.currentTime);
@@ -203,6 +221,14 @@ class Keyboard extends Component {
       var kad = context.currentTime - this.since;
       this.clip.tones[this.clip.tones.length - 1][2] = kad * 1000;
     }
+  }
+
+  stopOscillators(note) {
+    this.oscillators.forEach(oscillator => {
+      if(oscillator.note === note) {
+        this.stop(oscillator.sound);
+      }
+    });
   }
 
   record() {
