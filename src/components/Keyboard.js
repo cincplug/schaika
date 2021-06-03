@@ -71,16 +71,16 @@ class Keyboard extends Component {
     if (e.keyCode === 32) {
       this.record();
     }
-    const note = keyboardMap[e.key];
-    if (note) {
-      this.stopOscillators(note);
+    const note = keyboardMap.indexOf(e.key);
+    if (note >= 0) {
+      this.stopOscillators(note + 35);
     }
   }
 
   handleKeyDown(e) {
-    const note = keyboardMap[e.key];
-    if (note) {
-      this.play(note);
+    const note = keyboardMap.indexOf(e.key);
+    if (note >= 0) {
+      this.play(note + 35);
     }
   }
 
