@@ -19,6 +19,7 @@ const whiteKeysPerOctave = 7;
 const keysAfter = 5;
 const whiteKeysAfter = 3;
 const waveForms = ["sine", "triangle", "sawtooth", "square"];
+const firstNoteOffset = 35;
 
 class Keyboard extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class Keyboard extends Component {
     this.playClip = this.playClip.bind(this);
     this.remove = this.remove.bind(this);
     this.repeat = this.repeat.bind(this);
+    this.getKeyboardNote = this.getKeyboardNote.bind(this);
 
     const octavesCount = 5;
     this.oscillators = [];
@@ -71,17 +73,25 @@ class Keyboard extends Component {
     if (e.keyCode === 32) {
       this.record();
     }
-    const note = keyboardMap.indexOf(e.key);
-    if (note >= 0) {
-      this.stopOscillators(note + 35);
+    const note = this.getKeyboardNote(e.key);
+    if (note) {
+      this.stopOscillators(note);
     }
   }
 
   handleKeyDown(e) {
-    const note = keyboardMap.indexOf(e.key);
-    if (note >= 0) {
-      this.play(note + 35);
+    const note = this.getKeyboardNote(e.key);
+    if (note) {
+      this.play(note);
     }
+  }
+
+  getKeyboardNote(key) {
+    const note = keyboardMap.indexOf(key);
+    if (note >= 0) {
+      return note + firstNoteOffset;
+    }
+    return null;
   }
 
   countKeys(octavesCount) {
