@@ -19,7 +19,7 @@ const whiteKeysPerOctave = 7;
 const keysAfter = 5;
 const whiteKeysAfter = 3;
 const waveForms = ["sine", "triangle", "sawtooth", "square"];
-const firstNoteOffset = 35;
+const firstNoteOffset = 24;
 
 class Keyboard extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class Keyboard extends Component {
       started: "",
       isRecording: false,
       octavesCount: octavesCount,
-      initial: 1,
+      initial: 2,
       colour: 1,
       waveForm: 0,
       attack: 1,
