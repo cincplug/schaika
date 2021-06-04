@@ -6,6 +6,7 @@ class Tone extends Component {
     this.play = this.play.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.getShape = this.getShape.bind(this);
 
     this.state = {
       sound: null,
@@ -34,7 +35,19 @@ class Tone extends Component {
     }
   }
 
+  getShape() {
+    switch (this.props.shape) {
+      case 1:
+        return `rotate(${this.props.index * -1.2})`;
+      case 2:
+        return `rotate(${this.props.index * 2.2})`;
+      default:
+        return this.props.shape;
+    }
+  }
+
   render() {
+    const { shape } = this.props;
     return (
       <path
         className={this.props.class}
@@ -43,6 +56,23 @@ class Tone extends Component {
         onMouseOver={this.play}
         onMouseOut={this.handleMouseOut}
         onMouseUp={this.handleMouseUp}
+        transform={
+          shape === 2
+            ? `rotate(${this.props.index * -1.2})`
+            : shape === 3
+            ? `rotate(${this.props.index * 3.2})`
+            : shape === 4
+            ? `rotate(${this.props.index + 20})`
+            : shape === 5
+            ? `rotate(${Math.pow(this.props.index, 2.5)})`
+            : shape === 6
+            ? `rotate(${Math.sin(this.props.index * 1.5)})`
+            : shape === 7
+            ? `rotate(${Math.tan(this.props.index * 20.5)})`
+            : shape === 8
+            ? `rotate(${12 - this.props.index * 3.2})`
+            : ""
+        }
       >
         <bx-title>{this.props.tone}</bx-title>
       </path>

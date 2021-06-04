@@ -137,6 +137,7 @@ body {
 .tone {
   fill: #e8e8e8;
   stroke: #272727;
+  transition: transform 0.2s ease-in;
 }
 
 .crna {

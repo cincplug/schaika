@@ -52,6 +52,7 @@ class Keyboard extends Component {
       release: 2,
       sustain: 0,
       volume: 4,
+      shape: 1,
       frequency: null,
       clips: [],
       notation: "en",
@@ -331,6 +332,7 @@ class Keyboard extends Component {
           play={this.play}
           stop={this.stop}
           keysPerOctave={keysPerOctave}
+          shape={this.state.shape}
         />
       );
     }
@@ -378,6 +380,7 @@ class Keyboard extends Component {
             release={this.state.release}
             sustain={this.state.sustain}
             volume={this.state.volume}
+            shape={this.state.shape}
             updateProperty={this.updateProperty}
             record={this.record}
             isRecording={this.state.isRecording}

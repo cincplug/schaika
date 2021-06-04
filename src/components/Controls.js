@@ -105,6 +105,21 @@ class Controls extends Component {
         />
 
         <Property
+          property="shape"
+          value={this.props.shape}
+          limit={{
+            lower: 1,
+            upper: 9,
+          }}
+          trans={{
+            en: "Shape",
+          }}
+          updateProperty={(property, action) =>
+            this.updateProperty(property, action)
+          }
+        />
+
+        <Property
           property="volume"
           value={this.props.volume}
           limit={{
