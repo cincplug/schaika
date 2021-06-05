@@ -64,11 +64,11 @@ body {
 
 .arrow svg {
   width: 15px;
-  fill: white;
+  fill: #9ccc17;
 }
 
 .arrow:hover svg {
-  fill: #007744;
+  fill: white;
 }
 
 .cifra {

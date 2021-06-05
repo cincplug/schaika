@@ -42,6 +42,7 @@ class Octave extends Component {
           shape={this.props.shape}
           factor={this.props.factor}
           tractor={this.props.tractor}
+          isEager={this.props.isEager}
         />
       );
       octave.push(tone);

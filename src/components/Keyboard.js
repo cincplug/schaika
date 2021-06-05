@@ -48,6 +48,7 @@ class Keyboard extends Component {
       initial: 2,
       colour: 1,
       waveForm: 0,
+      isEager: 0,
       attack: 1,
       release: 2,
       insain: 0,
@@ -340,6 +341,7 @@ class Keyboard extends Component {
           shape={this.state.shape}
           factor={this.state.factor}
           tractor={this.state.tractor}
+          isEager={this.state.isEager}
         />
       );
     }
@@ -382,6 +384,7 @@ class Keyboard extends Component {
             colour={this.state.colour}
             waveForms={waveForms}
             waveForm={this.state.waveForm}
+            isEager={this.state.isEager}
             initial={this.state.initial}
             attack={this.state.attack}
             release={this.state.release}

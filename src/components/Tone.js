@@ -14,7 +14,7 @@ class Tone extends Component {
   }
 
   play(e) {
-    if (e.buttons) {
+    if (e.buttons || this.props.isEager) {
       var sound = this.props.play(this.props.nota);
 
       this.setState({
@@ -67,9 +67,9 @@ class Tone extends Component {
             : shape === 5
             ? `rotate(${Math.pow(index, factor / 4 + tractor)})`
             : shape === 6
-            ? `rotate(${Math.sin((index * factor) / 7 + tractor)})`
+            ? `rotate(${Math.sin((index * factor) / 24 - tractor)})`
             : shape === 7
-            ? `rotate(${Math.tan(index * factor * 2 - tractor)}) scale(${
+            ? `rotate(${Math.tan(index * factor * 2 + tractor)}) scale(${
                 (index * tractor) / 20
               })`
             : shape === 8

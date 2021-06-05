@@ -75,6 +75,21 @@ class Controls extends Component {
         />
 
         <Property
+          property="isEager"
+          value={this.props.isEager}
+          limit={{
+            lower: 0,
+            upper: 1,
+          }}
+          trans={{
+            en: "Eager",
+          }}
+          updateProperty={(property, action) =>
+            this.updateProperty(property, action)
+          }
+        />
+
+        <Property
           property="attack"
           value={this.props.attack}
           limit={{
