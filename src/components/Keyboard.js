@@ -111,7 +111,7 @@ class Keyboard extends Component {
     });
   }
 
-  updateProperty(property, action) {
+  updateProperty(property, action, explicitValue) {
     var value;
     switch (action) {
       case "increase":
@@ -131,7 +131,7 @@ class Keyboard extends Component {
     }
     this.setState(
       {
-        [property]: value,
+        [property]: explicitValue || value,
       },
       function () {
         if (this.state.initial + this.state.octavesCount > 9) {
@@ -153,7 +153,8 @@ class Keyboard extends Component {
         tonesCount: this.countKeys(value),
       });
     }
-    if (property === "volume") {
+    if (property === "shape" && action === "increase") {
+      this.updateProperty("isEager", null, 1);
     }
   }
 
