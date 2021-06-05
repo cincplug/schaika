@@ -61,13 +61,14 @@ class Keyboard extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keyup", this.handleKeyUp, false);
-    document.addEventListener("keydown", this.handleKeyDown, false);
+    console.warn("montiro");
+    document.addEventListener("keyup", this.handleKeyUp, true);
+    document.addEventListener("keypress", this.handleKeyDown, true);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keyup", this.handleKeyUp, false);
-    document.removeEventListener("keydown", this.handleKeyDown, false);
+    document.removeEventListener("keyup", this.handleKeyUp, true);
+    document.removeEventListener("keydown", this.handleKeyDown, true);
   }
 
   handleKeyUp(e) {
@@ -79,11 +80,15 @@ class Keyboard extends Component {
       this.stopOscillators(note + notesPerOctave);
     }
   }
-
+  
   handleKeyDown(e) {
     const note = this.getKeyboardNote(e.key);
     if (note >= 0) {
-      this.play(note + notesPerOctave);
+      const isAlreadyPlaying = this.oscillators.find(osc => osc.note === note + notesPerOctave);
+      console.warn(isAlreadyPlaying);
+      if(!isAlreadyPlaying) {
+        this.play(note + notesPerOctave);
+      }
     }
   }
 
@@ -167,20 +172,22 @@ class Keyboard extends Component {
       var ton = context.createOscillator();
       ton.type = waveForms[this.state.waveForm];
       ton.frequency.value = frequency;
-      var gain = context.createGain();
-      ton.connect(gain);
-      gain.connect(context.destination);
+      if(!this.gain) {
+        this.gain = context.createGain();
+      }
+      ton.connect(this.gain);
+      this.gain.connect(context.destination);
 
       var now = context.currentTime;
       let decrease = Math.pow(this.state.waveForm + 1, 2);
 
       var volume = this.state.volume / decrease / 4;
-      gain.gain.setValueAtTime(volume, now);
-      gain.gain.exponentialRampToValueAtTime(
+      this.gain.gain.setValueAtTime(volume, now);
+      this.gain.gain.exponentialRampToValueAtTime(
         volume,
         now + since + this.state.attack / 10
       );
-      gain.gain.exponentialRampToValueAtTime(
+      this.gain.gain.exponentialRampToValueAtTime(
         volume / 10,
         now + since + this.state.attack / 10 + this.state.release / 5
       );
@@ -222,10 +229,11 @@ class Keyboard extends Component {
   }
 
   stop(sound) {
-    console.warn("stani bre", sound, typeof sound, context);
+    // console.warn("stani bre", sound, typeof sound, context);
     for (var ton in sound) {
       // console.log(sound[ton]);
       sound[ton].stop(context.currentTime);
+      delete sound[ton];
     }
 
     if (this.state.isRecording && this.clip && this.clip.tones.length > 0) {
@@ -238,6 +246,7 @@ class Keyboard extends Component {
     this.oscillators.forEach(oscillator => {
       if(oscillator.note === note) {
         this.stop(oscillator.sound);
+        delete oscillator.sound;
       }
     });
   }
@@ -415,6 +424,7 @@ class Keyboard extends Component {
           </div>
         </div>
         <div className="clips">{clips}</div>
+        <pre>{JSON.stringify(this.oscillators, null, 4)}</pre>
       </div>
     );
   }
