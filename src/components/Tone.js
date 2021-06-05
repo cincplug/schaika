@@ -6,6 +6,7 @@ class Tone extends Component {
     this.play = this.play.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.getShape = this.getShape.bind(this);
 
     this.state = {
       sound: null,
@@ -31,6 +32,17 @@ class Tone extends Component {
   handleMouseOut() {
     if (this.state.sound) {
       this.props.stop(this.state.sound);
+    }
+  }
+
+  getShape() {
+    switch (this.props.shape) {
+      case 1:
+        return `rotate(${this.props.index * -1.2})`;
+      case 2:
+        return `rotate(${this.props.index * 2.2})`;
+      default:
+        return this.props.shape;
     }
   }
 

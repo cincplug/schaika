@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: #073e04;
+  background: #9ccc17;
   color: white;
   font-family: sans-serif;
 }
@@ -22,7 +22,7 @@ body {
 #kutija {
   padding: 10px;
   padding-bottom: 0;
-  background: linear-gradient(to bottom, #9ccc17 0%, #0b5e06 100%);
+  background: linear-gradient(to bottom, #09634d 0%, #9ccc17 100%);
 }
 
 #klavijatura {
