@@ -40,6 +40,8 @@ class Octave extends Component {
           tone={this.props.keys[this.props.which][0]}
           index={semiTone}
           shape={this.props.shape}
+          factor={this.props.factor}
+          tractor={this.props.tractor}
         />
       );
       octave.push(tone);

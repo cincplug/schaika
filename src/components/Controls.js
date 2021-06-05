@@ -104,7 +104,7 @@ class Controls extends Component {
           }
         />
 
-<Property
+        <Property
           property="insain"
           value={this.props.insain}
           limit={{
@@ -128,6 +128,36 @@ class Controls extends Component {
           }}
           trans={{
             en: "Shape",
+          }}
+          updateProperty={(property, action) =>
+            this.updateProperty(property, action)
+          }
+        />
+
+        <Property
+          property="factor"
+          value={this.props.factor}
+          limit={{
+            lower: 1,
+            upper: 50,
+          }}
+          trans={{
+            en: "Factor",
+          }}
+          updateProperty={(property, action) =>
+            this.updateProperty(property, action)
+          }
+        />
+
+        <Property
+          property="tractor"
+          value={this.props.tractor}
+          limit={{
+            lower: 1,
+            upper: 50,
+          }}
+          trans={{
+            en: "Tractor",
           }}
           updateProperty={(property, action) =>
             this.updateProperty(property, action)

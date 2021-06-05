@@ -36,18 +36,19 @@ class Tone extends Component {
   }
 
   getShape() {
+    const { index } = this.props;
     switch (this.props.shape) {
       case 1:
-        return `rotate(${this.props.index * -1.2})`;
+        return `rotate(${index * -1.2})`;
       case 2:
-        return `rotate(${this.props.index * 2.2})`;
+        return `rotate(${index * 2.2})`;
       default:
         return this.props.shape;
     }
   }
 
   render() {
-    const { shape } = this.props;
+    const { shape, index, factor, tractor } = this.props;
     return (
       <path
         className={this.props.class}
@@ -58,19 +59,23 @@ class Tone extends Component {
         onMouseUp={this.handleMouseUp}
         transform={
           shape === 2
-            ? `rotate(${this.props.index * -1.2})`
+            ? `rotate(${(index * -factor) / 10 + tractor})`
             : shape === 3
-            ? `rotate(${this.props.index * 3.2})`
+            ? `rotate(${(index * factor) / 3 - tractor})`
             : shape === 4
-            ? `rotate(${this.props.index + 20})`
+            ? `rotate(${index + factor * 2 + tractor})`
             : shape === 5
-            ? `rotate(${Math.pow(this.props.index, 2.5)})`
+            ? `rotate(${Math.pow(index, factor / 4 + tractor)})`
             : shape === 6
-            ? `rotate(${Math.sin(this.props.index * 1.5)})`
+            ? `rotate(${Math.sin((index * factor) / 7 + tractor)})`
             : shape === 7
-            ? `rotate(${Math.tan(this.props.index * 20.5)})`
+            ? `rotate(${Math.tan(index * factor * 2 - tractor)}) scale(${
+                (index * tractor) / 20
+              })`
             : shape === 8
-            ? `rotate(${12 - this.props.index * 3.2})`
+            ? `rotate(${12 - (index * factor) / 2}) scale(${
+                (index * factor) / 27
+              })`
             : ""
         }
       >

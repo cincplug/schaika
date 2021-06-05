@@ -13,7 +13,7 @@ import "./main.css";
 
 const context = new AudioContext();
 const octaveWidth = 330;
-const keyboardHeight = 270;
+const keyboardHeight = window.innerHeight / 2;
 const keysPerOctave = 12;
 const whiteKeysPerOctave = 7;
 const keysAfter = 5;
@@ -50,10 +50,11 @@ class Keyboard extends Component {
       waveForm: 0,
       attack: 1,
       release: 2,
-      sustain: 0,
       insain: 0,
       volume: 4,
       shape: 1,
+      factor: 10,
+      tractor: 4,
       frequency: null,
       clips: [],
       notation: "en",
@@ -317,7 +318,7 @@ class Keyboard extends Component {
     let keyWidth = octaveWidth / whiteKeysPerOctave;
     let keyboardWidth =
       (octavesCount * whiteKeysPerOctave + whiteKeysAfter) * keyWidth;
-    let viewBox = "0 0 " + keyboardWidth + " " + keyboardHeight;
+    let viewBox = "0 0 " + keyboardWidth + " " + keyboardHeight * 2;
     if (keysAfter > 0) {
       octavesCount++;
     }
@@ -337,6 +338,8 @@ class Keyboard extends Component {
           stop={this.stop}
           keysPerOctave={keysPerOctave}
           shape={this.state.shape}
+          factor={this.state.factor}
+          tractor={this.state.tractor}
         />
       );
     }
@@ -382,10 +385,11 @@ class Keyboard extends Component {
             initial={this.state.initial}
             attack={this.state.attack}
             release={this.state.release}
-            sustain={this.state.sustain}
             insain={this.state.insain}
             volume={this.state.volume}
             shape={this.state.shape}
+            factor={this.state.factor}
+            tractor={this.state.tractor}
             updateProperty={this.updateProperty}
             record={this.record}
             isRecording={this.state.isRecording}
