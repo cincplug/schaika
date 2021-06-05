@@ -82,7 +82,7 @@ class Keyboard extends Component {
 
   handleKeyDown(e) {
     const note = this.getKeyboardNote(e.key);
-    if (note >= 0) {
+    if (note && note >= 0) {
       this.play(note + notesPerOctave);
     }
   }
@@ -90,6 +90,7 @@ class Keyboard extends Component {
   getKeyboardNote(key) {
     const note = keyboardMap.indexOf(key);
     if (note >= 0) {
+      console.warn(note, key);
       return note;
     }
     return null;
