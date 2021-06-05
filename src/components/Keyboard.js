@@ -222,9 +222,7 @@ class Keyboard extends Component {
   }
 
   stop(sound) {
-    console.warn("stani bre", sound, typeof sound, context);
     for (var ton in sound) {
-      // console.log(sound[ton]);
       sound[ton].stop(context.currentTime);
     }
 
