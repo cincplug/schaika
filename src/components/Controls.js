@@ -104,6 +104,21 @@ class Controls extends Component {
           }
         />
 
+<Property
+          property="insain"
+          value={this.props.insain}
+          limit={{
+            lower: 0,
+            upper: 1,
+          }}
+          trans={{
+            en: "Insain",
+          }}
+          updateProperty={(property, action) =>
+            this.updateProperty(property, action)
+          }
+        />
+
         <Property
           property="shape"
           value={this.props.shape}

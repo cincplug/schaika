@@ -51,6 +51,7 @@ class Keyboard extends Component {
       attack: 1,
       release: 2,
       sustain: 0,
+      insain: 0,
       volume: 4,
       shape: 1,
       frequency: null,
@@ -83,14 +84,16 @@ class Keyboard extends Component {
   handleKeyDown(e) {
     const note = this.getKeyboardNote(e.key);
     if (note && note >= 0) {
-      this.play(note + notesPerOctave);
+      const isAlreadyPlaying = this.oscillators.find(k => k.note === note + notesPerOctave);
+      if(!isAlreadyPlaying || this.state.insain) {
+        this.play(note + notesPerOctave);
+      }
     }
   }
 
   getKeyboardNote(key) {
     const note = keyboardMap.indexOf(key);
     if (note >= 0) {
-      console.warn(note, key);
       return note;
     }
     return null;
@@ -225,6 +228,7 @@ class Keyboard extends Component {
   stop(sound) {
     for (var ton in sound) {
       sound[ton].stop(context.currentTime);
+      delete sound[ton];
     }
 
     if (this.state.isRecording && this.clip && this.clip.tones.length > 0) {
@@ -234,8 +238,9 @@ class Keyboard extends Component {
   }
 
   stopOscillators(note) {
-    this.oscillators.forEach(oscillator => {
+    this.oscillators.forEach((oscillator, index) => {
       if(oscillator.note === note) {
+        this.oscillators.splice(index, 1);
         this.stop(oscillator.sound);
       }
     });
@@ -378,6 +383,7 @@ class Keyboard extends Component {
             attack={this.state.attack}
             release={this.state.release}
             sustain={this.state.sustain}
+            insain={this.state.insain}
             volume={this.state.volume}
             shape={this.state.shape}
             updateProperty={this.updateProperty}
