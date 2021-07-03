@@ -41,7 +41,7 @@ class Octave extends Component {
           index={semiTone}
           shape={this.props.shape}
           factor={this.props.factor}
-          tractor={this.props.tractor}
+          modifier={this.props.modifier}
           isEager={this.props.isEager}
         />
       );

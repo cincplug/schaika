@@ -165,14 +165,14 @@ class Controls extends Component {
         />
 
         <Property
-          property="tractor"
-          value={this.props.tractor}
+          property="modifier"
+          value={this.props.modifier}
           limit={{
             lower: 1,
             upper: 50,
           }}
           trans={{
-            en: "Tractor",
+            en: "Modifier",
           }}
           updateProperty={(property, action) =>
             this.updateProperty(property, action)

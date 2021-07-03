@@ -48,7 +48,7 @@ class Tone extends Component {
   }
 
   render() {
-    const { shape, index, factor, tractor } = this.props;
+    const { shape, index, factor, modifier } = this.props;
     return (
       <path
         className={this.props.class}
@@ -59,18 +59,18 @@ class Tone extends Component {
         onMouseUp={this.handleMouseUp}
         transform={
           shape === 2
-            ? `rotate(${(index * -factor) / 10 + tractor})`
+            ? `rotate(${(index * -factor) / 10 + modifier})`
             : shape === 3
-            ? `rotate(${(index * factor) / 3 - tractor})`
+            ? `rotate(${(index * factor) / 3 - modifier})`
             : shape === 4
-            ? `rotate(${index + factor * 2 + tractor})`
+            ? `rotate(${index + factor * 2 + modifier})`
             : shape === 5
-            ? `rotate(${Math.pow(index, factor / 4 + tractor)})`
+            ? `rotate(${Math.pow(index, factor / 4 + modifier)})`
             : shape === 6
-            ? `rotate(${Math.sin((index * factor) / 24 - tractor)})`
+            ? `rotate(${Math.sin((index * factor) / 24 - modifier)})`
             : shape === 7
-            ? `rotate(${Math.tan(index * factor * 2 + tractor)}) scale(${
-                (index * tractor) / 20
+            ? `rotate(${Math.tan(index * factor * 2 + modifier)}) scale(${
+                (index * modifier) / 20
               })`
             : shape === 8
             ? `rotate(${12 - (index * factor) / 2}) scale(${

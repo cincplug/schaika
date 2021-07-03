@@ -55,7 +55,7 @@ class Keyboard extends Component {
       volume: 4,
       shape: 1,
       factor: 10,
-      tractor: 4,
+      modifier: 4,
       frequency: null,
       clips: [],
       notation: "en",
@@ -341,7 +341,7 @@ class Keyboard extends Component {
           keysPerOctave={keysPerOctave}
           shape={this.state.shape}
           factor={this.state.factor}
-          tractor={this.state.tractor}
+          modifier={this.state.modifier}
           isEager={this.state.isEager}
         />
       );
@@ -393,7 +393,7 @@ class Keyboard extends Component {
             volume={this.state.volume}
             shape={this.state.shape}
             factor={this.state.factor}
-            tractor={this.state.tractor}
+            modifier={this.state.modifier}
             updateProperty={this.updateProperty}
             record={this.record}
             isRecording={this.state.isRecording}
