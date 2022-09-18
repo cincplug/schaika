@@ -120,14 +120,14 @@ class Controls extends Component {
         />
 
         <Property
-          property="insain"
-          value={this.props.insain}
+          property="tremolo"
+          value={this.props.tremolo}
           limit={{
             lower: 0,
             upper: 1,
           }}
           trans={{
-            en: "Insain",
+            en: "Tremolo",
           }}
           updateProperty={(property, action) =>
             this.updateProperty(property, action)

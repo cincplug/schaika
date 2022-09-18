@@ -51,7 +51,7 @@ class Keyboard extends Component {
       isEager: 0,
       attack: 1,
       release: 2,
-      insain: 0,
+      tremolo: 0,
       volume: 4,
       shape: 1,
       factor: 10,
@@ -87,7 +87,7 @@ class Keyboard extends Component {
     const note = this.getKeyboardNote(e.key);
     if (note >= 0) {
       const isAlreadyPlaying = this.oscillators.find(k => k.note === note + notesPerOctave);
-      if(!isAlreadyPlaying || this.state.insain) {
+      if(!isAlreadyPlaying || this.state.tremolo) {
         this.play(note + notesPerOctave);
       }
     }
@@ -389,7 +389,7 @@ class Keyboard extends Component {
             initial={this.state.initial}
             attack={this.state.attack}
             release={this.state.release}
-            insain={this.state.insain}
+            tremolo={this.state.tremolo}
             volume={this.state.volume}
             shape={this.state.shape}
             factor={this.state.factor}
