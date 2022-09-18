@@ -142,6 +142,7 @@ body {
 
 .black {
   fill: #272727;
+  transform: translate(1px, 1px);
 }
 
 .tone:hover {
@@ -163,12 +164,11 @@ body {
 }
 
 .active {
-  transform: translate(1px, -2px);
+  transform: translate(1px, 2px);
 }
 .active.black {
   fill: rgb(75, 105, 23);
-  z-index: 1000;
-  position: relative;
+  transform: translate(1px, -4px);
 }
 .active.white {
   fill: rgb(213, 230, 184);

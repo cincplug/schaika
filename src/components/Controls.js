@@ -89,7 +89,7 @@ class Controls extends Component {
           }
         />
 
-        <Property
+        {/* <Property
           property="attack"
           value={this.props.attack}
           limit={{
@@ -117,7 +117,7 @@ class Controls extends Component {
           updateProperty={(property, action) =>
             this.updateProperty(property, action)
           }
-        />
+        /> */}
 
         <Property
           property="tremolo"
