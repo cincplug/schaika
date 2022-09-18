@@ -25,7 +25,7 @@ class Octave extends Component {
         path += "L " + p[i] + " " + p[i + 1] + " ";
       }
       path += " Z";
-      var nota = this.props.which * this.props.keysPerOctave + semiTone;
+      const nota = this.props.which * this.props.keysPerOctave + semiTone;
       var jelCrna = [1, 3, 6, 8, 10].indexOf(semiTone) !== -1 ? "crna" : "bela";
       var className = "tone " + jelCrna + " nije";
 
@@ -43,11 +43,10 @@ class Octave extends Component {
           factor={this.props.factor}
           modifier={this.props.modifier}
           isEager={this.props.isEager}
-          isPressed={(window.oscillators.find((osc) => osc.note === nota))}
+          isPressed={(this.props.oscillators.find((osc) => osc.note === nota))}
         />
       );
       octave.push(tone);
-      nota++;
     }
     return (
       <g className="octave" transform={this.props.transform}>

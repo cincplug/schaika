@@ -39,7 +39,6 @@ class Keyboard extends Component {
     this.getKeyboardNote = this.getKeyboardNote.bind(this);
 
     const octavesCount = 5;
-    window.oscillators = [];
     this.a = [];
 
     this.state = {
@@ -61,6 +60,7 @@ class Keyboard extends Component {
       clips: [],
       notation: "en",
       tonesCount: this.countKeys(octavesCount),
+      oscillators: [],
     };
   }
 
@@ -90,7 +90,7 @@ class Keyboard extends Component {
     }
     const note = this.getKeyboardNote(e.code);
     if (note !== null && note >= 0) {
-      const isAlreadyPlaying = window.oscillators.find(
+      const isAlreadyPlaying = this.state.oscillators.find(
         (k) => k.note === note + notesPerOctave
       );
       if (!isAlreadyPlaying || this.state.tremolo) {
@@ -230,7 +230,11 @@ class Keyboard extends Component {
       this.clip.tones.push([nota, kad * 1000, 0]);
     }
 
-    window.oscillators.push({ note: nota, sound });
+    this.setState((prevState) => {
+      return {
+        oscillators: prevState.oscillators.concat({ note: nota, sound }),
+      };
+    });
     return sound;
   }
 
@@ -248,11 +252,15 @@ class Keyboard extends Component {
   }
 
   stopOscillators(note) {
-    window.oscillators.forEach((oscillator, index) => {
+    this.state.oscillators.forEach((oscillator, index) => {
       if (oscillator.note === note) {
-        window.oscillators = window.oscillators.filter(
-          (osc) => osc.note !== note
-        );
+        this.setState((prevState) => {
+          return {
+            oscillators: prevState.oscillators.filter(
+              (osc) => osc.note !== note
+            ),
+          };
+        });
         this.stop(oscillator.sound);
       }
     });
@@ -352,7 +360,7 @@ class Keyboard extends Component {
           factor={this.state.factor}
           modifier={this.state.modifier}
           isEager={this.state.isEager}
-          oscillators={window.oscillators}
+          oscillators={this.state.oscillators}
         />
       );
     }
