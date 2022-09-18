@@ -321,7 +321,7 @@ class Keyboard extends Component {
     let keyWidth = octaveWidth / whiteKeysPerOctave;
     let keyboardWidth =
       (octavesCount * whiteKeysPerOctave + whiteKeysAfter) * keyWidth;
-    let viewBox = "0 0 " + keyboardWidth + " " + keyboardHeight * 2;
+    let viewBox = "0 0 " + keyboardWidth + " " + keyboardHeight;
     if (keysAfter > 0) {
       octavesCount++;
     }
