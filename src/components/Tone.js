@@ -55,8 +55,8 @@ class Tone extends Component {
         className={
           this.props.class +
           (isPressed
-            ? " stis"
-            : " nestis")
+            ? " active"
+            : " inactive")
         }
         d={this.props.path}
         onMouseDown={this.play}

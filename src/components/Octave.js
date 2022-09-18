@@ -26,8 +26,8 @@ class Octave extends Component {
       }
       path += " Z";
       const nota = this.props.which * this.props.keysPerOctave + semiTone;
-      var jelCrna = [1, 3, 6, 8, 10].indexOf(semiTone) !== -1 ? "crna" : "bela";
-      var className = "tone " + jelCrna + " nije";
+      var jelblack = [1, 3, 6, 8, 10].indexOf(semiTone) !== -1 ? "black" : "white";
+      var className = "tone " + jelblack + " nije";
 
       var tone = (
         <Tone
