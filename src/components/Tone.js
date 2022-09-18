@@ -48,10 +48,16 @@ class Tone extends Component {
   }
 
   render() {
-    const { shape, index, factor, modifier } = this.props;
+    const { shape, index, factor, modifier, isPressed } = this.props;
+    
     return (
       <path
-        className={this.props.class}
+        className={
+          this.props.class +
+          (isPressed
+            ? " stis"
+            : " nestis")
+        }
         d={this.props.path}
         onMouseDown={this.play}
         onMouseOver={this.play}

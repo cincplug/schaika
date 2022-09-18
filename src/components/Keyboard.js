@@ -250,7 +250,9 @@ class Keyboard extends Component {
   stopOscillators(note) {
     window.oscillators.forEach((oscillator, index) => {
       if (oscillator.note === note) {
-        window.oscillators = window.oscillators.filter(osc => osc.note !== note);
+        window.oscillators = window.oscillators.filter(
+          (osc) => osc.note !== note
+        );
         this.stop(oscillator.sound);
       }
     });
@@ -416,7 +418,6 @@ class Keyboard extends Component {
           >
             <g>{klavijatura}</g>
           </svg>
-          <pre>{JSON.stringify(window.oscillators, null, 4)}</pre>
           <div className={"output" + this.state.started}>
             <div className="item">
               <span className="label">Base tones: </span>
