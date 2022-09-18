@@ -51,7 +51,7 @@ class Controls extends Component {
             upper: 4,
           }}
           trans={{
-            en: "Oscillators",
+            en: "Colour",
           }}
           updateProperty={(property, action) =>
             this.updateProperty(property, action)
@@ -82,7 +82,7 @@ class Controls extends Component {
             upper: 1,
           }}
           trans={{
-            en: "Eager",
+            en: "Click/hover",
           }}
           updateProperty={(property, action) =>
             this.updateProperty(property, action)
