@@ -85,7 +85,7 @@ class Keyboard extends Component {
 
   handleKeyDown(e) {
     const note = this.getKeyboardNote(e.key);
-    if (note >= 0) {
+    if (note !== null && note >= 0) {
       const isAlreadyPlaying = this.oscillators.find(k => k.note === note + notesPerOctave);
       if(!isAlreadyPlaying || this.state.tremolo) {
         this.play(note + notesPerOctave);
