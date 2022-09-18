@@ -234,10 +234,11 @@ class Keyboard extends Component {
     return sound;
   }
 
-  stop(sound) {
+  stop(sound, nota) {
     for (var ton in sound) {
       sound[ton].stop(context.currentTime);
       delete sound[ton];
+      this.stopOscillators(nota);
     }
 
     if (this.state.isRecording && this.clip && this.clip.tones.length > 0) {
@@ -249,7 +250,7 @@ class Keyboard extends Component {
   stopOscillators(note) {
     this.oscillators.forEach((oscillator, index) => {
       if (oscillator.note === note) {
-        this.oscillators.splice(index, 1);
+        this.oscillators = this.oscillators.filter(osc => osc.note !== note);
         this.stop(oscillator.sound);
       }
     });
@@ -349,6 +350,7 @@ class Keyboard extends Component {
           factor={this.state.factor}
           modifier={this.state.modifier}
           isEager={this.state.isEager}
+          oscillators={this.oscillators}
         />
       );
     }
@@ -414,7 +416,7 @@ class Keyboard extends Component {
           >
             <g>{klavijatura}</g>
           </svg>
-
+          <pre>{JSON.stringify(this.oscillators, null, 4)}</pre>
           <div className={"output" + this.state.started}>
             <div className="item">
               <span className="label">Base tones: </span>

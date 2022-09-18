@@ -25,13 +25,13 @@ class Tone extends Component {
 
   handleMouseUp() {
     if (this.state.sound) {
-      this.props.stop(this.state.sound);
+      this.props.stop(this.state.sound, this.props.nota);
     }
   }
 
   handleMouseOut() {
     if (this.state.sound) {
-      this.props.stop(this.state.sound);
+      this.props.stop(this.state.sound, this.props.nota);
     }
   }
 
