@@ -39,7 +39,7 @@ class Keyboard extends Component {
     this.getKeyboardNote = this.getKeyboardNote.bind(this);
 
     const octavesCount = 5;
-    this.oscillators = [];
+    window.oscillators = [];
     this.a = [];
 
     this.state = {
@@ -90,7 +90,7 @@ class Keyboard extends Component {
     }
     const note = this.getKeyboardNote(e.code);
     if (note !== null && note >= 0) {
-      const isAlreadyPlaying = this.oscillators.find(
+      const isAlreadyPlaying = window.oscillators.find(
         (k) => k.note === note + notesPerOctave
       );
       if (!isAlreadyPlaying || this.state.tremolo) {
@@ -230,7 +230,7 @@ class Keyboard extends Component {
       this.clip.tones.push([nota, kad * 1000, 0]);
     }
 
-    this.oscillators.push({ note: nota, sound });
+    window.oscillators.push({ note: nota, sound });
     return sound;
   }
 
@@ -248,9 +248,9 @@ class Keyboard extends Component {
   }
 
   stopOscillators(note) {
-    this.oscillators.forEach((oscillator, index) => {
+    window.oscillators.forEach((oscillator, index) => {
       if (oscillator.note === note) {
-        this.oscillators = this.oscillators.filter(osc => osc.note !== note);
+        window.oscillators = window.oscillators.filter(osc => osc.note !== note);
         this.stop(oscillator.sound);
       }
     });
@@ -350,7 +350,7 @@ class Keyboard extends Component {
           factor={this.state.factor}
           modifier={this.state.modifier}
           isEager={this.state.isEager}
-          oscillators={this.oscillators}
+          oscillators={window.oscillators}
         />
       );
     }
@@ -416,7 +416,7 @@ class Keyboard extends Component {
           >
             <g>{klavijatura}</g>
           </svg>
-          <pre>{JSON.stringify(this.oscillators, null, 4)}</pre>
+          <pre>{JSON.stringify(window.oscillators, null, 4)}</pre>
           <div className={"output" + this.state.started}>
             <div className="item">
               <span className="label">Base tones: </span>
