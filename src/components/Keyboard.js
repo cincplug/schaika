@@ -40,6 +40,7 @@ class Keyboard extends Component {
 
     const octavesCount = 5;
     this.oscillators = [];
+    this.a = [];
 
     this.state = {
       started: "",
@@ -77,18 +78,22 @@ class Keyboard extends Component {
     if (e.keyCode === 32) {
       this.record();
     }
-    const note = this.getKeyboardNote(e.key);
+    const note = this.getKeyboardNote(e.code);
     if (note >= 0) {
       this.stopOscillators(note + notesPerOctave);
     }
   }
 
   handleKeyDown(e) {
-    e.preventDefault();
-    const note = this.getKeyboardNote(e.key);
+    if (e.code === "Tab") {
+      e.preventDefault();
+    }
+    const note = this.getKeyboardNote(e.code);
     if (note !== null && note >= 0) {
-      const isAlreadyPlaying = this.oscillators.find(k => k.note === note + notesPerOctave);
-      if(!isAlreadyPlaying || this.state.tremolo) {
+      const isAlreadyPlaying = this.oscillators.find(
+        (k) => k.note === note + notesPerOctave
+      );
+      if (!isAlreadyPlaying || this.state.tremolo) {
         this.play(note + notesPerOctave);
       }
     }
@@ -243,7 +248,7 @@ class Keyboard extends Component {
 
   stopOscillators(note) {
     this.oscillators.forEach((oscillator, index) => {
-      if(oscillator.note === note) {
+      if (oscillator.note === note) {
         this.oscillators.splice(index, 1);
         this.stop(oscillator.sound);
       }
