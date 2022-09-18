@@ -78,14 +78,14 @@ class Keyboard extends Component {
       this.record();
     }
     const note = this.getKeyboardNote(e.key);
-    if (note) {
+    if (note >= 0) {
       this.stopOscillators(note + notesPerOctave);
     }
   }
 
   handleKeyDown(e) {
     const note = this.getKeyboardNote(e.key);
-    if (note && note >= 0) {
+    if (note >= 0) {
       const isAlreadyPlaying = this.oscillators.find(k => k.note === note + notesPerOctave);
       if(!isAlreadyPlaying || this.state.insain) {
         this.play(note + notesPerOctave);
