@@ -13,7 +13,7 @@ import "./main.css";
 
 const context = new AudioContext();
 const octaveWidth = 330;
-const keyboardHeight = window.innerHeight / 2;
+const keyboardHeight = window.innerHeight / 2.5;
 const keysPerOctave = 12;
 const whiteKeysPerOctave = 7;
 const keysAfter = 5;
