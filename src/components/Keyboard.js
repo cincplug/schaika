@@ -428,19 +428,14 @@ class Keyboard extends Component {
           </svg>
           <div className={"output" + this.state.started}>
             <div className="item">
-              <span className="label">Base tones: </span>
               <span>{this.state.nota}</span>
-              <div className="notacije">
-                <span className="label">Notation:</span> {notacije}
-              </div>
-            </div>
-            <div className="item">
-              <span className="label">Base octave: </span>
               <span>{this.state.octave}</span>
             </div>
             <div className="item">
-              <span className="label">Base frequency: </span>
               <span>{this.state.frequency} Hz</span>
+              {/* <div className="notacije">
+                <span className="label">Notation:</span> {notacije}
+              </div> */}
             </div>
           </div>
         </div>
