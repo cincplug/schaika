@@ -119,7 +119,7 @@ class Controls extends Component {
           }
         /> */}
 
-        <Property
+        {/* <Property
           property="tremolo"
           value={this.props.tremolo}
           limit={{
@@ -132,7 +132,7 @@ class Controls extends Component {
           updateProperty={(property, action) =>
             this.updateProperty(property, action)
           }
-        />
+        /> */}
 
         <Property
           property="shape"
