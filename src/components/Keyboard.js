@@ -13,7 +13,7 @@ import "./main.css";
 
 const context = new AudioContext();
 const octaveWidth = 330;
-const keyboardHeight = window.innerHeight / 2.5;
+const keyboardHeight = window.innerHeight;
 const keysPerOctave = 12;
 const whiteKeysPerOctave = 7;
 const keysAfter = 5;
@@ -60,7 +60,7 @@ class Keyboard extends Component {
       clips: [],
       notation: "en",
       tonesCount: this.countKeys(octavesCount),
-      oscillators: [],
+      oscillators: []
     };
   }
 
@@ -113,7 +113,7 @@ class Keyboard extends Component {
 
   updateNotation(notation) {
     this.setState({
-      notation: notation,
+      notation: notation
     });
   }
 
@@ -137,18 +137,18 @@ class Keyboard extends Component {
     }
     this.setState(
       {
-        [property]: explicitValue || value,
+        [property]: explicitValue || value
       },
       function () {
         if (this.state.initial + this.state.octavesCount > 9) {
           if (property === "initial") {
             this.setState({
-              octavesCount: this.state.octavesCount - 1,
+              octavesCount: this.state.octavesCount - 1
             });
           }
           if (property === "octavesCount") {
             this.setState({
-              initial: this.state.initial - 1,
+              initial: this.state.initial - 1
             });
           }
         }
@@ -156,7 +156,7 @@ class Keyboard extends Component {
     );
     if (property === "octavesCount") {
       this.setState({
-        tonesCount: this.countKeys(value),
+        tonesCount: this.countKeys(value)
       });
     }
     if (property === "shape" && action === "increase") {
@@ -173,7 +173,7 @@ class Keyboard extends Component {
         frequencies[nota + (i + this.state.initial) * keysPerOctave];
       if (!this.state.started) {
         this.setState({
-          started: " jeste",
+          started: " jeste"
         });
       }
 
@@ -207,7 +207,7 @@ class Keyboard extends Component {
         nota: tones[this.state.notation][nota % 12],
         octave: Math.floor(
           (nota + this.state.initial * keysPerOctave) / keysPerOctave
-        ),
+        )
       });
 
       sound.push(ton);
@@ -232,7 +232,7 @@ class Keyboard extends Component {
 
     this.setState((prevState) => {
       return {
-        oscillators: prevState.oscillators.concat({ note: nota, sound }),
+        oscillators: prevState.oscillators.concat({ note: nota, sound })
       };
     });
     return sound;
@@ -258,7 +258,7 @@ class Keyboard extends Component {
           return {
             oscillators: prevState.oscillators.filter(
               (osc) => osc.note !== note
-            ),
+            )
           };
         });
         this.stop(oscillator.sound);
@@ -273,25 +273,25 @@ class Keyboard extends Component {
           this.clip.duration = context.currentTime - this.since;
           this.setState((prevState) => {
             return {
-              clips: prevState.clips.concat(this.clip),
+              clips: prevState.clips.concat(this.clip)
             };
           });
         }
       }
       this.setState({
-        isRecording: false,
+        isRecording: false
       });
     } else {
       this.since = context.currentTime;
       this.setState({
-        isRecording: true,
+        isRecording: true
       });
       this.clip = {
         duration: 0,
         isPlaying: false,
         isRepeat: false,
         tones: [],
-        zvuci: {},
+        zvuci: {}
       };
     }
   }
@@ -305,7 +305,7 @@ class Keyboard extends Component {
       clip.isPlaying = false;
       p[index].isPlaying = false;
       t.setState({
-        clips: p,
+        clips: p
       });
       if (t.state.clips[index].isRepeat) {
         t.playClip(clip, index);
@@ -320,7 +320,7 @@ class Keyboard extends Component {
     let p = this.state.clips;
     p.splice(clip, 1);
     this.setState({
-      clips: p,
+      clips: p
     });
   }
 
@@ -328,7 +328,7 @@ class Keyboard extends Component {
     let p = this.state.clips;
     p[clip].isRepeat = !p[clip].isRepeat;
     this.setState({
-      clips: p,
+      clips: p
     });
   }
 
@@ -416,28 +416,28 @@ class Keyboard extends Component {
             record={this.record}
             isRecording={this.state.isRecording}
           />
-
           <svg
             id="klavijatura"
             className="play"
             width={keyboardWidth}
             viewBox={viewBox}
             version="1.1"
+            preserveAspectRatio="xMinYMax"
           >
             <g>{klavijatura}</g>
           </svg>
-          <div className={"output" + this.state.started}>
+          {/* <div className={"output" + this.state.started}>
             <div className="item">
               <span>{this.state.nota}</span>
               <span>{this.state.octave}</span>
             </div>
             <div className="item">
               <span>{this.state.frequency} Hz</span>
-              {/* <div className="notacije">
+              <div className="notacije">
                 <span className="label">Notation:</span> {notacije}
-              </div> */}
+              </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="clips">{clips}</div>
       </div>

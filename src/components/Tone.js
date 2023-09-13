@@ -9,7 +9,7 @@ class Tone extends Component {
     this.getShape = this.getShape.bind(this);
 
     this.state = {
-      sound: null,
+      sound: null
     };
   }
 
@@ -18,7 +18,7 @@ class Tone extends Component {
       var sound = this.props.play(this.props.nota);
 
       this.setState({
-        sound: sound,
+        sound: sound
       });
     }
   }
@@ -49,41 +49,28 @@ class Tone extends Component {
 
   render() {
     const { shape, index, factor, modifier, isPressed } = this.props;
-    
+    const startAngle = 15;
+    const transform = {
+      2: `rotate(${startAngle + (index * -factor) / 10 + modifier})`,
+      3: `rotate(${startAngle + (index * factor) / 3 - modifier})`,
+      4: `rotate(${startAngle + index + factor * 2 + modifier})`,
+      5: `rotate(${startAngle + Math.pow(index, factor / 4 + modifier)})`,
+      6: `rotate(${startAngle + Math.sin((index * factor) / 24 - modifier)})`,
+      7: `rotate(${startAngle + Math.tan(index * factor * 2 + modifier)}) scale(${
+        (index * modifier) / 20
+      })`,
+      8: `rotate(${startAngle + 12 - (index * factor) / 2}) scale(${(index * factor) / 27})`
+    };
+
     return (
       <path
-        className={
-          this.props.class +
-          (isPressed
-            ? " active"
-            : " inactive")
-        }
+        className={this.props.class + (isPressed ? " active" : " inactive")}
         d={this.props.path}
         onMouseDown={this.play}
         onMouseOver={this.play}
         onMouseOut={this.handleMouseOut}
         onMouseUp={this.handleMouseUp}
-        transform={
-          shape === 2
-            ? `rotate(${(index * -factor) / 10 + modifier})`
-            : shape === 3
-            ? `rotate(${(index * factor) / 3 - modifier})`
-            : shape === 4
-            ? `rotate(${index + factor * 2 + modifier})`
-            : shape === 5
-            ? `rotate(${Math.pow(index, factor / 4 + modifier)})`
-            : shape === 6
-            ? `rotate(${Math.sin((index * factor) / 24 - modifier)})`
-            : shape === 7
-            ? `rotate(${Math.tan(index * factor * 2 + modifier)}) scale(${
-                (index * modifier) / 20
-              })`
-            : shape === 8
-            ? `rotate(${12 - (index * factor) / 2}) scale(${
-                (index * factor) / 27
-              })`
-            : ""
-        }
+        transform={transform[shape] || ""}
       >
         <bx-title>{this.props.tone}</bx-title>
       </path>
