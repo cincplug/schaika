@@ -440,6 +440,16 @@ class Keyboard extends Component {
           </div> */}
         </div>
         <div className="clips">{clips}</div>
+        <footer>
+          by{" "}
+          <a
+            href="https://cincplug.com/"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Luka Činč
+          </a>
+        </footer>
       </div>
     );
   }

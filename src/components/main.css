@@ -2,7 +2,7 @@ body {
   margin: 0;
   background: #558811;
   color: white;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
 }
 .title {
   margin: 0;
@@ -328,4 +328,15 @@ body {
   opacity: 0.5;
   animation-name: play;
   animation-timing-function: linear;
+}
+
+footer {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.8rem;
+}
+
+footer a {
+  color: white;
 }
